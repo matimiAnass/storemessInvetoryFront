@@ -1,0 +1,47 @@
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+export const getAccounts = createAsyncThunk('users/getAccounts', async () => {
+  const response = await axios.get('/api/accounts');
+  const data = await response.data;
+
+  return data;
+});
+
+export const removeAccounts =
+  createAsyncThunk('accounts', async (accountIds, { dispatch, getState }) => {
+    await axios.delete('/api/accounts', { data: accountIds });
+
+    return accountIds;
+  });
+
+const accountsAdapter = createEntityAdapter({});
+
+export const { selectAll: selectAccounts, selectById: selectAccountsById } = accountsAdapter.getSelectors(
+  (state) => state.accountsApp.accounts,
+);
+
+const accountsSlice = createSlice({
+  name: 'accounts',
+  initialState: accountsAdapter.getInitialState({
+    searchText: '',
+  }),
+  reducers: {
+    setAccountsSearchText: {
+      reducer: (state, action) => {
+        state.searchText = action.payload;
+      },
+      prepare: (event) => ({ payload: event.target.value || '' }),
+    },
+  },
+  extraReducers: {
+    [getAccounts.fulfilled]: accountsAdapter.setAll,
+    [removeAccounts.fulfilled]: (state, action) => accountsAdapter.removeMany(state, action.payload),
+  },
+});
+
+export const { setAccountsSearchText } = accountsSlice.actions;
+
+export const selectAccountsSearchText = ({ accountsApp }) => accountsApp.accounts.searchText;
+
+export default accountsSlice.reducer;
