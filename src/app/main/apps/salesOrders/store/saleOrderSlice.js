@@ -3,7 +3,7 @@ import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
 export const getSaleOrder = createAsyncThunk(
-  'quote/getSaleOrder',
+  'saleOrder/getSaleOrder',
   async (saleOrderId) => {
     const response = await axios.get(`/api/saleOrder/${saleOrderId}`);
     const data = await response.data;
@@ -45,8 +45,9 @@ const saleOrderSlice = createSlice({
           id: FuseUtils.generateGUID(),
           name: '',
           account: '',
-          email: '',
-          phone: '',
+          status: '',
+          created_at: '',
+          amount: '',
           assign_user: '',
           active: true,
         },
@@ -62,6 +63,6 @@ const saleOrderSlice = createSlice({
 
 export const { newSaleOrder, resetSaleOrder } = saleOrderSlice.actions;
 
-export const selectSaleOrder = ({ saleOrderApp }) => saleOrderApp.lead;
+export const selectSaleOrder = ({ saleOrderApp }) => saleOrderApp.saleOrder;
 
 export default saleOrderSlice.reducer;

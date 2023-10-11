@@ -21,7 +21,7 @@ function BasicInfoTab(props) {
             helperText={errors?.name?.message}
             label="Name"
             autoFocus
-            id="role"
+            id="name"
             variant="outlined"
             fullWidth
           />

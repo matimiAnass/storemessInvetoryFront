@@ -20,11 +20,11 @@ function SaleOrderHeader(props) {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  function handlesaveSaleOrder() {
+  function handleSaveSaleOrder() {
     dispatch(saveSaleOrder(getValues()));
   }
 
-  function handleremoveSaleOrder() {
+  function handleRemoveSaleOrder() {
     dispatch(removeSaleOrder()).then(() => {
       navigate('/apps/salesOrders');
     });
@@ -77,7 +77,7 @@ function SaleOrderHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          onClick={handleremoveSaleOrder}
+          onClick={handleRemoveSaleOrder}
           startIcon={<FuseSvgIcon className="hidden sm:flex">heroicons-outline:trash</FuseSvgIcon>}
         >
           Remove
@@ -87,7 +87,7 @@ function SaleOrderHeader(props) {
           variant="contained"
           color="secondary"
           disabled={_.isEmpty(dirtyFields) || !isValid}
-          onClick={handlesaveSaleOrder}
+          onClick={handleSaveSaleOrder}
         >
           Save
         </Button>
