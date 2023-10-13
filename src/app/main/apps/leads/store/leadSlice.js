@@ -3,7 +3,7 @@ import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
 export const getLead = createAsyncThunk(
-  'quote/getLead',
+  'lead/getLead',
   async (leadId) => {
     const response = await axios.get(`/api/leads/${leadId}`);
     const data = await response.data;

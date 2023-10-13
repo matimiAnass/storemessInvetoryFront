@@ -3171,6 +3171,37 @@
       },
       "parameters": []
     },
+    "/constants/contractTypes": {
+      "get": {
+        "summary": "Get Constant contractTypes",
+        "tags": [
+          "contractTypes"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/constants_contractType"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "$ref": "#/components/examples/constants_contractTypes"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "constants_getContractTypes",
+        "description": "Retrieve Constant contracts types."
+      },
+      "parameters": []
+    },
     "/ecommerce/orders/{orderId}": {
       "get": {
         "summary": "Get E-commerce Order",
@@ -5911,6 +5942,30 @@
           "status",
           "payment",
           "shippingDetails"
+        ]
+      },
+      "constants_contractType": {
+        "description": "",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "id": "1",
+            "contract_type": "first contract Type"
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "contract_type": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "contract_type"
         ]
       },
       "file_manager_item": {
@@ -17032,6 +17087,22 @@
               "docs": [],
               "links": []
             }
+          }
+        ]
+      },
+      "constants_contractTypes": {
+        "value": [
+          {
+            "id": 1,
+            "contract_type": "first contract"
+          },
+          {
+            "id": 2,
+            "contract_type": "seconde contract"
+          },
+          {
+            "id": 3,
+            "contract_type": "third contract"
           }
         ]
       },
@@ -32658,6 +32729,10 @@
     "responses": {}
   },
   "tags": [
+    {
+      "name": "constants",
+      "description": "Constants App"
+    },
     {
       "name": "academy",
       "description": "Academy App"

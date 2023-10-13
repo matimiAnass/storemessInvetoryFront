@@ -124,7 +124,7 @@ function Order(props) {
           >
             <Tab className="h-64" label="Order Details" />
             <Tab className="h-64" label="Users" />
-            <Tab className="h-64" label="Invoice" />
+            <Tab className="h-64" label="Leads" />
           </Tabs>
           {order && (
             <div className="p-16 sm:p-24 max-w-3xl w-full">

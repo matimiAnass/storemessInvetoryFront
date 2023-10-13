@@ -36,7 +36,7 @@ function QuotesHeader(props) {
           <FuseSvgIcon color='disabled'>heroicons-solid:search</FuseSvgIcon>
 
           <Input
-            placeholder='Search Quotes'
+            placeholder='Search LeadSources'
             className='flex flex-1'
             disableUnderline
             fullWidth

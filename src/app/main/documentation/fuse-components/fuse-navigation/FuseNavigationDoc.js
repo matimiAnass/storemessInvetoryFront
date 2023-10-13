@@ -122,6 +122,21 @@ function FuseNavigationDoc(props) {
                     end: true,
                   },
               ]
+            },
+            {
+                id: 'apps.constants',
+                title: 'Constants',
+                type: 'collapse',
+                icon: 'heroicons-outline:variable',
+                children: [
+                  {
+                    id: 'constants-contractTypes',
+                    title: 'contractTypes',
+                    type: 'item',
+                    url: 'apps/constants/contractTypes',
+                    end: true,
+                  },
+              ]
             }
       `}
       </FuseHighlight>

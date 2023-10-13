@@ -34,7 +34,7 @@ function SalesOrdersHeader(props) {
           <FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
 
           <Input
-            placeholder="Search SalesOrders"
+            placeholder="Search Leads"
             className="flex flex-1"
             disableUnderline
             fullWidth

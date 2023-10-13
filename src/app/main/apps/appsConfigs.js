@@ -17,8 +17,12 @@ import OpportunitiesAppConfig from './opportunities/OpportunitiesAppConfig';
 import QuotesAppConfig from './quotes/QuotesAppConfig';
 import LeadsAppConfig from './leads/LeadsAppConfig';
 import SalesOrdersAppConfig from './salesOrders/SalesOrdersAppConfig';
+import InvoicesAppConfig from './invoices/InvoicesAppConfig';
+import ConstantsAppConfig from './constants/ConstantsAppConfig';
 
 const appsConfigs = [
+  ConstantsAppConfig,
+  InvoicesAppConfig,
   SalesOrdersAppConfig,
   RolesAppConfig,
   QuotesAppConfig,
