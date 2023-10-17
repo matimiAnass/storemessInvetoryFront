@@ -279,14 +279,29 @@ const navigationConfig = [
                 title: 'Types',
                 type: 'item',
                 url: 'apps/constants/accounts/types',
-                end: true,
+                children: [
+                  {
+                    id: 'constants-accounts-new-type',
+                    title: 'New Type',
+                    type: 'item',
+                    url: 'apps/constants/accounts/types/new',
+                  },
+                ],
               },
               {
                 id: 'constants-accounts-industries',
                 title: 'Industries',
                 type: 'item',
                 url: 'apps/constants/accounts/industries',
-                end: true,
+                children: [
+                  {
+                    id: 'constants-accounts-new-industrie',
+                    title: 'New Industrie',
+                    type: 'item',
+                    url: 'apps/constants/accounts/industries/new',
+                  },
+                ],
+
               },
             ],
           },
@@ -302,6 +317,14 @@ const navigationConfig = [
                 type: 'item',
                 url: 'apps/constants/documents/folders',
                 end: true,
+                children: [
+                  {
+                    id: 'constants-documents-new-folder',
+                    title: 'New Folder',
+                    type: 'item',
+                    url: 'apps/constants/documents/folders/new',
+                  },
+                ],
               },
               {
                 id: 'constants-documents-types',
@@ -309,6 +332,14 @@ const navigationConfig = [
                 type: 'item',
                 url: 'apps/constants/documents/types',
                 end: true,
+                children: [
+                  {
+                    id: 'constants-documents-new-type',
+                    title: 'New Type',
+                    type: 'item',
+                    url: 'apps/constants/documents/types/new',
+                  },
+                ],
               },
             ],
 
@@ -324,6 +355,14 @@ const navigationConfig = [
                 type: 'item',
                 url: 'apps/constants/products/categories',
                 end: true,
+                children: [
+                  {
+                    id: 'constants-products-new-categorie',
+                    title: 'New Categorie',
+                    type: 'item',
+                    url: 'apps/constants/products/categories/new',
+                  },
+                ],
               },
               {
                 id: 'constants-products-brands',
@@ -331,6 +370,14 @@ const navigationConfig = [
                 type: 'item',
                 url: 'apps/constants/products/brands',
                 end: true,
+                children: [
+                  {
+                    id: 'constants-products-new-brands',
+                    title: 'New Brand',
+                    type: 'item',
+                    url: 'apps/constants/products/brands/new',
+                  },
+                ],
               },
               {
                 id: 'constants-products-taxs',
@@ -338,6 +385,14 @@ const navigationConfig = [
                 type: 'item',
                 url: 'apps/constants/products/taxs',
                 end: true,
+                children: [
+                  {
+                    id: 'constants-products-new-taxs',
+                    title: 'New tax',
+                    type: 'item',
+                    url: 'apps/constants/products/taxs/new',
+                  },
+                ],
               },
             ],
           },
@@ -360,18 +415,44 @@ const navigationConfig = [
             title: 'Lead Sources',
             type: 'item',
             url: 'apps/constants/leadSources',
+            children: [
+              {
+                id: 'constants-new-leadSource',
+                title: 'New Lead Source',
+                type: 'item',
+                url: 'apps/constants/leadSources/new',
+              },
+            ],
           },
           {
             id: 'constants-shippingProviders',
             title: 'Shipping Providers',
             type: 'item',
             url: 'apps/constants/shippingProviders',
+            children: [
+              {
+                id: 'constants-new-leadSource',
+                title: 'New Lead Source',
+                type: 'item',
+                url: 'apps/constants/leadSources/new',
+              },
+            ],
+
           },
           {
             id: 'constants-taskStages',
             title: 'Task Stages',
             type: 'item',
             url: 'apps/constants/taskStages',
+            children: [
+              {
+                id: 'constants-new-taskStage',
+                title: 'New task Stage',
+                type: 'item',
+                url: 'apps/constants/taskStages/new',
+              },
+            ],
+
           },
         ],
       },

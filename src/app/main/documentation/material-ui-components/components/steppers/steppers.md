@@ -13,8 +13,8 @@ materialDesign: https://m1.material.io/components/steppers.html
 Steppers display progress through a sequence of logical and numbered steps. They may also be used for navigation.
 Steppers may display a transient feedback message after a step is saved.
 
-- **Types of Steps**: Editable, Non-editable, Mobile, Optional
-- **Types of Steppers**: Horizontal, Vertical, Linear, Non-linear
+- **Folders of Steps**: Editable, Non-editable, Mobile, Optional
+- **Folders of Steppers**: Horizontal, Vertical, Linear, Non-linear
 
 {{"component": "modules/components/ComponentLinkHeader.js"}}
 

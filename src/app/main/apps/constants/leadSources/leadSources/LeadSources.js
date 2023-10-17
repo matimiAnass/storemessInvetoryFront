@@ -3,7 +3,7 @@ import withReducer from 'app/store/withReducer';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
 import reducer from '../../store';
 import LeadSourcesHeader from './LeadSourcesHeader';
-import ContractTypesTable from './LeadSourcesTable';
+import LeadSourcesTable from './LeadSourcesTable';
 
 function LeadSources() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
@@ -11,7 +11,7 @@ function LeadSources() {
   return (
     <FusePageCarded
       header={<LeadSourcesHeader />}
-      content={<ContractTypesTable />}
+      content={<LeadSourcesTable />}
       scroll={isMobile ? 'normal' : 'content'}
     />
   );

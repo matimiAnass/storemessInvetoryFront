@@ -108,11 +108,11 @@ import '@fontsource/roboto/700.css';
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
-          name="Types.js"
+          name="Folders.js"
           className="my-24"
           iframe={false}
-          component={require('../components/typography/Types.js').default}
-          raw={require('!raw-loader!../components/typography/Types.js')}
+          // component={require('../components/typography/Folders.js').default}
+          // raw={require('!raw-loader!../components/typography/Folders.js')}
         />
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">

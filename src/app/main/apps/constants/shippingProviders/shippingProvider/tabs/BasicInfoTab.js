@@ -10,7 +10,7 @@ function BasicInfoTab(props) {
   return (
     <div>
       <Controller
-        name="Name"
+        name="shipping_provider"
         control={control}
         render={({ field }) => (
           <TextField
@@ -19,85 +19,9 @@ function BasicInfoTab(props) {
             error={!!errors.name}
             required
             helperText={errors?.name?.message}
-            label="Name"
+            label="Shipping Provider"
             autoFocus
-            id="name"
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-
-      <Controller
-        name="Account"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            id="accounts"
-            label="Accounts"
-            type="text"
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-      <Controller
-        name="Status"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            id="status"
-            label="Status"
-            type="text"
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-      <Controller
-        name="CreatedAt"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            id="created_at"
-            label="Created At"
-            type="text"
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-      <Controller
-        name="Amount"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            id="amount"
-            label="Amount"
-            type="text"
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-      <Controller
-        name="AssignedUser"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            id="assigned_user"
-            label="Assigned User"
-            type="text"
+            id="shipping_provider"
             variant="outlined"
             fullWidth
           />

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import _ from '@lodash';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { removeContractType, saveContractType } from '../../store/contractTypeSlice';
+import { removeLeadSource, saveLeadSource } from '../../store/leadSourceSlice';
 
 function LeadSourceHeader(props) {
   const dispatch = useDispatch();
@@ -20,13 +20,13 @@ function LeadSourceHeader(props) {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  function handleSaveContractType() {
-    dispatch(saveContractType(getValues()));
+  function handleSaveLeadSource() {
+    dispatch(saveLeadSource(getValues()));
   }
 
-  function handleremoveContractType() {
-    dispatch(removeContractType()).then(() => {
-      navigate('/apps/constants/contractTypes');
+  function handleremoveLeadSource() {
+    dispatch(removeLeadSource()).then(() => {
+      navigate('/apps/constants/leadSources');
     });
   }
 
@@ -41,7 +41,7 @@ function LeadSourceHeader(props) {
             className="flex items-center sm:mb-12"
             component={Link}
             role="button"
-            to="/apps/constants/contractTypes"
+            to="/apps/constants/leadSources"
             color="inherit"
           >
             <FuseSvgIcon size={20}>
@@ -49,7 +49,7 @@ function LeadSourceHeader(props) {
                 ? 'heroicons-outline:arrow-sm-left'
                 : 'heroicons-outline:arrow-sm-right'}
             </FuseSvgIcon>
-            <span className="flex mx-4 font-medium">ContractTypes</span>
+            <span className="flex mx-4 font-medium">LeadSources</span>
           </Typography>
         </motion.div>
 
@@ -60,10 +60,10 @@ function LeadSourceHeader(props) {
             animate={{ x: 0, transition: { delay: 0.3 } }}
           >
             <Typography className="text-16 sm:text-20 truncate font-semibold">
-              {name || 'New ContractType'}
+              {name || 'New LeadSource'}
             </Typography>
             <Typography variant="caption" className="font-medium">
-              ContractType Detail
+              LeadSource Detail
             </Typography>
           </motion.div>
         </div>
@@ -77,7 +77,7 @@ function LeadSourceHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          onClick={handleremoveContractType}
+          onClick={handleremoveLeadSource}
           startIcon={<FuseSvgIcon className="hidden sm:flex">heroicons-outline:trash</FuseSvgIcon>}
         >
           Remove
@@ -87,7 +87,7 @@ function LeadSourceHeader(props) {
           variant="contained"
           color="secondary"
           disabled={_.isEmpty(dirtyFields) || !isValid}
-          onClick={handleSaveContractType}
+          onClick={handleSaveLeadSource}
         >
           Save
         </Button>

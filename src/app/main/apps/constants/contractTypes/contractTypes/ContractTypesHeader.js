@@ -36,7 +36,7 @@ function ContractTypesHeader(props) {
           <FuseSvgIcon color='disabled'>heroicons-solid:search</FuseSvgIcon>
 
           <Input
-            placeholder='Search Contract Type'
+            placeholder='Search Contract Folder'
             className='flex flex-1'
             disableUnderline
             fullWidth

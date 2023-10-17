@@ -83,14 +83,14 @@ function BasicInfoTab(props) {
       />
 
       <Controller
-        name="Type"
+        name="Folder"
         control={control}
         render={({ field }) => (
           <TextField
             {...field}
             className="mt-8 mb-16"
             id="type"
-            label="Type"
+            label="Folder"
             type="text"
             multiline
             rows={5}

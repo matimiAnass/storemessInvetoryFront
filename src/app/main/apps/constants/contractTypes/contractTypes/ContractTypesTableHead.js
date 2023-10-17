@@ -26,10 +26,10 @@ const rows = [
     sort: true,
   },
   {
-    id: 'contract_type',
+    id: 'shipping_provider',
     align: 'left',
     disablePadding: false,
-    label: 'Contract type',
+    label: 'Shipping Provider',
     sort: true,
   },
 ];

@@ -6,11 +6,11 @@ import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { selectContractTypesSearchText, setContractTypesSearchText } from '../../store/contractTypesSlice';
+import { selectLeadSourcesSearchText, setLeadSourcesSearchText } from '../../store/leadSourcesSlice';
 
 function LeadSourcesHeader(props) {
   const dispatch = useDispatch();
-  const searchText = useSelector(selectContractTypesSearchText);
+  const searchText = useSelector(selectLeadSourcesSearchText);
 
   return (
     <div
@@ -44,7 +44,7 @@ function LeadSourcesHeader(props) {
             inputProps={{
               'aria-label': 'Search',
             }}
-            onChange={(ev) => dispatch(setContractTypesSearchText(ev))}
+            onChange={(ev) => dispatch(setLeadSourcesSearchText(ev))}
           />
         </Paper>
         <motion.div
@@ -54,7 +54,7 @@ function LeadSourcesHeader(props) {
           <Button
             className=''
             component={Link}
-            to='/apps/constants/contractTypes/new'
+            to='/apps/constants/leadSources/new'
             variant='contained'
             color='secondary'
             startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}

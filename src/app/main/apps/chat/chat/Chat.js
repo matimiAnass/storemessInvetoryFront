@@ -257,7 +257,7 @@ function Chat(props) {
                   autoFocus={false}
                   id="message-input"
                   className="flex-1 flex grow shrink-0 h-44 mx-8 px-16 border-2 rounded-full"
-                  placeholder="Type your message"
+                  placeholder="Folder your message"
                   onChange={onInputChange}
                   value={messageText}
                   sx={{ backgroundColor: 'background.paper' }}

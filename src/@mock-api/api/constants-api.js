@@ -3,12 +3,19 @@ import FuseUtils from '@fuse/utils';
 import mockApi from '../mock-api.json';
 import mock from '../mock';
 
-const contractTypesDB = mockApi.components.examples.constants_contractTypes.value;
+let contractTypesDB = mockApi.components.examples.constants_contractTypes.value;
 
 
 mock.onGet('/api/constants/contractTypes').reply((config) => {
   return [200, contractTypesDB];
 });
+mock.onDelete('/api/constants/contractTypes').reply(({ data }) => {
+  const ids = JSON.parse(data);
+  contractTypesDB = contractTypesDB.filter((item) => ids.includes(item.id));
+
+  return [200, contractTypesDB];
+});
+
 
 // mock.onPost('/api/ecommerce/products').reply(({ data }) => {
 //   const newProduct = { id: FuseUtils.generateGUID(), ...JSON.parse(data) };
@@ -18,13 +25,7 @@ mock.onGet('/api/constants/contractTypes').reply((config) => {
 //   return [200, newProduct];
 // });
 //
-// mock.onDelete('/api/ecommerce/products').reply(({ data }) => {
-//   const ids = JSON.parse(data);
-//   contractTypesDB = contractTypesDB.filter((item) => ids.includes(item.id));
-//
-//   return [200, contractTypesDB];
-// });
-//
+
 // mock.onGet(/\/api\/ecommerce\/products\/[^/]+/).reply(({ url, data }) => {
 //   const { id } = url.match(/\/api\/ecommerce\/products\/(?<id>[^/]+)/).groups;
 //

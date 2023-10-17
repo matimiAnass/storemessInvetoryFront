@@ -15,20 +15,20 @@ import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import {
-  getContractTypes,
-  selectContractTypes,
-  selectContractTypesSearchText,
-} from '../../store/contractTypesSlice';
-import LeadSourcesTableHead from './LeadSourcesTableHead';
+  getLeadSources,
+  selectLeadSources,
+  selectLeadSourcesSearchText,
+} from '../../store/leadSourcesSlice';
+import LeadSourcesTableHead from '../../leadSources/leadSources/LeadSourcesTableHead';
 
 function LeadSourcesTable(props) {
   const dispatch = useDispatch();
-  const contractTypes = useSelector(selectContractTypes);
-  const searchText = useSelector(selectContractTypesSearchText);
+  const leadSources = useSelector(selectLeadSources);
+  const searchText = useSelector(selectLeadSourcesSearchText);
 
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState([]);
-  const [data, setData] = useState(contractTypes);
+  const [data, setData] = useState(leadSources);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [quote, setQuote] = useState({
@@ -37,25 +37,25 @@ function LeadSourcesTable(props) {
   });
 
   useEffect(() => {
-    dispatch(getContractTypes()).then(() => setLoading(false));
+    dispatch(getLeadSources()).then(() => setLoading(false));
   }, [dispatch]);
 
   useEffect(() => {
     if (searchText?.length !== 0) {
       setData(
-        _.filter(contractTypes, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
+        _.filter(leadSources, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
       );
       setPage(0);
     } else {
-      setData(contractTypes);
+      setData(leadSources);
     }
-  }, [contractTypes, searchText]);
+  }, [leadSources, searchText]);
 
   function handleRequestSort(event, property) {
     const id = property;
     let direction = 'desc';
 
-    if (quote.id === property && quote.direction === 'desc') {
+    if (leadSource.id === property && leadSource.direction === 'desc') {
       direction = 'asc';
     }
 
@@ -78,7 +78,7 @@ function LeadSourcesTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/constants/contractTypes/${item.id}/${item.handle}`);
+    props.navigate(`/apps/constants/leadSources/${item.id}/${item.handle}`);
   }
 
   function handleCheck(event, id) {
@@ -125,7 +125,7 @@ function LeadSourcesTable(props) {
         className='flex flex-1 items-center justify-center h-full'
       >
         <Typography color='text.secondary' variant='h5'>
-          There are no contractTypes!
+          There are no leadSources!
         </Typography>
       </motion.div>
     );
@@ -137,7 +137,7 @@ function LeadSourcesTable(props) {
         <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
           <LeadSourcesTableHead
             selectedRoleIds={selected}
-            order={contractTypes}
+            order={leadSources}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
             rowCount={data.length}
@@ -145,25 +145,10 @@ function LeadSourcesTable(props) {
           />
 
           <TableBody>
-            {_.orderBy(
-              data,
-              [
-                (r) => {
-                  switch (quote.id) {
-                    case 'categories': {
-                      return r.categories[0];
-                    }
-                    default: {
-                      return r[quote.id];
-                    }
-                  }
-                },
-              ],
-              [quote.direction],
-            )
+            {_.orderBy(data)
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((n) => {
-                const isSelected = selected.indexOf(n.id) !== -1;
+              .map((ct) => {
+                const isSelected = selected.indexOf(ct.id) !== -1;
                 return (
                   <TableRow
                     className='h-72 cursor-pointer'
@@ -171,75 +156,25 @@ function LeadSourcesTable(props) {
                     role='checkbox'
                     aria-checked={isSelected}
                     tabIndex={-1}
-                    key={n.id}
+                    key={ct.id}
                     selected={isSelected}
-                    onClick={(event) => handleClick(n)}
+                    onClick={(event) => handleClick(ct)}
                   >
                     <TableCell className='w-40 md:w-64 text-center' padding='none'>
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
-                        onChange={(event) => handleCheck(event, n.id)}
+                        onChange={(event) => handleCheck(event, ct.id)}
                       />
                     </TableCell>
-
-                    <TableCell
-                      className='w-52 px-4 md:px-0'
-                      component='th'
-                      scope='row'
-                      padding='none'
-                    >
-                      {n.images.length > 0 && n.featuredImageId ? (
-                        <img
-                          className='w-full block rounded'
-                          src={_.find(n.images, { id: n.featuredImageId }).url}
-                          alt={n.name}
-                        />
-                      ) : (
-                        <img
-                          className='w-full block rounded'
-                          src='assets/images/apps/ecommerce/product-image-placeholder.png'
-                          alt={n.name}
-                        />
-                      )}
+                    <TableCell className="p-4 md:p-16" component="th" scope="row">
+                      {ct.id}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
-                      {n.name}
+                    <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
+                      {ct.lead_source}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
-                      {n.categories.join(', ')}
-                    </TableCell>
-
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
-                      <span>$</span>
-                      {n.priceTaxIncl}
-                    </TableCell>
-
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
-                      {n.quantity}
-                      <i
-                        className={clsx(
-                          'inline-block w-8 h-8 rounded mx-8',
-                          n.quantity <= 5 && 'bg-red',
-                          n.quantity > 5 && n.quantity <= 25 && 'bg-orange',
-                          n.quantity > 25 && 'bg-green',
-                        )}
-                      />
-                    </TableCell>
-
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
-                      {n.active ? (
-                        <FuseSvgIcon className='text-green' size={20}>
-                          heroicons-outline:check-circle
-                        </FuseSvgIcon>
-                      ) : (
-                        <FuseSvgIcon className='text-red' size={20}>
-                          heroicons-outline:minus-circle
-                        </FuseSvgIcon>
-                      )}
-                    </TableCell>
                   </TableRow>
                 );
               })}
