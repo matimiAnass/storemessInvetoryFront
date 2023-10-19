@@ -18,6 +18,8 @@ import './api/calendar-api';
 import './api/profile-api';
 import './api/auth-api';
 import './api/constants-api';
+import './api/planPermissions-api';
+import './api/roles-api';
 import './api/notifications-api';
 import history from '@history';
 import mock from './mock';

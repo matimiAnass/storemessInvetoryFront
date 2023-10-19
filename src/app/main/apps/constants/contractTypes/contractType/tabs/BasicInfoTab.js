@@ -37,7 +37,7 @@ function BasicInfoTab(props) {
             error={!!errors.name}
             required
             helperText={errors?.name?.message}
-            label="Contract Type"
+            label="Contract Folder"
             autoFocus
             id="contract_type"
             variant="outlined"

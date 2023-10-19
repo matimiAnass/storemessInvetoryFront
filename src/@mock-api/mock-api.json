@@ -3185,7 +3185,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/constants_contractType"
+                    "$ref": "#/components/schemas/constants_contractTypes"
                   }
                 },
                 "examples": {
@@ -3199,6 +3199,37 @@
         },
         "operationId": "constants_getContractTypes",
         "description": "Retrieve Constant contracts types."
+      },
+      "parameters": []
+    },
+    "/planPermissions": {
+      "get": {
+        "summary": "Get Plan Permissions",
+        "tags": [
+          "planPermissions"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/planPermissions"
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "$ref": "#/components/examples/planPermissions"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getPlanPermissions",
+        "description": "Retrieve Plan Permissions."
       },
       "parameters": []
     },
@@ -5968,6 +5999,62 @@
           "contract_type"
         ]
       },
+      "planPermissions": {
+        "description": "",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "id": 1,
+            "plan": "Premium",
+            "permissions": ["Role","User","Account","Contact","Lead","Opportunities"]
+          }
+        },
+        "properties": {
+          "plan": {
+            "type": "string",
+            "minLength": 1
+          },
+          "permissions": {
+            "type": "array"
+          },
+          "id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "plan",
+          "permissions",
+          "id"
+        ]
+      },
+      "roles": {
+        "description": "",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "id": 1,
+            "role": "Owner",
+            "permissions": ["Role","User","Account","Contact","Lead","Opportunities"]
+          }
+        },
+        "properties": {
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "permissions": {
+            "type": "array"
+          },
+          "id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "role",
+          "permissions",
+          "id"
+        ]
+      },
       "file_manager_item": {
         "description": "",
         "type": "object",
@@ -7241,12 +7328,12 @@
           "example-1": {
             "uuid": "XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
             "from": "custom-db",
-            "password": "admin",
-            "role": "admin",
+            "password": "1234",
+            "role": "super admin",
             "data": {
               "displayName": "Abbott Keitch",
               "photoURL": "assets/images/avatars/brian-hughes.jpg",
-              "email": "admin@fusetheme.com",
+              "email": "superadmin@example.com",
               "settings": {
                 "layout": {},
                 "theme": {}
@@ -17103,6 +17190,44 @@
           {
             "id": 3,
             "contract_type": "third contract"
+          }
+        ]
+      },
+      "planPermissions": {
+        "value": [
+          {
+            "id": 1,
+            "plan": "Standard",
+            "permissions":["Role","User","Account","Contact","Lead","Opportunities"]
+          },
+          {
+            "id": 2,
+            "plan": "Premium",
+            "permissions": ["Role","User","Account","Contact"]
+          },
+          {
+            "id": 3,
+            "plan": "Regular",
+            "permissions": ["Role","User","Lead","Opportunities"]
+          }
+        ]
+      },
+      "roles": {
+        "value": [
+          {
+            "id": 1,
+            "role": "Owner",
+            "permissions":["Role","User","Account","Contact","Lead","Opportunities"]
+          },
+          {
+            "id": 2,
+            "role": "SuperAdmin",
+            "permissions": ["Role","User","Account","Contact"]
+          },
+          {
+            "id": 3,
+            "role": "storemess",
+            "permissions": ["Role","User","Lead","Opportunities"]
           }
         ]
       },
@@ -32578,12 +32703,12 @@
           {
             "uuid": "XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
             "from": "custom-db",
-            "password": "admin",
+            "password": "1234",
             "role": "admin",
             "data": {
               "displayName": "Abbott Keitch",
               "photoURL": "assets/images/avatars/brian-hughes.jpg",
-              "email": "admin@fusetheme.com",
+              "email": "superadmin@example.com",
               "settings": {
                 "layout": {},
                 "theme": {}

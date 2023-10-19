@@ -16,6 +16,8 @@ import FuseLoading from '@fuse/core/FuseLoading';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { getRoles, selectRoles, selectRolesSearchText } from '../store/rolesSlice';
 import RolesTableHead from './RolesTableHead';
+import PlanPermissionsTableHead from '../../plan_permissions/plan_permissions/PlanPermissionsTableHead';
+import Chip from '@mui/material/Chip';
 
 function RolesTable(props) {
   const dispatch = useDispatch();
@@ -128,12 +130,12 @@ function RolesTable(props) {
   }
 
   return (
-    <div className="w-full flex flex-col min-h-full">
-      <FuseScrollbars className="grow overflow-x-auto">
-        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
+    <div className='w-full flex flex-col min-h-full'>
+      <FuseScrollbars className='grow overflow-x-auto'>
+        <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
           <RolesTableHead
             selectedRoleIds={selected}
-            order={role}
+            order={roles}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
             rowCount={data.length}
@@ -141,101 +143,38 @@ function RolesTable(props) {
           />
 
           <TableBody>
-            {_.orderBy(
-              data,
-              [
-                (r) => {
-                  switch (role.id) {
-                    case 'categories-': {
-                      return r.categories[0];
-                    }
-                    default: {
-                      return r[role.id];
-                    }
-                  }
-                },
-              ],
-              [role.direction]
-            )
+            {_.orderBy(data)
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((n) => {
-                const isSelected = selected.indexOf(n.id) !== -1;
+              .map((ct) => {
+                const isSelected = selected.indexOf(ct.id) !== -1;
                 return (
                   <TableRow
-                    className="h-72 cursor-pointer"
+                    className='h-72 cursor-pointer'
                     hover
-                    role="checkbox"
+                    role='checkbox'
                     aria-checked={isSelected}
                     tabIndex={-1}
-                    key={n.id}
+                    key={ct.id}
                     selected={isSelected}
-                    onClick={(event) => handleClick(n)}
+                    onClick={(event) => handleClick(ct)}
                   >
-                    <TableCell className="w-40 md:w-64 text-center" padding="none">
+                    <TableCell className='w-40 md:w-64 text-center' padding='none'>
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
-                        onChange={(event) => handleCheck(event, n.id)}
+                        onChange={(event) => handleCheck(event, ct.id)}
                       />
                     </TableCell>
-
-                    <TableCell
-                      className="w-52 px-4 md:px-0"
-                      component="th"
-                      scope="row"
-                      padding="none"
-                    >
-                      {n.images.length > 0 && n.featuredImageId ? (
-                        <img
-                          className="w-full block rounded"
-                          src={_.find(n.images, { id: n.featuredImageId }).url}
-                          alt={n.name}
-                        />
-                      ) : (
-                        <img
-                          className="w-full block rounded"
-                          src="assets/images/apps/ecommerce/product-image-placeholder.png"
-                          alt={n.name}
-                        />
-                      )}
+                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
+                      {ct.role}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row">
-                      {n.name}
+                    <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
+                      {ct.permissions.map((pr) => {
+                        return (<Chip className="ml-5" style={{ background: 'slateblue' }} label={pr} variant='outlined'/>)
+                      })}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
-                      {n.categories.join(', ')}
-                    </TableCell>
-
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-                      <span>$</span>
-                      {n.priceTaxIncl}
-                    </TableCell>
-
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-                      {n.quantity}
-                      <i
-                        className={clsx(
-                          'inline-block w-8 h-8 rounded mx-8',
-                          n.quantity <= 5 && 'bg-red',
-                          n.quantity > 5 && n.quantity <= 25 && 'bg-orange',
-                          n.quantity > 25 && 'bg-green'
-                        )}
-                      />
-                    </TableCell>
-
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-                      {n.active ? (
-                        <FuseSvgIcon className="text-green" size={20}>
-                          heroicons-outline:check-circle
-                        </FuseSvgIcon>
-                      ) : (
-                        <FuseSvgIcon className="text-red" size={20}>
-                          heroicons-outline:minus-circle
-                        </FuseSvgIcon>
-                      )}
-                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -244,8 +183,8 @@ function RolesTable(props) {
       </FuseScrollbars>
 
       <TablePagination
-        className="shrink-0 border-t-1"
-        component="div"
+        className='shrink-0 border-t-1'
+        component='div'
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}

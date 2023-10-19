@@ -10,7 +10,7 @@ function BasicInfoTab(props) {
   return (
     <div>
       <Controller
-        name="LeadSource"
+        name="lead_source"
         control={control}
         render={({ field }) => (
           <TextField
@@ -21,7 +21,7 @@ function BasicInfoTab(props) {
             helperText={errors?.name?.message}
             label="Lead Source"
             autoFocus
-            id="leadSource"
+            id="lead_source"
             variant="outlined"
             fullWidth
           />

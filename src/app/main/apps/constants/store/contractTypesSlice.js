@@ -12,7 +12,7 @@ export const getContractTypes =
 );
 
 export const removeContractTypes = createAsyncThunk(
-  'constantApp/contractTypes/removeContractTypes',
+  'constantApp/contractTypes',
   async (contractTypeIds, { dispatch, getState }) => {
     await axios.delete('/api/constants/contractTypes', { data: contractTypeIds });
 

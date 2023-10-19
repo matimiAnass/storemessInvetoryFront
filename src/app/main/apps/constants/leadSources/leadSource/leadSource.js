@@ -15,7 +15,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getLeadSource, newLeadSource, resetLeadSource, selectLeadSource } from '../../store/LeadSourceSlice';
+import { getLeadSource, newLeadSource, resetLeadSource, selectLeadSource } from '../../store/leadSourceSlice';
 import reducer from '../../store';
 import LeadSourceHeader from './LeadSourceHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -37,7 +37,7 @@ function LeadSource(props) {
 
   const routeParams = useParams();
   const [tabValue, setTabValue] = useState(0);
-  const [noContractType, setNoContractType] = useState(false);
+  const [noLeadSource, setNoLeadSource] = useState(false);
   const methods = useForm({
     mode: 'onChange',
     defaultValues: {},
@@ -47,48 +47,49 @@ function LeadSource(props) {
   const form = watch();
 
   useDeepCompareEffect(() => {
-    function updateContractTypeState() {
-      const { contractTypeId } = routeParams;
-      if (contractTypeId === 'new') {
+    function updateLeadSourceState() {
+      const { leadSourceId } = routeParams;
+      // alert(leadSourceId);
+      if (leadSourceId === 'new') {
         /**
          * Create New LeadSource data
          */
-        dispatch(newContractType());
+        dispatch(newLeadSource());
       } else {
         /**
          * Get LeadSource data
          */
-        dispatch(getContractType(contractTypeId)).then((action) => {
+        dispatch(getLeadSource(leadSourceId)).then((action) => {
           /**
            * If the requested product is not exist show message
            */
           if (!action.payload) {
-            setNoContractType(true);
+            setNoLeadSource(true);
           }
         });
       }
     }
 
-    updateContractTypeState();
+    updateLeadSourceState();
   }, [dispatch, routeParams]);
 
   useEffect(() => {
-    if (!contractType) {
+    if (!leadSource) {
       return;
     }
     /**
      * Reset the form on product state changes
      */
-    reset(contractType);
-  }, [contractType, reset]);
+    reset(leadSource);
+  }, [leadSource, reset]);
 
   useEffect(() => {
     return () => {
       /**
        * Reset LeadSource on component unload
        */
-      dispatch(resetContractType());
-      setNoContractType(false);
+      dispatch(resetLeadSource());
+      setNoLeadSource(false);
     };
   }, [dispatch]);
 
@@ -102,7 +103,7 @@ function LeadSource(props) {
   /**
    * Show Message if the requested products is not exists
    */
-  if (noContractType) {
+  if (noLeadSource) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -110,16 +111,16 @@ function LeadSource(props) {
         className='flex flex-col flex-1 items-center justify-center h-full'
       >
         <Typography color='text.secondary' variant='h5'>
-          There is no such contractType!
+          There is no such leadSource!
         </Typography>
         <Button
           className='mt-24'
           component={Link}
           variant='outlined'
-          to='/apps/constants/contractTypes'
+          to='/apps/constants/leadSources'
           color='inherit'
         >
-          Go to ContractTypes Page
+          Go to LeadSources Page
         </Button>
       </motion.div>
     );
@@ -130,7 +131,7 @@ function LeadSource(props) {
    */
   if (
     _.isEmpty(form) ||
-    (contractType && routeParams.contractTypeId !== contractType.id && routeParams.contractTypeId !== 'new')
+    (leadSource && routeParams.leadSourceId !== leadSource.id && routeParams.leadSourceId !== 'new')
   ) {
     return <FuseLoading />;
   }
@@ -165,4 +166,4 @@ function LeadSource(props) {
   );
 }
 
-export default withReducer('constantsApp', reducer)(LeadSource);
+export default withReducer('constantApp', reducer)(LeadSource);

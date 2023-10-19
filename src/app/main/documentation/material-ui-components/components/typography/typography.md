@@ -63,7 +63,7 @@ Material UI default typography configuration only relies on 300, 400, 500, and 7
 
 The Typography component makes it easy to apply a default set of font weights and sizes in your application.
 
-{{"demo": "Types.js"}}
+{{"demo": "Folders.js"}}
 
 ## Theme
 

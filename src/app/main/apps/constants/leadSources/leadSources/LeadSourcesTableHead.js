@@ -15,11 +15,19 @@ import { Box } from '@mui/system';
 import TableHead from '@mui/material/TableHead';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { lighten } from '@mui/material/styles';
-import { removeContractTypes } from '../../store/contractTypesSlice';
+import { removeLeadSources } from '../../store/leadSourcesSlice';
 
 const rows = [
   {
-    id: 'leadSource',
+    id: 'id',
+    align: 'left',
+    disablePadding: false,
+    label: 'Id',
+    sort: true,
+  },
+
+  {
+    id: 'lead_source',
     align: 'left',
     disablePadding: false,
     label: 'Lead Source',
@@ -29,10 +37,10 @@ const rows = [
 ];
 
 function LeadSourcesTableHead(props) {
-  const { selectedContractTypesIds } = props;
-  const numSelected = selectedContractTypesIds.length;
+  const { selectedLeadSourcesIds } = props;
+  const numSelected = selectedLeadSourcesIds.length;
 
-  const [selectedContractTypesMenu, setSelectedContractTypesMenu] = useState(null);
+  const [selectedLeadSourcesMenu, setSelectedLeadSourcesMenu] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -40,12 +48,12 @@ function LeadSourcesTableHead(props) {
     props.onRequestSort(event, property);
   };
 
-  function openSelectedContractTypesMenu(event) {
-    setSelectedContractTypesMenu(event.currentTarget);
+  function openSelectedLeadSourcesMenu(event) {
+    setSelectedLeadSourcesMenu(event.currentTarget);
   }
 
-  function closeSelectedContractTypesMenu() {
-    setSelectedContractTypesMenu(null);
+  function closeSelectedLeadSourcesMenu() {
+    setSelectedLeadSourcesMenu(null);
   }
 
   return (
@@ -74,25 +82,25 @@ function LeadSourcesTableHead(props) {
               }}
             >
               <IconButton
-                aria-owns={selectedContractTypesMenu ? 'selectedContractTypesMenu' : null}
+                aria-owns={selectedLeadSourcesMenu ? 'selectedLeadSourcesMenu' : null}
                 aria-haspopup="true"
-                onClick={openSelectedContractTypesMenu}
+                onClick={openSelectedLeadSourcesMenu}
                 size="large"
               >
                 <FuseSvgIcon>heroicons-outline:dots-horizontal</FuseSvgIcon>
               </IconButton>
               <Menu
-                id="selectedContractTypesMenu"
-                anchorEl={selectedContractTypesMenu}
-                open={Boolean(selectedContractTypesMenu)}
-                onClose={selectedContractTypesMenu}
+                id="selectedLeadSourcesMenu"
+                anchorEl={selectedLeadSourcesMenu}
+                open={Boolean(selectedLeadSourcesMenu)}
+                onClose={selectedLeadSourcesMenu}
               >
                 <MenuList>
                   <MenuItem
                     onClick={() => {
-                      dispatch(removeContractTypes(selectedContractTypesIds));
+                      dispatch(removeLeadSources(selectedLeadSourcesIds));
                       props.onMenuItemClick();
-                      closeSelectedContractTypesMenu();
+                      closeSelectedLeadSourcesMenu();
                     }}
                   >
                     <ListItemIcon className="min-w-40">

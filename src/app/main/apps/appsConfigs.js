@@ -19,8 +19,10 @@ import LeadsAppConfig from './leads/LeadsAppConfig';
 import SalesOrdersAppConfig from './salesOrders/SalesOrdersAppConfig';
 import InvoicesAppConfig from './invoices/InvoicesAppConfig';
 import ConstantsAppConfig from './constants/ConstantsAppConfig';
+import PlanPermissionsAppConfig from './plan_permissions/PlanPermissionsAppConfig';
 
 const appsConfigs = [
+  PlanPermissionsAppConfig,
   ConstantsAppConfig,
   InvoicesAppConfig,
   SalesOrdersAppConfig,

@@ -203,7 +203,7 @@ function Chat(props) {
                     autoFocus={false}
                     id="message-input"
                     className="flex flex-1 grow shrink-0 mx-16 ltr:mr-48 rtl:ml-48 my-8"
-                    placeholder="Type your message"
+                    placeholder="Folder your message"
                     onChange={onInputChange}
                     value={messageText}
                   />

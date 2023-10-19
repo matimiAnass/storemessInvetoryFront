@@ -64,11 +64,9 @@ class JwtService extends FuseUtils.EventEmitter {
   signInWithEmailAndPassword = (email, password) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(jwtServiceConfig.signIn, {
-          data: {
+        .post(jwtServiceConfig.signIn, {
             email,
             password,
-          },
         })
         .then((response) => {
           if (response.data.user) {
@@ -114,7 +112,7 @@ class JwtService extends FuseUtils.EventEmitter {
 
   setSession = (access_token) => {
     if (access_token) {
-      localStorage.setItem('jwt_access_token', access_token);
+      localStorage.setItem('jwt_access_token', access_token.token);
       axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
     } else {
       localStorage.removeItem('jwt_access_token');
