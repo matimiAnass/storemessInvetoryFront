@@ -30,6 +30,7 @@ function AuthProvider({ children }) {
           pass(error.message);
         });
     });
+
     jwtService.on('onLogin', (user) => {
       success(user, 'Signed in');
     });

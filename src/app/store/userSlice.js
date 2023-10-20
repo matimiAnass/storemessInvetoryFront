@@ -14,7 +14,6 @@ export const setUser = createAsyncThunk('users/setUser', async (user, { dispatch
   if (user.loginRedirectUrl) {
     settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example '/apps/academy'
   }
-
   return user;
 });
 
@@ -84,42 +83,43 @@ export const updateUserData = (user) => async (dispatch, getState) => {
 const initialState = {
   role: [], // guest
   data: {
-    displayName: 'John Doe',
+    displayName: '',
     photoURL: 'assets/images/avatars/brian-hughes.jpg',
-    email: 'johndoe@withinpixels.com',
-    shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
+    email: '',
+    // user: {
+    //   id: 1,
+    //   username: "",
+    //   name: "",
+    //   title: null,
+    //   email: "",
+    //   phone: null,
+    //   gender: null,
+    //   type: "",
+    //   is_active: 1,
+    //   user_roles: null,
+    //   lang: "en",
+    //   mode: "",
+    //   avatar: "",
+    //   plan: null,
+    //   plan_expire_date: null,
+    //   requested_plan: 0,
+    //   subscription_id: null,
+    //   subscription_status: null,
+    //   subscription_expire_date: null,
+    //   plan_is_active: 1,
+    //   created_by: 0,
+    //   created_at: "",
+    //   updated_at: "",
+    //   active_status: 0,
+    //   dark_mode: 0,
+    //   messenger_color: "",
+    //   name_entreprise: "",
+    //   type_name: "",
+    //   user_roles_name: ""
+    //   },
+      shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
   },
 };
-//   user: {
-//     id: 1,
-//     username: "SuperAdmin",
-//     name: "Super Admin",
-//     title: null,
-//     email: "superadmin@example.com",
-//     phone: null,
-//     gender: null,
-//     type: "super admin",
-//     is_active: 1,
-//     user_roles: null,
-//     lang: "en",
-//     mode: "light",
-//     avatar: "avatar.png",
-//     plan: null,
-//     plan_expire_date: null,
-//     requested_plan: 0,
-//     subscription_id: null,
-//     subscription_status: null,
-//     subscription_expire_date: null,
-//     plan_is_active: 1,
-//     created_by: 0,
-//     created_at: "2023-09-11T11:25:28.000000Z",
-//     updated_at: "2023-09-27T17:31:31.000000Z",
-//     active_status: 0,
-//     dark_mode: 0,
-//     messenger_color: "#2180f3",
-//     name_entreprise: "SuperAdmin",
-//     type_name: "super admin",
-//     user_roles_name: ""
 
 const userSlice = createSlice({
   name: 'user',
