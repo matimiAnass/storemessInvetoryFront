@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { showMessage } from 'app/store/fuse/messageSlice';
@@ -12,6 +12,7 @@ function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [waitAuthCheck, setWaitAuthCheck] = useState(true);
   const dispatch = useDispatch();
+  // useMemo(() => ({ isAuthenticated, undefined }),[isAuthenticated,undefined]);
 
   useEffect(() => {
     jwtService.on('onAutoLogin', () => {
@@ -29,7 +30,6 @@ function AuthProvider({ children }) {
           pass(error.message);
         });
     });
-
     jwtService.on('onLogin', (user) => {
       success(user, 'Signed in');
     });
@@ -56,7 +56,6 @@ function AuthProvider({ children }) {
       if (message) {
         dispatch(showMessage({ message }));
       }
-
       Promise.all([
         dispatch(setUser(user)),
         // You can receive data in here before app initialization
@@ -64,6 +63,7 @@ function AuthProvider({ children }) {
         setWaitAuthCheck(false);
         setIsAuthenticated(true);
       });
+
     }
 
     function pass(message) {
@@ -79,7 +79,7 @@ function AuthProvider({ children }) {
   return waitAuthCheck ? (
     <FuseSplashScreen />
   ) : (
-    <AuthContext.Provider value={{ isAuthenticated }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isAuthenticated}}>{children}</AuthContext.Provider>
   );
 }
 
