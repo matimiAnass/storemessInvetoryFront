@@ -11,9 +11,9 @@ export const setUser = createAsyncThunk('users/setUser', async (user, { dispatch
   /*
     You can redirect the logged-in users to a specific route depending on his role
     */
-  if (user.loginRedirectUrl) {
+  //if (user.loginRedirectUrl) {
     settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example '/apps/academy'
-  }
+ // }
   return user;
 });
 
@@ -65,6 +65,7 @@ export const logoutUser = () => async (dispatch, getState) => {
 };
 
 export const updateUserData = (user) => async (dispatch, getState) => {
+  console.log(user);
   if (!user.role || user.role.length === 0) {
     // is guest
     return;
@@ -81,8 +82,8 @@ export const updateUserData = (user) => async (dispatch, getState) => {
 };
 
 const initialState = {
-  role: [], // guest
   data: {
+    role: [], // guest
     displayName: '',
     photoURL: 'assets/images/avatars/brian-hughes.jpg',
     email: '',
@@ -120,6 +121,7 @@ const initialState = {
       shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
   },
 };
+
 
 const userSlice = createSlice({
   name: 'user',

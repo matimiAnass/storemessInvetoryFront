@@ -77,7 +77,7 @@ function PlanPermissionsTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/plan_permissions/${item.id}/${item.handle}`);
+    props.navigate(`/apps/plan_permissions/${item.id}/${item.name}`);
   }
 
   function handleCheck(event, id) {
@@ -167,12 +167,12 @@ function PlanPermissionsTable(props) {
                       />
                     </TableCell>
                     <TableCell className='p-4 md:p-16' component='th' scope='row'>
-                      {ct.plan}
+                      {ct.name}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
+                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
                       {ct.permissions.map((pr) => {
-                        return (<Chip className="ml-5" style={{ background: 'slateblue' }} label={pr} variant='outlined'/>)
+                        return (<Chip className="ml-5 mt-5" style={{ background: 'slateblue' }} label={pr.name} variant='outlined'/>)
                       })}
                     </TableCell>
 

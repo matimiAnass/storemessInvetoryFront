@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import { logoutUser, setUser } from 'app/store/userSlice';
 import jwtService from './services/jwtService';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = React.createContext();
 
@@ -12,38 +13,46 @@ function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [waitAuthCheck, setWaitAuthCheck] = useState(true);
   const dispatch = useDispatch();
-  // useMemo(() => ({ isAuthenticated, undefined }),[isAuthenticated,undefined]);
+
+
 
   useEffect(() => {
     jwtService.on('onAutoLogin', () => {
       dispatch(showMessage({ message: 'Signing in with JWT' }));
 
       /**
-       * Sign in and retrieve users data with stored token
+       * Sign in and retrieve user data with stored token
        */
-      jwtService
-        .signInWithToken()
-        .then((user) => {
-          success(user, 'Signed in with JWT');
-        })
-        .catch((error) => {
-          pass(error.message);
-        });
+      if (!jwtService.isAuthTokenValid(JSON.parse(localStorage.getItem('jwt_access_token')))) {
+        jwtService
+          .signInWithToken()
+          .then((user) => {
+            console.log(user);
+            success(user, 'Signed in with JWT');
+          })
+          .catch((error) => {
+            console.log('error');
+            pass(error.message);
+          });
+      } else {
+        const user = JSON.parse(localStorage.getItem('user_data'));
+        user.loginRedirectUrl = '/';
+        success(user, 'Signed in with JWT');
+      }
     });
-
     jwtService.on('onLogin', (user) => {
+      if (!user) {
+        user = JSON.parse(localStorage.getItem('user_data'));
+      }
       success(user, 'Signed in');
     });
-
     jwtService.on('onLogout', () => {
       pass('Signed out');
-
       dispatch(logoutUser());
     });
 
     jwtService.on('onAutoLogout', (message) => {
       pass(message);
-
       dispatch(logoutUser());
     });
 
@@ -57,6 +66,9 @@ function AuthProvider({ children }) {
       if (message) {
         dispatch(showMessage({ message }));
       }
+
+      user.loginRedirectUrl = '/';
+
       Promise.all([
         dispatch(setUser(user)),
         // You can receive data in here before app initialization
@@ -64,7 +76,6 @@ function AuthProvider({ children }) {
         setWaitAuthCheck(false);
         setIsAuthenticated(true);
       });
-
     }
 
     function pass(message) {

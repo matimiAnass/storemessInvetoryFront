@@ -12,6 +12,7 @@ const initialState = {
     variant: null,
   },
 };
+
 const messageSlice = createSlice({
   name: 'message',
   initialState,
