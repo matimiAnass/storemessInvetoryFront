@@ -26,11 +26,11 @@ mock.onDelete('/api/planPermissions').reply(({ data }) => {
 // });
 //
 
-// mock.onGet(/\/api\/ecommerce\/products\/[^/]+/).reply(({ url, data }) => {
-//   const { id } = url.match(/\/api\/ecommerce\/products\/(?<id>[^/]+)/).groups;
-//
-//   return [200, _.find(contractTypesDB, { id })];
-// });
+mock.onGet(/\/api\/planPermissions\/[^/]+/).reply(({ url, data }) => {
+  const { id } = url.match(/\/api\/planPermissions\/(?<id>[^/]+)/).groups;
+
+  return [200, _.find(contractTypesDB, { id })];
+});
 //
 // mock.onPut(/\/api\/ecommerce\/products\/[^/]+/).reply(({ url, data }) => {
 //   const { id } = url.match(/\/api\/ecommerce\/products\/(?<id>[^/]+)/).groups;

@@ -3,10 +3,9 @@ import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
 export const getPlanPermission = createAsyncThunk('planPermission/getPlanPermission', async (planPermissionId) => {
-  const response = await axios.get(`/api/planPermissions/${planPermissionId}`);
+  const response = await axios.get(`http://192.168.1.17:8000/api/plan_permission/${planPermissionId}`);
   const data = await response.data;
-
-  return data === undefined ? null : data;
+  return data;
 });
 
 export const removePlanPermission = createAsyncThunk(
@@ -33,16 +32,19 @@ export const savePlanPermission = createAsyncThunk(
 
 const planPermissionSlice = createSlice({
   name: 'planPermissionApp/planPermission',
-  initialState: null,
+  initialState: null, /*{
+      plan: {},
+      permissions: {},
+  },*/
   reducers: {
     resetPlanPermission: () => null,
     newPlanPermission: {
       reducer: (state, action) => action.payload,
       prepare: (event) => ({
         payload: {
-          id: FuseUtils.generateGUID(),
-          planPermission: '',
-          permissions: '',
+          // id: FuseUtils.generateGUID(),
+          plan: {0:''},
+          permissions: ['',],
           active: true,
         },
       }),

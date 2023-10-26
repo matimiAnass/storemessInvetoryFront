@@ -30,7 +30,7 @@ function PlanPermissionsTable(props) {
   const [data, setData] = useState(planPermissions);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [role, setRole] = useState({
+  const [planPermission, setPlanPermission] = useState({
     direction: 'asc',
     id: null,
   });
@@ -40,6 +40,7 @@ function PlanPermissionsTable(props) {
   }, [dispatch]);
 
   useEffect(() => {
+
     if (searchText?.length !== 0) {
       setData(
         _.filter(planPermissions, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
@@ -48,17 +49,18 @@ function PlanPermissionsTable(props) {
     } else {
       setData(planPermissions);
     }
+
   }, [planPermissions, searchText]);
 
   function handleRequestSort(event, property) {
     const id = property;
     let direction = 'desc';
 
-    if (role.id === property && role.direction === 'desc') {
+    if (planPermission.id === property && planPermission.direction === 'desc') {
       direction = 'asc';
     }
 
-    setRole({
+    setPlanPermission({
       direction,
       id,
     });
@@ -77,7 +79,7 @@ function PlanPermissionsTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/plan_permissions/${item.id}/${item.name}`);
+    props.navigate(`/apps/planPermissions/${item.id}/${item.name}`);
   }
 
   function handleCheck(event, id) {
@@ -172,7 +174,7 @@ function PlanPermissionsTable(props) {
 
                     <TableCell className='p-4 md:p-16' component='th' scope='row'>
                       {ct.permissions.map((pr) => {
-                        return (<Chip className="ml-5 mt-5" style={{ background: 'slateblue' }} label={pr.name} variant='outlined'/>)
+                        return (<Chip key={pr.id} className="ml-5 mt-5" style={{ background: `linear-gradient(slateblue, black)` }} label={pr.name} variant='outlined'/>)
                       })}
                     </TableCell>
 

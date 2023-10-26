@@ -4,7 +4,6 @@ import axios from 'axios';
 export const getPlanPermissions = createAsyncThunk('planPermissions/getPlanPermissions', async () => {
   const response = await axios.get('http://192.168.1.17:8000/api/plan_permission');
   const data = await response.data;
-
   return data;
 });
 

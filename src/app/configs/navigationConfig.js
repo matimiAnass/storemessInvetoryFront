@@ -145,6 +145,12 @@ const navigationConfig = [
         url: '/apps/planPermissions',
         children: [
           {
+            id: 'plan_permissions-permission-detail',
+            title: 'Plan Permissions Detail',
+            type: 'item',
+            url: 'apps/planPermissions/47/Premium',
+          },
+          {
             id: 'new-permission',
             title: 'New Permission',
             type: 'item',

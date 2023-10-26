@@ -64,6 +64,7 @@ function User(props) {
          * Get User data
          */
         dispatch(getProduct(productId)).then((action) => {
+          // console.log(action);
           /**
            * If the requested product is not exist show message
            */
@@ -107,6 +108,7 @@ function User(props) {
   /**
    * Show Message if the requested products is not exists
    */
+
   if (noProduct) {
     return (
       <motion.div

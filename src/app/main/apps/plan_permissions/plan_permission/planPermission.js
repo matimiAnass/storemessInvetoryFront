@@ -84,10 +84,12 @@ function PlanPermission(props) {
   }, [planPermission, reset]);
 
   useEffect(() => {
+
     return () => {
       /**
        * Reset PlanPermission on component unload
        */
+
       dispatch(resetPlanPermission());
       setNoPlanPermission(false);
     };
@@ -129,13 +131,13 @@ function PlanPermission(props) {
   /**
    * Wait while product data is loading and form is setted
    */
+
   if (
     _.isEmpty(form) ||
-    (planPermission && routeParams.planPermissionId !== planPermission.id && routeParams.planPermissionId !== 'new')
-  ) {
+    (planPermission && parseInt(routeParams?.planPermissionId) !== planPermission?.plan.id && routeParams.planPermissionId !== 'new'))
+  {
     return <FuseLoading />;
   }
-
   return (
     <FormProvider {...methods}>
       <FusePageCarded
