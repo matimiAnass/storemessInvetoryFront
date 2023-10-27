@@ -58,6 +58,7 @@ function PlanPermissionsTableHead(props) {
     <TableHead>
       <TableRow className="h-48 sm:h-64">
         <TableCell
+          align='center'
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
@@ -91,7 +92,7 @@ function PlanPermissionsTableHead(props) {
                 id="selectedPlanPermissionsMenu"
                 anchorEl={selectedPlanPermissionsMenu}
                 open={Boolean(selectedPlanPermissionsMenu)}
-                onClose={selectedPlanPermissionsMenu}
+                onClose={closeSelectedPlanPermissionsMenu}
               >
                 <MenuList>
                   <MenuItem
@@ -122,7 +123,7 @@ function PlanPermissionsTableHead(props) {
               }}
               className="p-4 md:p-16"
               key={row.id}
-              align={row.align}
+              align='center'
               padding={row.disablePadding ? 'none' : 'normal'}
               sortDirection={props.order.id === row.id ? props.order.direction : false}
             >
@@ -151,3 +152,4 @@ function PlanPermissionsTableHead(props) {
 }
 
 export default PlanPermissionsTableHead;
+

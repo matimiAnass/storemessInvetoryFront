@@ -34,7 +34,7 @@ function PlanPermissionsHeader(props) {
           <FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
 
           <Input
-            placeholder="Search Users"
+            placeholder="Search Plans"
             className="flex flex-1"
             disableUnderline
             fullWidth
