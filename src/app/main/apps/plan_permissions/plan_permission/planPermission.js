@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getPlanPermission, newPlanPermission, resetPlanPermission, selectPlanPermission } from '../store/planPermissionSlice';
+import {
+  getPlanPermission,
+  newPlanPermission,
+  resetPlanPermission,
+  selectPlanPermission,
+} from '../store/planPermissionSlice';
 import reducer from '../store';
 import PlanPermissionHeader from './PlanPermissionHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -45,6 +50,14 @@ function PlanPermission(props) {
   });
   const { reset, watch, control, onChange, formState } = methods;
   const form = watch();
+  const [dataTab, setDataTab] = useState();
+
+  useEffect(() => {
+
+  }, []);
+  const handleDataTab = (value) => {
+    setDataTab(value);
+  };
 
   useDeepCompareEffect(() => {
     function updatePlanPermissionState() {
@@ -131,17 +144,17 @@ function PlanPermission(props) {
   /**
    * Wait while product data is loading and form is setted
    */
-
+  console.log(planPermission);
   if (
     _.isEmpty(form) ||
-    (planPermission && parseInt(routeParams?.planPermissionId) !== planPermission?.plan.id && routeParams.planPermissionId !== 'new'))
+    (planPermission && parseInt(routeParams?.planPermissionId) !== planPermission?.plan?.id && routeParams.planPermissionId !== 'new'))
   {
     return <FuseLoading />;
   }
   return (
     <FormProvider {...methods}>
       <FusePageCarded
-        header={<PlanPermissionHeader />}
+        header={<PlanPermissionHeader dataTab={dataTab} />}
         content={
           <>
             <Tabs
@@ -156,8 +169,8 @@ function PlanPermission(props) {
               <Tab className="h-64" label="Basic Info" />
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
-              <div className={tabValue !== 0 ? 'hidden' : ''}>
-                <BasicInfoTab />
+              <div>
+                <BasicInfoTab  handleData={handleDataTab} />
               </div>
             </div>
           </>

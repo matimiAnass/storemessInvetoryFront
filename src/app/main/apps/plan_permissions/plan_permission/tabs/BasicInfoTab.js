@@ -8,16 +8,22 @@ import Checkbox from '@mui/material/Checkbox';
 import TableHead from '@mui/material/TableHead';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import _ from '@lodash';
-import 'src/app/main/apps/plan_permissions/plan_permission/tabs/CheckAll';
 import React, { useEffect, useState } from 'react';
 import FuseLoading from '@fuse/core/FuseLoading';
 
-function BasicInfoTab(props) {
+function BasicInfoTab( { handleData } ) {
   const methods = useFormContext();
   const { control, formState } = methods;
   const { errors } = formState;
+  const [plan, setPlan] = useState('');
   const [state, setState] = useState({});
-
+  const [data, setData] = useState();
+  const [manage, setManage] = useState({});
+  const [create, setCreate] = useState({});
+  const [edit, setEdit] = useState({});
+  const [deleted, setDeleted] = useState({});
+  const [show, setShow] = useState({});
+  const [dataUpdated, setDataUpdated] = useState({});
   const modules: any = {
     1: 'Role',
     2: 'User',
@@ -34,38 +40,35 @@ function BasicInfoTab(props) {
     13: 'Quote',
     14: 'SalesOrder',
     15: 'Invoice',
-    16: 'Product',
-    17: 'Report',
-    18: 'Payment',
-    19: 'Invoice Payment',
-    20: 'Product',
-    21: 'AccountType',
-    22: 'AccountIndustry',
-    23: 'LeadSource',
-    24: 'OpportunitiesStage',
-    25: 'DocumentFolder',
-    26: 'DocumentType',
-    27: 'TargetList',
-    28: 'ProductCategory',
-    29: 'ProductBrand',
-    30: 'ProductTax',
-    31: 'ShippingProvider',
-    32: 'TaskStage',
-    33: 'DocumentFolder',
-    34: 'CampaignType',
-    37: 'CaseType',
-    38: 'Contract',
-    39: 'ContractType',
-    40: 'Form Builder',
-    41: 'Form Field',
+    16: 'Report',
+    17: 'Payment',
+    18: 'Invoice Payment',
+    19: 'Product',
+    20: 'AccountType',
+    21: 'AccountIndustry',
+    22: 'LeadSource',
+    23: 'OpportunitiesStage',
+    24: 'DocumentFolder',
+    25: 'DocumentType',
+    26: 'TargetList',
+    27: 'ProductCategory',
+    28: 'ProductBrand',
+    29: 'ProductTax',
+    30: 'ShippingProvider',
+    31: 'TaskStage',
+    32: 'DocumentFolder',
+    33: 'CampaignType',
+    34: 'CaseType',
+    35: 'Contract',
+    36: 'ContractType',
+    37: 'Form Builder',
+    38: 'Form Field',
   };
 
-  const [data, setData] = useState();
-  const [manage, setManage] = useState();
-  // Getting the data from Back end
 
   useEffect(() => {
 
+    // Getting the data from Back end
     setData(formState.defaultValues);
     //const data = formState.defaultValues;
     // All modules founds in database
@@ -105,15 +108,47 @@ function BasicInfoTab(props) {
     }
 
     setState(() => ({ checkBox_list_checked }));
+
+
     let manage_list_checked: any = {};
     Object.keys(modules).map(key => {
-      formState.defaultValues.permissions?.includes('Manage ' + modules[key]) ? manage_list_checked[modules[key]] = true : manage_list_checked[modules[key]] = false;
+      formState.defaultValues.plan.permissions?.includes('Manage ' + modules[key]) ? manage_list_checked[modules[key]] = true : manage_list_checked[modules[key]] = false;
     });
-    setManage(manage_list_checked);
-    console.log(manage_list_checked);
+    setManage(() => ({ manage_list_checked }));
+
+    let create_list_checked: any = {};
+    Object.keys(modules).map(key => {
+      formState.defaultValues.plan.permissions?.includes('Create ' + modules[key]) ? create_list_checked[modules[key]] = true : create_list_checked[modules[key]] = false;
+    });
+    setCreate(() => ({ create_list_checked }));
+
+    let edit_list_checked: any = {};
+    Object.keys(modules).map(key => {
+      formState.defaultValues.plan.permissions?.includes('Edit ' + modules[key]) ? edit_list_checked[modules[key]] = true : edit_list_checked[modules[key]] = false;
+    });
+    setEdit(() => ({ edit_list_checked }));
+
+    let deleted_list_checked: any = {};
+    Object.keys(modules).map(key => {
+      formState.defaultValues.plan.permissions?.includes('Delete ' + modules[key]) ? deleted_list_checked[modules[key]] = true : deleted_list_checked[modules[key]] = false;
+    });
+    setDeleted(() => ({ deleted_list_checked }));
+
+    let show_list_checked: any = {};
+    Object.keys(modules).map(key => {
+      formState.defaultValues.plan.permissions?.includes('Show ' + modules[key]) ? show_list_checked[modules[key]] = true : show_list_checked[modules[key]] = false;
+    });
+    setShow(() => ({ show_list_checked }));
+
+    setPlan(() => (formState.defaultValues.plan.name));
+
 
   }, []);
 
+
+  let handleLabelPlan = event => {
+    setPlan(event.target.value);
+  };
   let handleCheckbox = event => {
     setState((v) => ({
       checkBox_list_checked: {
@@ -121,9 +156,97 @@ function BasicInfoTab(props) {
         [event.target.value]: event.target.checked,
       },
     }));
-
   };
-
+  let handleCheckboxManage = event => {
+    setManage((v) => ({
+      manage_list_checked: {
+        ...v.manage_list_checked,
+        [event.target.value]: event.target.checked,
+      },
+    }));
+  };
+  let handleCheckboxCreate = event => {
+    setCreate((v) => ({
+      create_list_checked: {
+        ...v.create_list_checked,
+        [event.target.value]: event.target.checked,
+      },
+    }));
+  };
+  let handleCheckboxEdit = event => {
+    setEdit((v) => ({
+      edit_list_checked: {
+        ...v.edit_list_checked,
+        [event.target.value]: event.target.checked,
+      },
+    }));
+  };
+  let handleCheckboxDeleted = event => {
+    setDeleted((v) => ({
+      deleted_list_checked: {
+        ...v.deleted_list_checked,
+        [event.target.value]: event.target.checked,
+      },
+    }));
+  };
+  let handleCheckboxShow = event => {
+    setShow((v) => ({
+      show_list_checked: {
+        ...v.show_list_checked,
+        [event.target.value]: event.target.checked,
+      },
+    }));
+  };
+  let handleGetDataUpdated = async () => {
+    if (data) {
+      //Release the permissions updated to affect in method save
+      let permissions = [];
+      Object.values(state).forEach(key => {
+        Object.keys(key).forEach(checkBoxParent => {
+          Object.values(manage).forEach(key => {
+            Object.keys(key).forEach(checkBoxManage => {
+              key[checkBoxManage] && key[checkBoxParent] ? permissions.push('Manage ' + checkBoxManage) : false;
+            });
+          });
+          Object.values(edit).forEach(key => {
+            Object.keys(key).forEach(checkBoxEdit => {
+              key[checkBoxEdit] && key[checkBoxParent] ? permissions.push('Edit ' + checkBoxEdit) : false;
+            });
+          });
+          Object.values(create).forEach(key => {
+            Object.keys(key).forEach(checkBoxCreate => {
+              key[checkBoxCreate] && key[checkBoxParent] ? permissions.push('Create ' + checkBoxCreate) : false;
+            });
+          });
+          Object.values(deleted).forEach(key => {
+            Object.keys(key).forEach(checkBoxDeleted => {
+              key[checkBoxDeleted] && key[checkBoxParent] ? permissions.push('Delete ' + checkBoxDeleted) : false;
+            });
+          });
+          Object.values(show).forEach(key => {
+            Object.keys(key).forEach(checkBoxShow => {
+              key[checkBoxShow] && key[checkBoxParent] ? permissions.push('Show ' + checkBoxShow) : false;
+            });
+          });
+        });
+      });
+      let permissions_no_repeat = new Set();
+      permissions?.forEach(entry => {
+        permissions_no_repeat.add(entry);
+      });
+      dataUpdated['id'] = formState.defaultValues.plan.id;
+      dataUpdated['name'] = plan;
+      let permissions_list = [];
+      permissions_no_repeat.forEach((key, item) => {
+        permissions_list.push(item);
+      });
+      dataUpdated['permissions'] = permissions_list;
+      // setDataUpdated({'name' : plan, 'permissions' : [permissions_list] });
+      console.log(dataUpdated);
+      await handleData(dataUpdated);
+    }
+  }
+  handleGetDataUpdated();
   if (!data) return (
     <div className='flex items-center justify-center h-full'>
       <FuseLoading />
@@ -139,9 +262,11 @@ function BasicInfoTab(props) {
             className='mt-8 mb-16 min-w-lg'
             error={!!errors.name}
             required
+            disabled={true}
             helperText={errors?.name?.message}
             label='Plan'
-            value={data.plan.name}
+            value={plan}
+            onChange={handleLabelPlan}
             autoFocus
             id='plan'
             variant='outlined'
@@ -186,92 +311,46 @@ function BasicInfoTab(props) {
                     />
                   </TableCell>
                   <TableCell align='right' className='w-100 md:w-100 row' component='td'>
-                    {/*{data.plan.permissions?.includes('Manage ' + m) ? (*/}
                     <FormControlLabel
                       label={'Manage'}
                       className='custom-checkbox'
                       control={
-                        <Checkbox onChange={handleCheckbox} checked={state?.checkBox_list_checked[m]}
-                                  value={m} className='form-check-input custom-control-input isscheck isscheck_' />
+                        <Checkbox onChange={handleCheckboxManage} checked={manage?.manage_list_checked[m]}
+                                  value={m} className='form-check-input custom-control-input' />
                       }
                     />
-                    {/*) : (*/}
-                    {/*  <FormControlLabel*/}
-                    {/*    label={'Manage'}*/}
-                    {/*    className='custom-checkbox'*/}
-                    {/*    control={*/}
-                    {/*      <Checkbox className='form-check-input custom-control-input isscheck isscheck_' />*/}
-                    {/*    }*/}
-                    {/*  />*/}
-                    {/*)}*/}
-                    {data.plan.permissions?.includes('Create ' + m) ? (
                       <FormControlLabel
                         label={'Create'}
                         className='custom-checkbox'
                         control={
-                          <Checkbox className='form-check-input custom-control-input isscheck isscheck_' checked />
+                          <Checkbox onChange={handleCheckboxCreate} checked={create?.create_list_checked[m]} value={m}
+                                    className='form-check-input custom-control-input' />
                         }
                       />
-                    ) : (
-                      <FormControlLabel
-                        label={'Create'}
-                        className='custom-checkbox'
-                        control={
-                          <Checkbox className='form-check-input custom-control-input isscheck isscheck_' />
-                        }
-                      />
-                    )}
-                    {data.plan.permissions?.includes('Edit '+m) ? (
                       <FormControlLabel
                       label={'Edit'}
                       className='custom-checkbox'
                       control={
-                        <Checkbox className='form-check-input custom-control-input isscheck isscheck_' checked />
+                        <Checkbox onChange={handleCheckboxEdit} checked={edit?.edit_list_checked[m]} value={m}
+                                  className='form-check-input custom-control-input' />
                       }
                     />
-                    ) : (
-                        <FormControlLabel
-                          label={'Edit'}
-                          className='custom-checkbox'
-                          control={
-                            <Checkbox className='form-check-input custom-control-input isscheck isscheck_' />
-                          }
-                        />
-                    )}
-                    {data.plan.permissions?.includes('Delete '+m) ? (
                       <FormControlLabel
                       label={'Delete'}
                       className='custom-checkbox'
                       control={
-                        <Checkbox className='form-check-input custom-control-input isscheck isscheck_' checked />
+                        <Checkbox onChange={handleCheckboxDeleted} checked={deleted?.deleted_list_checked[m]} value={m}
+                                  className='form-check-input custom-control-input' />
                       }
                     />
-                    ) : (
-                        <FormControlLabel
-                          label={'Delete'}
-                          className='custom-checkbox'
-                          control={
-                            <Checkbox className='form-check-input custom-control-input isscheck isscheck_' />
-                          }
-                        />
-                    )}
-                    {data.plan.permissions?.includes('Show '+m) ? (
                       <FormControlLabel
                       label={'Show'}
                       className='custom-checkbox'
                       control={
-                        <Checkbox className='form-check-input custom-control-input isscheck isscheck_' checked />
+                        <Checkbox onChange={handleCheckboxShow} checked={show?.show_list_checked[m]} value={m}
+                                  className='form-check-input custom-control-input' />
                       }
                     />
-                    ) : (
-                        <FormControlLabel
-                          label={'Show'}
-                          className='custom-checkbox'
-                          control={
-                            <Checkbox className='form-check-input custom-control-input isscheck isscheck_'  />
-                          }
-                        />
-                    )}
                 </TableCell>
               </TableRow>
               )})}

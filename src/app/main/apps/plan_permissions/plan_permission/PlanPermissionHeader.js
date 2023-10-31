@@ -8,20 +8,29 @@ import { Link, useNavigate } from 'react-router-dom';
 import _ from '@lodash';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { removePlanPermission, savePlanPermission } from '../store/planPermissionSlice';
+import { useEffect, useState } from 'react';
 
-function PlanPermissionHeader(props) {
+function PlanPermissionHeader({dataTab}) {
   const dispatch = useDispatch();
   const methods = useFormContext();
   const { formState, watch, getValues } = methods;
-  const { isValid, dirtyFields } = formState;
-  const featuredImageId = watch('featuredImageId');
-  const images = watch('images');
+  const data  = formState.defaultValues;
+  const [state, setState] = useState(false);
   const name = watch('name');
   const theme = useTheme();
   const navigate = useNavigate();
 
+  useEffect(() =>
+  {
+    if (data){
+      setState(true);
+    }
+
+  },
+    []);
+
   function handleSavePlanPermission() {
-    dispatch(savePlanPermission(getValues()));
+   dispatch(savePlanPermission(dataTab));
   }
 
   function handleRemovePlanPermission() {
@@ -86,7 +95,7 @@ function PlanPermissionHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
+          disabled={_.state || !state}
           onClick={handleSavePlanPermission}
         >
           Save
