@@ -49,16 +49,16 @@ function PlanPermissionsHeader(props) {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
         >
-          <Button
-            className=""
-            component={Link}
-            to="/apps/planPermissions/new"
-            variant="contained"
-            color="secondary"
-            startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
-          >
-            Add
-          </Button>
+          {/*<Button*/}
+          {/*  className=""*/}
+          {/*  component={Link}*/}
+          {/*  to="/apps/planPermissions/new"*/}
+          {/*  variant="contained"*/}
+          {/*  color="secondary"*/}
+          {/*  startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}*/}
+          {/*>*/}
+          {/*  Add*/}
+          {/*</Button>*/}
         </motion.div>
       </div>
     </div>

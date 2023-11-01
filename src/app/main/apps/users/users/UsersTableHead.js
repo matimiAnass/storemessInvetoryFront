@@ -56,7 +56,7 @@ const rows = [
   {
     id: 'status',
     align: 'left',
-    disablePadding: false,
+    disablePadding: true,
     label: 'status',
     sort: true,
   },
@@ -64,7 +64,7 @@ const rows = [
 
 function UsersTableHead(props) {
   const { selectedProductIds } = props;
-  const numSelected = selectedProductIds.length;
+  const numSelected = selectedProductIds?.length;
 
   const [selectedUsersMenu, setSelectedUsersMenu] = useState(null);
 

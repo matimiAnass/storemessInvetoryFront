@@ -12,8 +12,8 @@ export const getPlanPermission = createAsyncThunk('planPermission/getPlanPermiss
 export const removePlanPermission = createAsyncThunk(
   '/removePlanPermission',
   async (val, { dispatch, getState }) => {
-    const { id } = getState().planPermissionApp.planPermission;
-    await axios.delete(`/api/planPermissions/${id}`);
+    const  id  = getState().planPermissionApp.planPermission.plan?.id;
+    await axios.delete(`http://192.168.1.17:8000/api/plan_permission/${id}`);
     return id;
   },
 );
@@ -22,8 +22,13 @@ export const savePlanPermission = createAsyncThunk(
   'planPermissionApp/planPermission',
   async (planPermissionData, { dispatch, getState }) => {
     const  id  = getState().planPermissionApp.planPermission.plan?.id;
-    const response = await axios.put(`http://192.168.1.17:8000/api/plan_permission/${id}`, planPermissionData);
-
+    let response = {};
+    if(id === undefined) {
+      response =  await axios.post(`http://192.168.1.17:8000/api/plan_permission/`, planPermissionData);
+    }
+    else{
+      response = await axios.put(`http://192.168.1.17:8000/api/plan_permission/${id}`, planPermissionData);
+    }
     const data = await response.data;
 
     return data;
@@ -31,18 +36,21 @@ export const savePlanPermission = createAsyncThunk(
 );
 
 const planPermissionSlice = createSlice({
-  name: 'planPermissionApp/planPermission',
-  initialState: null, /*{
+  name: 'planPermissionApp',
+  initialState: null,/*{dataUpdated:{},},*/ /*{
       plan: {},
       permissions: {},
-  },*/
+  // },*/
   reducers: {
+    setDataUpdated : (state, action) => {
+      state.dataUpdated = action.payload;
+    },
     resetPlanPermission: () => null,
     newPlanPermission: {
       reducer: (state, action) => action.payload,
       prepare: (event) => ({
         payload: {
-          id: FuseUtils.generateGUID(),
+          // id: FuseUtils.generateGUID(),
           name: '',
           permissions: [],
         },
@@ -56,8 +64,9 @@ const planPermissionSlice = createSlice({
   },
 });
 
-export const { newPlanPermission, resetPlanPermission } = planPermissionSlice.actions;
+export const { newPlanPermission,setDataUpdated, resetPlanPermission } = planPermissionSlice.actions;
 
 export const selectPlanPermission = ({ planPermissionApp }) => planPermissionApp.planPermission;
+export const getDataUpdated = ({ planPermissionApp }) => planPermissionApp.planPermission ;
 
 export default planPermissionSlice.reducer;

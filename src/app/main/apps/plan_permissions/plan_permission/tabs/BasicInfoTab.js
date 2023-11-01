@@ -10,10 +10,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import _ from '@lodash';
 import React, { useEffect, useState } from 'react';
 import FuseLoading from '@fuse/core/FuseLoading';
+import { getDataUpdated , setDataUpdated } from '../../store/planPermissionSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-function BasicInfoTab( { handleData } ) {
+function BasicInfoTab({ handleData } ) {
   const methods = useFormContext();
   const { control, formState } = methods;
+  const dispatch = useDispatch();
   const { errors } = formState;
   const [plan, setPlan] = useState('');
   const [state, setState] = useState({});
@@ -23,7 +26,7 @@ function BasicInfoTab( { handleData } ) {
   const [edit, setEdit] = useState({});
   const [deleted, setDeleted] = useState({});
   const [show, setShow] = useState({});
-  const [dataUpdated, setDataUpdated] = useState({});
+  const dataUpdated = useSelector(getDataUpdated);
   const modules: any = {
     1: 'Role',
     2: 'User',
@@ -64,6 +67,8 @@ function BasicInfoTab( { handleData } ) {
     37: 'Form Builder',
     38: 'Form Field',
   };
+  const [ifEmpty, setIfEmpty] = useState(true);
+  const [id, setId] = useState(0);
 
 
   useEffect(() => {
@@ -77,7 +82,7 @@ function BasicInfoTab( { handleData } ) {
     const list_data_no_crud: string[] = [];
     // the result data without occurrences
     const data_no_crud_results: string[] = [];
-    formState.defaultValues.plan.permissions?.map((permission) => {
+    formState.defaultValues.plan?.permissions?.map((permission) => {
       if (permission.includes('Manage'))
         list_data_no_crud.push(permission.split('Manage ')[1]);
       if (permission.includes('Create'))
@@ -112,40 +117,112 @@ function BasicInfoTab( { handleData } ) {
 
     let manage_list_checked: any = {};
     Object.keys(modules).map(key => {
-      formState.defaultValues.plan.permissions?.includes('Manage ' + modules[key]) ? manage_list_checked[modules[key]] = true : manage_list_checked[modules[key]] = false;
+      formState.defaultValues.plan?.permissions?.includes('Manage ' + modules[key]) ? manage_list_checked[modules[key]] = true : manage_list_checked[modules[key]] = false;
     });
     setManage(() => ({ manage_list_checked }));
 
     let create_list_checked: any = {};
     Object.keys(modules).map(key => {
-      formState.defaultValues.plan.permissions?.includes('Create ' + modules[key]) ? create_list_checked[modules[key]] = true : create_list_checked[modules[key]] = false;
+      formState.defaultValues.plan?.permissions?.includes('Create ' + modules[key]) ? create_list_checked[modules[key]] = true : create_list_checked[modules[key]] = false;
     });
     setCreate(() => ({ create_list_checked }));
 
     let edit_list_checked: any = {};
     Object.keys(modules).map(key => {
-      formState.defaultValues.plan.permissions?.includes('Edit ' + modules[key]) ? edit_list_checked[modules[key]] = true : edit_list_checked[modules[key]] = false;
+      formState.defaultValues.plan?.permissions?.includes('Edit ' + modules[key]) ? edit_list_checked[modules[key]] = true : edit_list_checked[modules[key]] = false;
     });
     setEdit(() => ({ edit_list_checked }));
 
     let deleted_list_checked: any = {};
     Object.keys(modules).map(key => {
-      formState.defaultValues.plan.permissions?.includes('Delete ' + modules[key]) ? deleted_list_checked[modules[key]] = true : deleted_list_checked[modules[key]] = false;
+      formState.defaultValues.plan?.permissions?.includes('Delete ' + modules[key]) ? deleted_list_checked[modules[key]] = true : deleted_list_checked[modules[key]] = false;
     });
     setDeleted(() => ({ deleted_list_checked }));
 
     let show_list_checked: any = {};
     Object.keys(modules).map(key => {
-      formState.defaultValues.plan.permissions?.includes('Show ' + modules[key]) ? show_list_checked[modules[key]] = true : show_list_checked[modules[key]] = false;
+      formState.defaultValues.plan?.permissions?.includes('Show ' + modules[key]) ? show_list_checked[modules[key]] = true : show_list_checked[modules[key]] = false;
     });
     setShow(() => ({ show_list_checked }));
 
-    setPlan(() => (formState.defaultValues.plan.name));
+    setPlan(() => (formState.defaultValues.plan?.name));
 
 
   }, []);
 
+    useEffect(()=>{
+      // handleGetDataUpdated();
 
+    },[dispatch]);
+
+    // useEffect(async () => {
+    //   const response = await axios.get(`http://192.168.1.17:8000/api/plan_permission/`);
+    //   const data = await response.data;
+    //   if(formState.defaultValues.plan?.id === undefined) {
+    //     setId(data[data.length - 1].id+1);
+    //   }
+    //   else{
+    //     setId(formState.defaultValues.plan?.id);
+    //   }
+    //
+    // },[dispatch]);
+
+    useEffect(()=>{
+      if(formState.defaultValues.plan?.name === undefined){
+        setIfEmpty(false);
+      }   },[ifEmpty]);
+
+
+  if (data) {
+    //Release the permissions updated to affect in method save
+    let permissions = [];
+    Object.values(state).forEach(key => {
+      Object.keys(key).forEach(checkBoxParent => {
+        Object.values(manage).forEach(key => {
+          Object.keys(key).forEach(checkBoxManage => {
+            key[checkBoxManage] && key[checkBoxParent] ? permissions.push('Manage ' + checkBoxManage) : false;
+          });
+        });
+        Object.values(edit).forEach(key => {
+          Object.keys(key).forEach(checkBoxEdit => {
+            key[checkBoxEdit] && key[checkBoxParent] ? permissions.push('Edit ' + checkBoxEdit) : false;
+          });
+        });
+        Object.values(create).forEach(key => {
+          Object.keys(key).forEach(checkBoxCreate => {
+            key[checkBoxCreate] && key[checkBoxParent] ? permissions.push('Create ' + checkBoxCreate) : false;
+          });
+        });
+        Object.values(deleted).forEach(key => {
+          Object.keys(key).forEach(checkBoxDeleted => {
+            key[checkBoxDeleted] && key[checkBoxParent] ? permissions.push('Delete ' + checkBoxDeleted) : false;
+          });
+        });
+        Object.values(show).forEach(key => {
+          Object.keys(key).forEach(checkBoxShow => {
+            key[checkBoxShow] && key[checkBoxParent] ? permissions.push('Show ' + checkBoxShow) : false;
+          });
+        });
+      });
+    });
+    let permissions_no_repeat = new Set();
+    permissions?.forEach(entry => {
+      permissions_no_repeat.add(entry);
+    });
+      if(formState.defaultValues.plan?.id !== undefined) {
+        dataUpdated['id'] = formState.defaultValues.plan?.id;
+      }
+
+    dataUpdated['name'] = plan;
+    let permissions_list = [];
+    permissions_no_repeat.forEach((key, item) => {
+      permissions_list.push(item);
+    });
+    dataUpdated['permissions'] = permissions_list;
+    console.log(dataUpdated);
+    // dispatch(setDataUpdated(dataUpdated));
+    handleData(dataUpdated);
+  }
   let handleLabelPlan = event => {
     setPlan(event.target.value);
   };
@@ -197,56 +274,8 @@ function BasicInfoTab( { handleData } ) {
       },
     }));
   };
-  let handleGetDataUpdated = async () => {
-    if (data) {
-      //Release the permissions updated to affect in method save
-      let permissions = [];
-      Object.values(state).forEach(key => {
-        Object.keys(key).forEach(checkBoxParent => {
-          Object.values(manage).forEach(key => {
-            Object.keys(key).forEach(checkBoxManage => {
-              key[checkBoxManage] && key[checkBoxParent] ? permissions.push('Manage ' + checkBoxManage) : false;
-            });
-          });
-          Object.values(edit).forEach(key => {
-            Object.keys(key).forEach(checkBoxEdit => {
-              key[checkBoxEdit] && key[checkBoxParent] ? permissions.push('Edit ' + checkBoxEdit) : false;
-            });
-          });
-          Object.values(create).forEach(key => {
-            Object.keys(key).forEach(checkBoxCreate => {
-              key[checkBoxCreate] && key[checkBoxParent] ? permissions.push('Create ' + checkBoxCreate) : false;
-            });
-          });
-          Object.values(deleted).forEach(key => {
-            Object.keys(key).forEach(checkBoxDeleted => {
-              key[checkBoxDeleted] && key[checkBoxParent] ? permissions.push('Delete ' + checkBoxDeleted) : false;
-            });
-          });
-          Object.values(show).forEach(key => {
-            Object.keys(key).forEach(checkBoxShow => {
-              key[checkBoxShow] && key[checkBoxParent] ? permissions.push('Show ' + checkBoxShow) : false;
-            });
-          });
-        });
-      });
-      let permissions_no_repeat = new Set();
-      permissions?.forEach(entry => {
-        permissions_no_repeat.add(entry);
-      });
-      dataUpdated['id'] = formState.defaultValues.plan.id;
-      dataUpdated['name'] = plan;
-      let permissions_list = [];
-      permissions_no_repeat.forEach((key, item) => {
-        permissions_list.push(item);
-      });
-      dataUpdated['permissions'] = permissions_list;
-      // setDataUpdated({'name' : plan, 'permissions' : [permissions_list] });
-      console.log(dataUpdated);
-      await handleData(dataUpdated);
-    }
-  }
-  handleGetDataUpdated();
+
+
   if (!data) return (
     <div className='flex items-center justify-center h-full'>
       <FuseLoading />
@@ -259,10 +288,10 @@ function BasicInfoTab( { handleData } ) {
         control={control}
         render={({ field }) => (
           <TextField
-            className='mt-8 mb-16 min-w-lg'
+            className='mt-8 mb-16 '
             error={!!errors.name}
             required
-            disabled={true}
+          disabled={false}
             helperText={errors?.name?.message}
             label='Plan'
             value={plan}
@@ -278,7 +307,7 @@ function BasicInfoTab( { handleData } ) {
         name='Permissions'
         control={control}
         render={({ field }) => (
-          <Table stickyHeader className='min-w-lg' aria-labelledby='tableTitle'>
+          <Table stickyHeader className='min-w-full' aria-labelledby='tableTitle'>
             <TableHead style={{ backgroundColor: 'white' }}>
               <TableRow className='h-100 w-100 sm:h-100'>
                 <TableCell

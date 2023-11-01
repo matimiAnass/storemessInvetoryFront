@@ -85,7 +85,7 @@ function UsersTable(props) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
+    } else if (selectedIndex === selected?.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
@@ -113,7 +113,7 @@ function UsersTable(props) {
     );
   }
 
-  if (data.length === 0) {
+  if (data?.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -126,7 +126,11 @@ function UsersTable(props) {
       </motion.div>
     );
   }
-
+data.map((user)=>{
+  user.map((element)=>{
+    console.log(element.username);
+  })
+})
   return (
     <div className="w-full flex flex-col min-h-full">
       <FuseScrollbars className="grow overflow-x-auto">
@@ -136,26 +140,13 @@ function UsersTable(props) {
             order={user}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={data.length}
+            rowCount={data?.length}
             onMenuItemClick={handleDeselect}
           />
 
           <TableBody>
             {_.orderBy(
-              data,
-              [
-                (r) => {
-                  switch (user.id) {
-                    case 'name': {
-                      return r.categories[0];
-                    }
-                    default: {
-                      return r[user.id];
-                    }
-                  }
-                },
-              ],
-              [user.direction]
+              data
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((n) => {
@@ -185,7 +176,7 @@ function UsersTable(props) {
                       scope="row"
                       padding="none"
                     >
-                      {n.images.length > 0 && n.featuredImageId ? (
+                      {n.images?.length > 0 && n.featuredImageId ? (
                         <img
                           className="w-full block rounded"
                           src={_.find(n.images, { id: n.featuredImageId }).url}
@@ -201,11 +192,11 @@ function UsersTable(props) {
                     </TableCell>
 
                     <TableCell className="p-4 md:p-16" component="th" scope="row">
-                      {n.name}
+                      {n.username}
                     </TableCell>
 
                     <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
-                      {n.categories.join(', ')}
+                      {n.categories?.join(', ')}
                     </TableCell>
 
                     <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
@@ -246,7 +237,7 @@ function UsersTable(props) {
       <TablePagination
         className="shrink-0 border-t-1"
         component="div"
-        count={data.length}
+        count={data?.length}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{

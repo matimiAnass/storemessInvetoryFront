@@ -144,7 +144,6 @@ function PlanPermission(props) {
   /**
    * Wait while product data is loading and form is setted
    */
-  console.log(planPermission);
   if (
     _.isEmpty(form) ||
     (planPermission && parseInt(routeParams?.planPermissionId) !== planPermission?.plan?.id && routeParams.planPermissionId !== 'new'))

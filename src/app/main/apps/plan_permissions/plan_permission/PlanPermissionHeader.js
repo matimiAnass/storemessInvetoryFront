@@ -3,12 +3,12 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import _ from '@lodash';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { removePlanPermission, savePlanPermission } from '../store/planPermissionSlice';
-import { useEffect, useState } from 'react';
+import { getDataUpdated, removePlanPermission, savePlanPermission } from '../store/planPermissionSlice';
+import React, { useEffect, useState } from 'react';
 
 function PlanPermissionHeader({dataTab}) {
   const dispatch = useDispatch();
@@ -19,18 +19,29 @@ function PlanPermissionHeader({dataTab}) {
   const name = watch('name');
   const theme = useTheme();
   const navigate = useNavigate();
+  const dataUpdated = useSelector(getDataUpdated);
 
   useEffect(() =>
   {
-    if (data){
-      setState(true);
-    }
+    handleGetDisabledSave();
 
   },
-    []);
+    [dataUpdated]);
+
 
   function handleSavePlanPermission() {
-   dispatch(savePlanPermission(dataTab));
+    dispatch(savePlanPermission(dataTab)).then(()=>{
+      window.location.reload(true);
+    })
+  }
+  function handleGetDisabledSave() {
+    data.plan?.permissions.sort((a,b)=>
+      a.localeCompare(b));
+    dataUpdated?.plan?.permissions.sort((a,b)=>
+      a.localeCompare(b));
+    if (data.plan?.permissions === dataUpdated?.plan?.permissions){
+      setState(true);
+    }
   }
 
   function handleRemovePlanPermission() {
@@ -82,15 +93,15 @@ function PlanPermissionHeader({dataTab}) {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.3 } }}
       >
-        <Button
-          className="whitespace-nowrap mx-4"
-          variant="contained"
-          color="secondary"
-          onClick={handleRemovePlanPermission}
-          startIcon={<FuseSvgIcon className="hidden sm:flex">heroicons-outline:trash</FuseSvgIcon>}
-        >
-          Remove
-        </Button>
+        {/*<Button*/}
+        {/*  className="whitespace-nowrap mx-4"*/}
+        {/*  variant="contained"*/}
+        {/*  color="secondary"*/}
+        {/*  onClick={handleRemovePlanPermission}*/}
+        {/*  startIcon={<FuseSvgIcon className="hidden sm:flex">heroicons-outline:trash</FuseSvgIcon>}*/}
+        {/*>*/}
+        {/*  Remove*/}
+        {/*</Button>*/}
         <Button
           className="whitespace-nowrap mx-4"
           variant="contained"

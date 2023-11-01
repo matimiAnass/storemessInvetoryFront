@@ -2,9 +2,8 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 
 export const getUsers = createAsyncThunk('users/getUsers', async () => {
-  const response = await axios.get('/api/users');
+  const response = await axios.get(`http://192.168.1.17:8000/api/users/`);
   const data = await response.data;
-
   return data;
 });
 
