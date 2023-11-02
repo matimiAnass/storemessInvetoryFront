@@ -3,11 +3,12 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import _ from '@lodash';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { removeUser, saveUser } from '../store/userSlice';
+import { removeUser, saveUser, selectUser } from '../store/userSlice';
+import { useEffect, useState } from 'react';
+import _ from 'lodash';
 
 function UserHeader(props) {
   const dispatch = useDispatch();
@@ -16,9 +17,22 @@ function UserHeader(props) {
   const { isValid, dirtyFields } = formState;
   const featuredImageId = watch('featuredImageId');
   const images = watch('images');
+  const [state, setState] = useState(false);
   const name = watch('name');
   const theme = useTheme();
   const navigate = useNavigate();
+  const data = useSelector(selectUser);
+
+
+  console.log(data.userUpdated);
+  console.log('-----------------------------');
+  console.log(data.user);
+
+  useEffect(()=>{
+    if (_.isEqual(data.userUpdated,data.user===false)){
+      setState(true)
+    }
+  },[state])
 
   function handleSaveUser() {
     dispatch(saveUser(getValues()));
@@ -86,7 +100,7 @@ function UserHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
+          disabled={_.state || !state}
           onClick={handleSaveUser}
         >
           Save

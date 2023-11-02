@@ -3,10 +3,9 @@ import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
 export const getUser = createAsyncThunk('user/getUser', async (userId) => {
-  const response = await axios.get(`/api/users/${userId}`);
+  const response = await axios.get(`http://192.168.1.17:8000/api/users/${userId}`);
   const data = await response.data;
-
-  return data === undefined ? null : data;
+  return data ;
 });
 
 export const removeUser = createAsyncThunk(
@@ -32,34 +31,38 @@ export const saveUser = createAsyncThunk(
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: null,
+  initialState: { userUpdated : {}, user : null },
   reducers: {
-    resetUser: () => null,
+    setUserUpdated : (state, action) => {
+      state.userUpdated = action.payload;
+    },
+    resetUser: () => {},
     newUser: {
       reducer: (state, action) => action.payload,
       prepare: (event) => ({
         payload: {
-          id: FuseUtils.generateGUID(),
+          id:0,
           avatar: '',
           username: '',
           name: '',
           email: '',
           type: '',
-          status: '',
+          status: 0,
           active: true,
         },
       }),
     },
   },
   extraReducers: {
-    [getUser.fulfilled]: (state, action) => action.payload,
+    [getUser.fulfilled]: (state, action) => {
+      state.user = action.payload;
+    },
     [saveUser.fulfilled]: (state, action) => action.payload,
     [removeUser.fulfilled]: (state, action) => null,
   },
 });
 
-export const { newUser, resetUser } = userSlice.actions;
+export const { newUser, setUserUpdated,resetUser } = userSlice.actions;
 
-export const selectUser = ({ usersApp }) => usersApp.user;
-
+export const selectUser = ({ userApp }) => userApp?.user;
 export default userSlice.reducer;

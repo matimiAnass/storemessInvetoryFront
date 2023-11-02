@@ -32,7 +32,7 @@ const schema = yup.object().shape({
 
 function User(props) {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const data = useSelector(selectUser);
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   const routeParams = useParams();
@@ -74,14 +74,14 @@ function User(props) {
   }, [dispatch, routeParams]);
 
   useEffect(() => {
-    if (!user) {
+    if (!data) {
       return;
     }
     /**
      * Reset the form on product state changes
      */
-    reset(user);
-  }, [user, reset]);
+    reset(data);
+  }, [data, reset]);
 
   useEffect(() => {
     return () => {
@@ -131,7 +131,7 @@ function User(props) {
    */
   if (
     _.isEmpty(form) ||
-    (user && routeParams.userId !== user.id && routeParams.userId !== 'new')
+      (data && parseInt(routeParams?.userId) !== data?.user?.id && routeParams?.userId !== 'new')
   ) {
     return <FuseLoading />;
   }

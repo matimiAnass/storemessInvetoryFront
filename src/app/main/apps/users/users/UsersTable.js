@@ -31,6 +31,7 @@ function UsersTable(props) {
     direction: 'asc',
     id: null,
   });
+  const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
     dispatch(getUsers()).then(() => setLoading(false));
@@ -43,7 +44,7 @@ function UsersTable(props) {
       );
       setPage(0);
     } else {
-      setData(users);
+      setData(users[0]);
     }
   }, [users, searchText]);
 
@@ -74,7 +75,7 @@ function UsersTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/users/${item.id}/${item.handle}`);
+    props.navigate(`/apps/users/${item.id}/${item.name}`);
   }
 
   function handleCheck(event, id) {
@@ -126,11 +127,7 @@ function UsersTable(props) {
       </motion.div>
     );
   }
-data.map((user)=>{
-  user.map((element)=>{
-    console.log(element.username);
-  })
-})
+
   return (
     <div className="w-full flex flex-col min-h-full">
       <FuseScrollbars className="grow overflow-x-auto">
@@ -176,11 +173,13 @@ data.map((user)=>{
                       scope="row"
                       padding="none"
                     >
-                      {n.images?.length > 0 && n.featuredImageId ? (
+                      {n.avatar ? (
                         <img
-                          className="w-full block rounded"
-                          src={_.find(n.images, { id: n.featuredImageId }).url}
+                          className="w-60 block rounded"
+                          src={`http://192.168.1.17:8000/storage/upload/profile/${n.avatar}`}
                           alt={n.name}
+                          width="30" height="30"
+                          style={{backgroundColor:'transparent'}}
                         />
                       ) : (
                         <img
@@ -195,29 +194,20 @@ data.map((user)=>{
                       {n.username}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
-                      {n.categories?.join(', ')}
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" >
+                      {n.name}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-                      <span>$</span>
-                      {n.priceTaxIncl}
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
+                      {n.email}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-                      {n.quantity}
-                      <i
-                        className={clsx(
-                          'inline-block w-8 h-8 rounded mx-8',
-                          n.quantity <= 5 && 'bg-red',
-                          n.quantity > 5 && n.quantity <= 25 && 'bg-orange',
-                          n.quantity > 25 && 'bg-green'
-                        )}
-                      />
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
+                      {n.type}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-                      {n.active ? (
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
+                      {n.is_active ? (
                         <FuseSvgIcon className="text-green" size={20}>
                           heroicons-outline:check-circle
                         </FuseSvgIcon>

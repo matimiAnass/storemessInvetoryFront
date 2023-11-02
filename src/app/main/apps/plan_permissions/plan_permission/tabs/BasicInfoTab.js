@@ -155,17 +155,6 @@ function BasicInfoTab({ handleData } ) {
 
     },[dispatch]);
 
-    // useEffect(async () => {
-    //   const response = await axios.get(`http://192.168.1.17:8000/api/plan_permission/`);
-    //   const data = await response.data;
-    //   if(formState.defaultValues.plan?.id === undefined) {
-    //     setId(data[data.length - 1].id+1);
-    //   }
-    //   else{
-    //     setId(formState.defaultValues.plan?.id);
-    //   }
-    //
-    // },[dispatch]);
 
     useEffect(()=>{
       if(formState.defaultValues.plan?.name === undefined){
