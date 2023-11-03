@@ -24,18 +24,30 @@ function UserHeader(props) {
   const data = useSelector(selectUser);
 
 
-  console.log(data.userUpdated);
-  console.log('-----------------------------');
-  console.log(data.user);
-
   useEffect(()=>{
-    if (_.isEqual(data.userUpdated,data.user===false)){
+    const data_user_compare =
+      {id:data?.user?.id,username:data?.user?.username, name:data?.user?.name, phone:data?.user?.phone, gender:data?.user?.gender,
+        role:data?.user?.role, email:data?.user?.email, type:data?.user?.type, status:data?.user?.status, avatar:data?.user?.avatar}
+    if ( data?.userUpdated && Object.keys(data?.userUpdated).length !== 0){
+      if (_.isEqual(data?.userUpdated,data_user_compare)===false){
+        setState(true)
+      }
+      else{
+        setState(false)
+      }
+    }
+    if(data?.user === undefined){
       setState(true)
     }
-  },[state])
+  },[state,data?.userUpdated,data?.user])
 
   function handleSaveUser() {
-    dispatch(saveUser(getValues()));
+    let userData = {username:data?.userUpdated.username,name:data?.userUpdated.name, email:data?.userUpdated.email,
+    type:data?.userUpdated.type, status:data?.userUpdated.status, phone:data?.userUpdated.phone, gender:data?.userUpdated.gender,
+    role:data?.userUpdated.role, avatar:data?.userUpdated.avatar}
+    dispatch(saveUser(userData)).then(()=>{
+      window.location.reload(true);
+    });
   }
 
   function handleRemoveUser() {
@@ -74,7 +86,7 @@ function UserHeader(props) {
             animate={{ x: 0, transition: { delay: 0.3 } }}
           >
             <Typography className="text-16 sm:text-20 truncate font-semibold">
-              {name || 'New User'}
+              {data?.user?.username || 'New User'}
             </Typography>
             <Typography variant="caption" className="font-medium">
               User Detail

@@ -1,11 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
+import { getUsers } from './usersSlice';
 
 export const getUser = createAsyncThunk('user/getUser', async (userId) => {
   const response = await axios.get(`http://192.168.1.17:8000/api/users/${userId}`);
   const data = await response.data;
   return data ;
+});
+export const getListRoles = createAsyncThunk('user/getListRoles', async () => {
+  const response = await axios.get(`http://192.168.1.17:8000/api/roles/`);
+  const data = await response.data;
+  const list_roles = [];
+  for (const element of data) {
+    list_roles.push(element.name);
+  }
+  return list_roles ;
 });
 
 export const removeUser = createAsyncThunk(
@@ -19,9 +29,14 @@ export const removeUser = createAsyncThunk(
 export const saveUser = createAsyncThunk(
   'user/saveUser',
   async (userData, { dispatch, getState }) => {
-    const { id } = getState().usersApp;
-
-    const response = await axios.put(`/api/users/${id}`, userData);
+    const  id  = getState().userApp?.user?.user.id;
+    let response = {};
+    if(id === undefined) {
+      response = await axios.put(`http://192.168.1.17:8000/api/user/`, userData);
+    }
+    else{
+      response = await axios.put(`http://192.168.1.17:8000/api/user/${id}`, userData);
+    }
 
     const data = await response.data;
 
@@ -31,7 +46,7 @@ export const saveUser = createAsyncThunk(
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: { userUpdated : {}, user : null },
+  initialState: { userUpdated : {}, user : null, roles : null },
   reducers: {
     setUserUpdated : (state, action) => {
       state.userUpdated = action.payload;
@@ -54,6 +69,9 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
+    [getListRoles.fulfilled]: (state, action) => {
+      state.roles = action.payload;
+    },
     [getUser.fulfilled]: (state, action) => {
       state.user = action.payload;
     },
