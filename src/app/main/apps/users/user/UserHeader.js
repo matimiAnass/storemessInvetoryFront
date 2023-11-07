@@ -45,6 +45,13 @@ function UserHeader(props) {
     let userData = {username:data?.userUpdated.username,name:data?.userUpdated.name, email:data?.userUpdated.email,
     type:data?.userUpdated.type, status:data?.userUpdated.status, phone:data?.userUpdated.phone, gender:data?.userUpdated.gender,
     role:data?.userUpdated.role, avatar:data?.userUpdated.avatar}
+    if(data?.userUpdated.password !== undefined){
+      userData['password'] = data?.userUpdated.password
+      dispatch(saveUser(userData)).then(()=>{
+        navigate('/apps/users');
+      });
+
+    }
     dispatch(saveUser(userData)).then(()=>{
       window.location.reload(true);
     });

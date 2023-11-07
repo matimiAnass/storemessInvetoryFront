@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import { getUsers } from '../../store/usersSlice';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { useSlotProps } from '@mui/base';
 
 function BasicInfoTab(props) {
   const methods = useFormContext();
@@ -33,6 +34,8 @@ function BasicInfoTab(props) {
   let cntr = 0;
   const [ifTrue, setIfTrue] = useState(false);
   const [list, setList] = useState([]);
+  const [password, setPassword] = useState();
+  const [visible, setVisible] = useState(false);
 
 
   useEffect(()=>{
@@ -49,15 +52,28 @@ function BasicInfoTab(props) {
   },[list,roles])
 
   useEffect(()=>{
-    setUsername(()=>(data?.user?.username))
-    setName(()=>(data?.user?.name))
-    setEmail(()=>(data?.user?.email))
-    setType(()=>(data?.user?.type))
-    setStatus(()=>(data?.user?.status))
-    setAvatar(()=>(data?.user?.avatar))
-    setPhone(()=>(data?.user?.phone))
-    setGender(()=>(data?.user?.gender))
-    setRole(()=>(data?.user?.role))
+    if(data?.user !== undefined) {
+      setUsername(() => (data?.user?.username))
+      setName(() => (data?.user?.name))
+      setEmail(() => (data?.user?.email))
+      setType(() => (data?.user?.type))
+      setStatus(() => (data?.user?.status))
+      setAvatar(() => (data?.user?.avatar))
+      setPhone(() => (data?.user?.phone))
+      setGender(() => (data?.user?.gender))
+      setRole(() => (data?.user?.role))
+    }
+    else{
+      setUsername(() => (''))
+      setName(() => (''))
+      setEmail(() => (''))
+      setType(() => (''))
+      setStatus(() => (''))
+      setAvatar(() => (''))
+      setPhone(() => (''))
+      setGender(() => (''))
+      setRole(() => (''))
+    }
     dispatch(getListRoles());
   },[])
 
@@ -67,6 +83,12 @@ function BasicInfoTab(props) {
       setIfTrue(true);
     }
   },[roles,data?.roles])
+
+  useEffect(()=>{
+    if(data?.user !== undefined) {
+      setVisible(true);
+    }
+  },[visible,data?.user])
 
 
   useEffect(()=>{
@@ -78,7 +100,7 @@ function BasicInfoTab(props) {
   let handleLabelAvatar = event => {
     setAvatar(event.target.value)
     setUserObjectUpdated((v)=>({...v,avatar:event.target.value}))
-      dispatch(setUserUpdated(userObjectUpdated));
+      dispatch(setUserUpdated((v)=>({...v,username:event.target.value})));
   };
   let handleLabelUsername = event => {
     setUsername(event.target.value)
@@ -125,9 +147,19 @@ function BasicInfoTab(props) {
     setUserObjectUpdated((v)=>({...v,role:event.target.value}))
     dispatch(setUserUpdated((v)=>({...v,role:event.target.value})));
   };
+  let handleLabelPassword = event => {
+    if (!visible) {
+      setPassword(event.target.value)
+      setUserObjectUpdated((v) => ({ ...v, password: event.target.value }))
+      dispatch(setUserUpdated((v) => ({ ...v, password: event.target.value })));
+    }
+  };
   useEffect(()=>{
     Object.values(userObjectUpdated).map((val)=>{if(val!==undefined) nbr++ })
     if ( userUpdated && Object.keys(userUpdated).length === 0 && nbr === 10) {
+      dispatch(setUserUpdated(userObjectUpdated));
+    }
+    if (!visible && userUpdated && Object.keys(userUpdated).length === 0 && nbr === 11){
       dispatch(setUserUpdated(userObjectUpdated));
     }
   },[userObjectUpdated])
@@ -136,6 +168,47 @@ function BasicInfoTab(props) {
 
   return (
     <div>
+      <Controller
+        name="Email"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            className="mt-8 mb-16"
+            error={!!errors.name}
+            required
+            helperText={errors?.name?.message}
+            label="Email"
+            value={email || ""}
+            onChange={handleLabelEmail}
+            autoFocus
+            id="email"
+            variant="outlined"
+            fullWidth
+          />
+        )}
+      />
+      <Controller
+        name="Password"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            className="mt-8 mb-16"
+            error={!!errors.name}
+            required
+            helperText={errors?.name?.message}
+            label="Password"
+            value={password || ""}
+            onChange={handleLabelPassword}
+            autoFocus
+            type={'password'}
+            id="password"
+            disabled={visible}
+            variant="outlined"
+            fullWidth
+          />
+        )}
+      />
       <Controller
         name="Avatar"
         control={control}
@@ -259,27 +332,6 @@ function BasicInfoTab(props) {
           </FormControl>
         )}
       />
-      <Controller
-        name="Email"
-        control={control}
-        render={({ field }) => (
-          <TextField
-          {...field}
-            className="mt-8 mb-16"
-            error={!!errors.name}
-            required
-            helperText={errors?.name?.message}
-            label="Email"
-            value={email || ""}
-            onChange={handleLabelEmail}
-            autoFocus
-            id="email"
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-
       <Controller
         name="Type"
         control={control}

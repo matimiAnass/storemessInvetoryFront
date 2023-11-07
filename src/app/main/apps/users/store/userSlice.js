@@ -21,20 +21,21 @@ export const getListRoles = createAsyncThunk('user/getListRoles', async () => {
 export const removeUser = createAsyncThunk(
   'user/removeUser',
   async (val, { dispatch, getState }) => {
-    const { id } = getState().usersApp.user;
-    await axios.delete(`/api/users/${id}`);
+    const  id  = getState().userApp?.user?.user.id;
+    await axios.delete(`http://192.168.1.17:8000/api/user/${id}`);
     return id;
   }
 );
 export const saveUser = createAsyncThunk(
   'user/saveUser',
   async (userData, { dispatch, getState }) => {
-    const  id  = getState().userApp?.user?.user.id;
     let response = {};
-    if(id === undefined) {
-      response = await axios.put(`http://192.168.1.17:8000/api/user/`, userData);
+    console.log(getState().userApp?.user.user);
+    if(getState().userApp?.user?.user === undefined) {
+      response = await axios.post(`http://192.168.1.17:8000/api/user/`, userData);
     }
     else{
+      const  id  = getState().userApp?.user?.user.id;
       response = await axios.put(`http://192.168.1.17:8000/api/user/${id}`, userData);
     }
 
