@@ -53,7 +53,7 @@ function UserHeader(props) {
 
     }
     dispatch(saveUser(userData)).then(()=>{
-      window.location.reload(true);
+      navigate('/apps/users');
     });
   }
 

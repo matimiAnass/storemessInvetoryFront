@@ -35,6 +35,7 @@ function PlanPermissionsTable(props) {
     id: null,
   });
 
+
   useEffect(() => {
     dispatch(getPlanPermissions()).then(() => setLoading(false));
   }, [dispatch]);
@@ -174,7 +175,7 @@ function PlanPermissionsTable(props) {
 
                     <TableCell className='p-4 md:p-16' component='th' scope='row'>
                       {ct.permissions.map((pr) => {
-                        return (<Chip key={pr.id} className="ml-5 mt-5" style={{ background: `linear-gradient(slateblue, black)` }} label={pr.name} variant='outlined'/>)
+                        return (<Chip key={pr.id} className="ml-5 mt-5" style={{ background: `linear-gradient(slateblue, white)` }} label={pr.name} variant='outlined'/>)
                       })}
                     </TableCell>
 

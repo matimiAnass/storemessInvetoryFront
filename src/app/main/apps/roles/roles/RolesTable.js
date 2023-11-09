@@ -171,7 +171,7 @@ function RolesTable(props) {
 
                     <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
                       {ct.permissions.map((pr) => {
-                        return (<Chip className="ml-5" style={{ background: 'slateblue' }} label={pr} variant='outlined'/>)
+                        return (<Chip className="ml-5" style={{ background:  `linear-gradient(slateblue, white)` }} label={pr} variant='outlined'/>)
                       })}
                     </TableCell>
 

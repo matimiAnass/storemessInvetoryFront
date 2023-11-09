@@ -53,25 +53,25 @@ function AnalyticsDashboardApp() {
                   initial="hidden"
                   animate="show"
                 >
-                  <motion.div variants={item} className="sm:col-span-2 lg:col-span-3">
+                  <motion.div variants={item} className="sm:col-span-3 lg:col-span-3">
                     <VisitorsOverviewWidget />
                   </motion.div>
 
-                  <motion.div variants={item} className="sm:col-span-2 lg:col-span-1 ">
-                    <ConversionsWidget />
-                  </motion.div>
+                  {/*<motion.div variants={item} className="sm:col-span-2 lg:col-span-1 ">*/}
+                  {/*  <ConversionsWidget />*/}
+                  {/*</motion.div>*/}
 
-                  <motion.div variants={item} className="sm:col-span-2 lg:col-span-1 ">
-                    <ImpressionsWidget />
-                  </motion.div>
+                  {/*<motion.div variants={item} className="sm:col-span-2 lg:col-span-1 ">*/}
+                  {/*  <ImpressionsWidget />*/}
+                  {/*</motion.div>*/}
 
-                  <motion.div variants={item} className="sm:col-span-2 lg:col-span-1 ">
+                  <motion.div variants={item} className="sm:col-span-3 lg:col-span-3">
                     <VisitsWidget />
                   </motion.div>
 
-                  <motion.div variants={item} className="sm:col-span-2 lg:col-span-3">
-                    <VisitorsVsPageViewsWidget />
-                  </motion.div>
+                  {/*<motion.div variants={item} className="sm:col-span-2 lg:col-span-3">*/}
+                  {/*  <VisitorsVsPageViewsWidget />*/}
+                  {/*</motion.div>*/}
 
                   <div className="w-full mt-16 sm:col-span-3">
                     <Typography className="text-2xl font-semibold tracking-tight leading-6">
@@ -82,19 +82,19 @@ function AnalyticsDashboardApp() {
                     </Typography>
                   </div>
 
-                  <div className="sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-32 w-full">
-                    <motion.div variants={item} className="">
-                      <NewVsReturningWidget />
-                    </motion.div>
-                    <motion.div variants={item} className="">
+                  <div className="sm:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-32 w-full">
+                    {/*<motion.div variants={item} className="">*/}
+                    {/*  <NewVsReturningWidget />*/}
+                    {/*</motion.div>*/}
+                    <motion.div variants={item} className="sm:col-span-1 lg:col-span-1">
                       <GenderWidget />
                     </motion.div>
-                    <motion.div variants={item} className="">
-                      <AgeWidget />
-                    </motion.div>
-                    <motion.div variants={item} className="">
-                      <LanguageWidget />
-                    </motion.div>
+                    {/*<motion.div variants={item} className="sm:col-span-1 lg:col-span-1">*/}
+                    {/*  <AgeWidget />*/}
+                    {/*</motion.div>*/}
+                    {/*<motion.div variants={item} className="">*/}
+                    {/*  <LanguageWidget />*/}
+                    {/*</motion.div>*/}
                   </div>
                 </motion.div>
               )
