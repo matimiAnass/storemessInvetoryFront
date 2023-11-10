@@ -89,6 +89,22 @@ const navigationConfig = [
           },
         ],
       },
+      {
+        id: 'apps.contracts',
+        title: 'Contract',
+        type: 'item',
+        icon: 'heroicons-outline:flag',
+        url: '/apps/contracts',
+        translate: 'Contract',
+        children: [
+          {
+            id: 'new-contract',
+            title: 'New Contract',
+            type: 'item',
+            url: 'apps/contracts/new',
+          },
+        ],
+      },
       // {
       //   id: 'apps.chat',
       //   title: 'Chat',

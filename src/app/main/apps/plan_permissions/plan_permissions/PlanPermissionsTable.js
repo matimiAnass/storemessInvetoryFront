@@ -29,12 +29,35 @@ function PlanPermissionsTable(props) {
   const [selected, setSelected] = useState([]);
   const [data, setData] = useState(planPermissions);
   const [page, setPage] = useState(0);
+  const [permissions, setPermissions] = useState([]);
+  const [permissionsList, setPermissionsList] = useState([]);
+  let permissionsSet = new Set();
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [planPermission, setPlanPermission] = useState({
     direction: 'asc',
     id: null,
   });
 
+
+  useEffect(() => {
+    data.map((ct)=>{
+      ct.permissions.map((pr)=>{
+        setPermissions((v)=>[...v,pr.name.split(" ")[1]])
+      })
+    })
+  }, [permissions,data]);
+
+  useEffect(() => {
+    permissions?.forEach(entry => {
+      permissionsSet.add(entry);
+    });
+  }, [permissions,permissionsSet]);
+
+  useEffect(() => {
+    permissionsSet?.forEach((d) => {
+      setPermissionsList((v)=>[...v,d])
+    });
+  }, [permissionsSet]);
 
   useEffect(() => {
     dispatch(getPlanPermissions()).then(() => setLoading(false));

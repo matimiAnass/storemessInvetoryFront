@@ -20,8 +20,10 @@ import SalesOrdersAppConfig from './salesOrders/SalesOrdersAppConfig';
 import InvoicesAppConfig from './invoices/InvoicesAppConfig';
 import ConstantsAppConfig from './constants/ConstantsAppConfig';
 import PlanPermissionsAppConfig from './plan_permissions/PlanPermissionsAppConfig';
+import ContractsAppConfig from './contracts/ContractsAppConfig';
 
 const appsConfigs = [
+  ContractsAppConfig,
   PlanPermissionsAppConfig,
   ConstantsAppConfig,
   InvoicesAppConfig,

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getWidgets = createAsyncThunk('analyticsDashboardApp/widgets/getWidgets', async () => {
-  const response = await axios.get('http://192.168.1.17:8000/api/counter/genders');
+  const response = await axios.get('http://192.168.1.17:8000/api/counter/visitors');
 
   const data = await response.data;
 
