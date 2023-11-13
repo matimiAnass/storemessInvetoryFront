@@ -10,7 +10,7 @@ import { selectWidgets } from '../store/widgetsSlice';
 
 function BudgetWidget(props) {
   const widgets = useSelector(selectWidgets);
-  const { expenses, expensesLimit, savings, savingsGoal, bills, billsLimit } = widgets?.budget;
+  const { totalContract, totalLimit, totalContractMonth, totalMonthLimit, totalContractWeek, totalWeekLimit,totalContract30Days,total30DaysLimit } = widgets?.budget;
 
   function calcProgressVal(val, limit) {
     const percentage = (val * 100) / limit;
@@ -23,10 +23,10 @@ function BudgetWidget(props) {
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <Typography className="mr-16 text-lg font-medium tracking-tight leading-6 truncate">
-            Budget
+            Contract
           </Typography>
           <Typography className="font-medium" color="text.secondary">
-            Monthly budget summary
+            Monthly contract summary
           </Typography>
         </div>
         <div className="-mt-8">
@@ -37,11 +37,40 @@ function BudgetWidget(props) {
       </div>
 
       <Typography className="mt-24">
-        Last month; you had <strong>223</strong> expense transactions, <strong>12</strong> savings
-        entries and <strong>4</strong> bills.
+        Last month; you had <strong>223</strong> contracts, <strong>12</strong> per month, per week and <strong>4</strong> per day.
       </Typography>
 
       <div className="my-32 space-y-32">
+        <div className="flex flex-col">
+          <div className="flex items-center space-x-16">
+            <div className="flex items-center justify-center w-56 h-56 rounded bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-blue-50">
+              <FuseSvgIcon className="text-current">heroicons-outline:presentation-chart-bar</FuseSvgIcon>
+            </div>
+            <div className="flex-auto leading-none">
+              <Typography className="text-12 font-medium" color="text.secondary">
+                Total Contract
+              </Typography>
+              <Typography className="font-medium text-20">
+                {totalContract.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                })}
+              </Typography>
+              <LinearProgress
+                variant="determinate"
+                className="mt-4"
+                color="secondary"
+                value={calcProgressVal(totalContract, totalLimit)}
+              />
+            </div>
+            <div className="flex items-end justify-end min-w-72 mt-auto ml-24">
+              <div className="text-lg leading-none">0.6%</div>
+              <FuseSvgIcon size={16} className="text-green-600">
+                heroicons-solid:arrow-narrow-down
+              </FuseSvgIcon>
+            </div>
+          </div>
+        </div>
         <div className="flex flex-col">
           <div className="flex items-center space-x-16">
             <div className="flex items-center justify-center w-56 h-56 rounded bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50">
@@ -49,10 +78,10 @@ function BudgetWidget(props) {
             </div>
             <div className="flex-auto leading-none">
               <Typography className="text-12 font-medium" color="text.secondary">
-                Expenses
+                This Month Total Contract
               </Typography>
               <Typography className="font-medium text-20">
-                {expenses.toLocaleString('en-US', {
+                {totalContractMonth.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD',
                 })}
@@ -61,7 +90,7 @@ function BudgetWidget(props) {
                 variant="determinate"
                 className="mt-4"
                 color="warning"
-                value={calcProgressVal(expenses, expensesLimit)}
+                value={calcProgressVal(totalContractMonth, totalMonthLimit)}
               />
             </div>
             <div className="flex items-end justify-end min-w-72 mt-auto ml-24">
@@ -79,10 +108,10 @@ function BudgetWidget(props) {
             </div>
             <div className="flex-auto leading-none">
               <Typography className="text-12 font-medium" color="text.secondary">
-                Savings
+                This Week Total Contracts
               </Typography>
               <Typography className="font-medium text-20">
-                {savings.toLocaleString('en-US', {
+                {totalContractWeek.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD',
                 })}
@@ -91,7 +120,7 @@ function BudgetWidget(props) {
                 variant="determinate"
                 className="mt-4"
                 color="primary"
-                value={calcProgressVal(savings, savingsGoal)}
+                value={calcProgressVal(totalContractWeek, totalWeekLimit)}
               />
             </div>
             <div className="flex items-end justify-end min-w-72 mt-auto">
@@ -109,10 +138,10 @@ function BudgetWidget(props) {
             </div>
             <div className="flex-auto leading-none">
               <Typography className="text-12 font-medium" color="text.secondary">
-                Bills
+                Last 30 Days Total Contracts
               </Typography>
               <Typography className="font-medium text-20">
-                {bills.toLocaleString('en-US', {
+                {totalContract30Days.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD',
                 })}
@@ -121,7 +150,7 @@ function BudgetWidget(props) {
                 variant="determinate"
                 className="mt-4"
                 color="secondary"
-                value={calcProgressVal(bills, billsLimit)}
+                value={calcProgressVal(totalContract30Days, total30DaysLimit)}
               />
             </div>
             <div className="flex items-end justify-end min-w-72 mt-auto">

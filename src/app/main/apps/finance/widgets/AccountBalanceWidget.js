@@ -9,8 +9,7 @@ import { selectWidgets } from '../store/widgetsSlice';
 function AccountBalanceWidget(props) {
   const theme = useTheme();
   const widgets = useSelector(selectWidgets);
-  const { series, growRate, ami } = widgets?.accountBalance;
-
+  const { series, growRate, ami } = widgets?.contractBalance;
   const chartOptions = {
     chart: {
       animations: {
@@ -59,7 +58,7 @@ function AccountBalanceWidget(props) {
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
             <Typography className="mr-16 text-lg font-medium tracking-tight leading-6 truncate">
-              Account Balance
+              Contract Balance
             </Typography>
             <Typography className="font-medium" color="text.secondary">
               Monthly balance growth and avg. monthly income

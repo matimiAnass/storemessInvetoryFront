@@ -21,8 +21,10 @@ import InvoicesAppConfig from './invoices/InvoicesAppConfig';
 import ConstantsAppConfig from './constants/ConstantsAppConfig';
 import PlanPermissionsAppConfig from './plan_permissions/PlanPermissionsAppConfig';
 import ContractsAppConfig from './contracts/ContractsAppConfig';
+import FinanceDashboardAppConfig from './finance/FinanceDashboardAppConfig';
 
 const appsConfigs = [
+  FinanceDashboardAppConfig,
   ContractsAppConfig,
   PlanPermissionsAppConfig,
   ConstantsAppConfig,

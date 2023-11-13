@@ -58,7 +58,37 @@ function RecentTransactionsWidget(props) {
                         </TableCell>
                       );
                     }
-                    case 'date': {
+                    case 'client name': {
+                      return (
+                        <TableCell key={key} component="th" scope="row">
+                          <Typography className="">
+                            {value}
+                          </Typography>
+                        </TableCell>
+                      );
+                    }
+                    case 'value': {
+                      return (
+                        <TableCell key={key} component="th" scope="row">
+                          <Typography className="">
+                            {value.toLocaleString('en-US', {
+                              style: 'currency',
+                              currency: 'USD',
+                            })}
+                          </Typography>
+                        </TableCell>
+                      );
+                    }
+                    case 'type': {
+                      return (
+                        <TableCell key={key} component="th" scope="row">
+                          <Typography className="">
+                            {value}
+                          </Typography>
+                        </TableCell>
+                      );
+                    }
+                    case 'start date': {
                       return (
                         <TableCell key={key} component="th" scope="row">
                           <Typography className="">
@@ -67,14 +97,11 @@ function RecentTransactionsWidget(props) {
                         </TableCell>
                       );
                     }
-                    case 'amount': {
+                    case 'end date': {
                       return (
                         <TableCell key={key} component="th" scope="row">
                           <Typography className="">
-                            {value.toLocaleString('en-US', {
-                              style: 'currency',
-                              currency: 'USD',
-                            })}
+                            {format(new Date(value), 'MMM dd, y')}
                           </Typography>
                         </TableCell>
                       );

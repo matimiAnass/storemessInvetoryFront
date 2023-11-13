@@ -28931,7 +28931,7 @@
       },
       "finance_dashboard_widgets": {
         "value": {
-          "accountBalance": {
+          "contractBalance": {
             "growRate": 38.33,
             "ami": 45332,
             "series": [
@@ -29908,69 +29908,69 @@
             ]
           },
           "budget": {
-            "expenses": 11763.34,
-            "expensesLimit": 20000,
-            "savings": 10974.12,
-            "savingsGoal": 250000,
-            "bills": 1789.22,
-            "billsLimit": 1000
-          },
-          "previousStatement": {
-            "status": "paid",
-            "date": "February 6, 2022",
-            "limit": 34500,
-            "spent": 27221.21,
-            "minimum": 7331.94
-          },
-          "currentStatement": {
-            "status": "pending",
-            "date": "March 6, 2022",
-            "limit": 34500,
-            "spent": 39819.41,
-            "minimum": 9112.51
+            "totalContract": 11763.34,
+            "totalLimit": 250000,
+            "totalContractMonth": 10974.12,
+            "totalMonthLimit":4000,
+            "totalContractWeek": 1789.22,
+            "totalWeekLimit": 1000,
+            "totalContract30Days": 1789.22,
+            "total30DaysLimit": 2500
           },
           "recentTransactions": {
             "columns": [
-              "Transaction ID",
-              "Date",
+              "Id",
               "Name",
-              "Amount",
+              "Value",
+              "Type",
+              "Start Date",
+              "End Date",
               "Status"
             ],
             "rows":[
                     {
                       "id": "528651571NT",
-                      "date": "2019-10-07T22:22:37.274Z",
-                      "name": "Morgan Page",
-                      "amount": 1358.75,
+                      "name": "Work Contract",
+                      "value": 1358.75,
+                      "type": "CDI",
+                      "start date": "2019-10-07T22:22:37.274Z",
+                      "end date": "2023-10-07T22:22:37.274Z",
                       "status": "completed"
                     },
                     {
                       "id": "421436904YT",
-                      "date": "2019-12-18T14:51:24.461Z",
-                      "name": "Nita Hebert",
-                      "amount": -1042.82,
+                      "name": "Work Contract",
+                      "value": 1042.82,
+                      "type": "CDD",
+                      "start date": "2019-12-18T14:51:24.461Z",
+                      "end date": "2023-12-18T14:51:24.461Z",
                       "status": "completed"
                     },
                     {
                       "id": "685377421YT",
-                      "date": "2019-12-25T17:52:14.304Z",
                       "name": "Marsha Chambers",
-                      "amount": 1828.16,
+                      "value": 1828.16,
+                      "type": "CDI",
+                      "start date": "2019-12-25T17:52:14.304Z",
+                      "end date": "2023-12-25T17:52:14.304Z",
                       "status": "pending"
                     },
                     {
                       "id": "884960091RT",
-                      "date": "2019-11-29T06:32:16.111Z",
                       "name": "Charmaine Jackson",
-                      "amount": 1647.55,
+                      "value": 1647.55,
+                      "type": "CDD",
+                      "start date": "2019-11-29T06:32:16.111Z",
+                      "end date": "2023-11-29T06:32:16.111Z",
                       "status": "completed"
                     },
                     {
                       "id": "361402213NT",
-                      "date": "2019-11-24T12:13:23.064Z",
                       "name": "Maura Carey",
-                      "amount": -927.43,
+                      "value": 927.43,
+                      "type": "Stage",
+                      "start date": "2019-11-24T12:13:23.064Z",
+                      "end date": "2023-11-24T12:13:23.064Z",
                       "status": "completed"
                     }
                   ]
