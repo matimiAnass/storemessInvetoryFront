@@ -2,23 +2,27 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getContract = createAsyncThunk('user/getContract', async (contractId) => {
-  const response = await axios.get(`/api/accounts/${contractId}`);
+export const getContract = createAsyncThunk('contract/getContract', async (contractId) => {
+  const response = await axios.get(`http://192.168.1.17:8000/api/contract/${contractId}`);
   const data = await response.data;
-
-  return data === undefined ? null : data;
+  return data;
+});
+export const getDropdownList = createAsyncThunk('contract/getDropdownList', async () => {
+  const response = await axios.get(`http://192.168.1.17:8000/api/createApiDropdownList`);
+  const data = await response.data;
+  return data;
 });
 
 export const removeContract = createAsyncThunk(
   'account/removeContract',
   async (val, { dispatch, getState }) => {
-    const { id } = getState().contractsApp.contract;
+    const { id } = getState().contractApp.contract;
     await axios.delete(`/api/contracts/${id}`);
     return id;
   }
 );
 export const saveContract = createAsyncThunk(
-  'account/saveContract',
+  'contract/saveContract',
   async (contractData, { dispatch, getState }) => {
     const { id } = getState().contractsApp;
 
@@ -32,7 +36,7 @@ export const saveContract = createAsyncThunk(
 
 const contractSlice = createSlice({
   name: 'contract',
-  initialState: null,
+  initialState: { contract : null, dropDownLists : null },
   reducers: {
     resetContract: () => null,
     newContract: {
@@ -53,7 +57,12 @@ const contractSlice = createSlice({
     },
   },
   extraReducers: {
-    [getContract.fulfilled]: (state, action) => action.payload,
+    [getContract.fulfilled]: (state, action) => {
+      state.contract = action.payload;
+    },
+    [getDropdownList.fulfilled]: (state, action) => {
+      state.dropDownLists = action.payload;
+    },
     [saveContract.fulfilled]: (state, action) => action.payload,
     [removeContract.fulfilled]: (state, action) => null,
   },

@@ -16,6 +16,7 @@ import FuseLoading from '@fuse/core/FuseLoading';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { getContracts, selectContracts, selectContractsSearchText } from '../store/contractsSlice';
 import ContractsTableHead from './ContractsTableHead';
+import format from 'date-fns/format';
 
 function ContractsTable(props) {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function ContractsTable(props) {
   useEffect(() => {
     if (searchText?.length !== 0) {
       setData(
-        _.filter(contracts, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
+        _.filter(contracts, (item) => item.name?.toLowerCase().includes(searchText?.toLowerCase())),
       );
       setPage(0);
     } else {
@@ -74,7 +75,7 @@ function ContractsTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/contracts/${item.id}/${item.handle}`);
+    props.navigate(`/apps/contracts/${item.id}/${item.client_name}`);
   }
 
   function handleCheck(event, id) {
@@ -85,7 +86,7 @@ function ContractsTable(props) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
+    } else if (selectedIndex === selected?.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
@@ -113,7 +114,8 @@ function ContractsTable(props) {
     );
   }
 
-  if (data.length === 0) {
+
+  if (data?.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -136,25 +138,13 @@ function ContractsTable(props) {
             order={contract}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={data.length}
+            rowCount={data?.length}
             onMenuItemClick={handleDeselect}
           />
 
           <TableBody>
             {_.orderBy(
               data,
-              [
-                (r) => {
-                  switch (contract.id) {
-                    case 'name': {
-                      return r.categories[0];
-                    }
-                    default: {
-                      return r[contract.id];
-                    }
-                  }
-                },
-              ],
               [contract.direction],
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -171,7 +161,7 @@ function ContractsTable(props) {
                     selected={isSelected}
                     onClick={(event) => handleClick(n)}
                   >
-                    <TableCell className='w-40 md:w-64 text-center' padding='none'>
+                    <TableCell align='left' className='w-40 md:w-64 text-center' padding='none'>
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
@@ -179,62 +169,46 @@ function ContractsTable(props) {
                       />
                     </TableCell>
 
-                    <TableCell
-                      className='w-52 px-4 md:px-0'
+                    <TableCell align='left'
+                      className='p-4 md:p-16'
                       component='th'
                       scope='row'
-                      padding='none'
                     >
-                      {n.images.length > 0 && n.featuredImageId ? (
-                        <img
-                          className='w-full block rounded'
-                          src={_.find(n.images, { id: n.featuredImageId }).url}
-                          alt={n.name}
-                        />
-                      ) : (
-                        <img
-                          className='w-full block rounded'
-                          src='assets/images/apps/ecommerce/product-image-placeholder.png'
-                          alt={n.name}
-                        />
-                      )}
-                    </TableCell>
-
-                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
                       {n.name}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
-                      {n.categories.join(', ')}
+                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row'>
+                      {n.client_name}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
+                    <TableCell align='left' className='p-4 md:p-16 truncate' component='th' scope='row'>
                       <span>$</span>
-                      {n.priceTaxIncl}
+                      {n.value}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
-                      {n.quantity}
-                      <i
+                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                      {n.type}
+                    </TableCell>
+
+                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                      {format(new Date(n.start_date), 'MMM dd, y')}
+                    </TableCell>
+                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                      {format(new Date(n.end_date), 'MMM dd, y')}
+                    </TableCell>
+
+                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                      <Typography
                         className={clsx(
-                          'inline-block w-8 h-8 rounded mx-8',
-                          n.quantity <= 5 && 'bg-red',
-                          n.quantity > 5 && n.quantity <= 25 && 'bg-orange',
-                          n.quantity > 25 && 'bg-green',
+                          'inline-flex items-center font-bold text-10 px-10 py-2 rounded-full tracking-wide uppercase',
+                          n.status === 'Close' &&
+                          'bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50',
+                          n.status === 'Start' &&
+                          'bg-green-50 text-green-800 dark:bg-green-600 dark:text-green-50'
                         )}
-                      />
-                    </TableCell>
-
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
-                      {n.active ? (
-                        <FuseSvgIcon className='text-green' size={20}>
-                          heroicons-outline:check-circle
-                        </FuseSvgIcon>
-                      ) : (
-                        <FuseSvgIcon className='text-red' size={20}>
-                          heroicons-outline:minus-circle
-                        </FuseSvgIcon>
-                      )}
+                      >
+                        {n.status}
+                      </Typography>
                     </TableCell>
                   </TableRow>
                 );
@@ -246,7 +220,7 @@ function ContractsTable(props) {
       <TablePagination
         className='shrink-0 border-t-1'
         component='div'
-        count={data.length}
+        count={data?.length}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{

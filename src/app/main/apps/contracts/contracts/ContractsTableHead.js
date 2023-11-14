@@ -71,7 +71,7 @@ const rows = [
 
 function ContractsTableHead(props) {
   const { selectedContractIds } = props;
-  const numSelected = selectedContractIds.length;
+  const numSelected = selectedContractIds?.length;
 
   const [selectedContractsMenu, setSelectedContractsMenu] = useState(null);
 

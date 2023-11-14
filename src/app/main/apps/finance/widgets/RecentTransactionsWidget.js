@@ -11,10 +11,16 @@ import format from 'date-fns/format';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import { selectWidgets } from '../store/widgetsSlice';
+import { useNavigate } from 'react-router-dom';
+import { savePlanPermission } from '../../plan_permissions/store/planPermissionSlice';
 
 function RecentTransactionsWidget(props) {
   const widgets = useSelector(selectWidgets);
   const { columns, rows } = widgets?.recentTransactions;
+  const navigate = useNavigate();
+  function handleNavigateToContracts() {
+    navigate('/apps/contracts');
+  }
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -112,9 +118,9 @@ function RecentTransactionsWidget(props) {
                           <Typography
                             className={clsx(
                               'inline-flex items-center font-bold text-10 px-10 py-2 rounded-full tracking-wide uppercase',
-                              value === 'pending' &&
+                              value === 'Close' &&
                                 'bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50',
-                              value === 'completed' &&
+                              value === 'Start' &&
                                 'bg-green-50 text-green-800 dark:bg-green-600 dark:text-green-50'
                             )}
                           >
@@ -137,7 +143,9 @@ function RecentTransactionsWidget(props) {
           </TableBody>
         </Table>
         <div className="pt-24">
-          <Button variant="outlined">See all transactions</Button>
+          <Button variant="outlined"
+                  onClick={handleNavigateToContracts}
+          >See all transactions</Button>
         </div>
       </div>
     </Paper>

@@ -14,7 +14,7 @@ const ContractsAppConfig = {
     },
     {
       path: 'apps/contracts/:contractId/*',
-      element: <Contracts />,
+      element: <Contract />,
     },
 
   ],

@@ -15,7 +15,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getContract, newContract, resetContract, selectContract } from '../store/contractSlice';
+import { getContract, getDropdownList, newContract, resetContract, selectContract } from '../store/contractSlice';
 import reducer from '../store';
 import ContractHeader from './ContractHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -32,7 +32,8 @@ const schema = yup.object().shape({
 
 function Contract(props) {
   const dispatch = useDispatch();
-  const contract = useSelector(selectContract);
+  const data = useSelector(selectContract);
+  const contract = data.contract;
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   const routeParams = useParams();
@@ -45,6 +46,7 @@ function Contract(props) {
   });
   const { reset, watch, control, onChange, formState } = methods;
   const form = watch();
+
 
   useDeepCompareEffect(() => {
     function updateContractState() {
@@ -82,6 +84,7 @@ function Contract(props) {
      */
     reset(contract);
   }, [contract, reset]);
+
 
   useEffect(() => {
     return () => {
@@ -131,8 +134,8 @@ function Contract(props) {
    */
   if (
     _.isEmpty(form) ||
-    (contract && routeParams.userId !== contract.id && routeParams.contractId !== 'new')
-  ) {
+    (contract && parseInt(routeParams?.contractId) !== contract?.id && routeParams?.contractId !== 'new'))
+  {
     return <FuseLoading />;
   }
 
