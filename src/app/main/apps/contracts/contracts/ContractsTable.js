@@ -17,6 +17,7 @@ import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { getContracts, selectContracts, selectContractsSearchText } from '../store/contractsSlice';
 import ContractsTableHead from './ContractsTableHead';
 import format from 'date-fns/format';
+import { setContractObj } from '../store/contractSlice';
 
 function ContractsTable(props) {
   const dispatch = useDispatch();
@@ -38,9 +39,9 @@ function ContractsTable(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    if (searchText?.length !== 0) {
+    if (searchText.length !== 0) {
       setData(
-        _.filter(contracts, (item) => item.name?.toLowerCase().includes(searchText?.toLowerCase())),
+        _.filter(contracts, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
       );
       setPage(0);
     } else {
@@ -86,7 +87,7 @@ function ContractsTable(props) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected?.length - 1) {
+    } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
@@ -115,7 +116,7 @@ function ContractsTable(props) {
   }
 
 
-  if (data?.length === 0) {
+  if (data.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -134,11 +135,11 @@ function ContractsTable(props) {
       <FuseScrollbars className='grow overflow-x-auto'>
         <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
           <ContractsTableHead
-            selectedRoleIds={selected}
-            order={contract}
+            selectedContractIds={selected}
+            order={contracts}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={data?.length}
+            rowCount={data.length}
             onMenuItemClick={handleDeselect}
           />
 

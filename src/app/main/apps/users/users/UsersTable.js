@@ -133,7 +133,7 @@ function UsersTable(props) {
       <FuseScrollbars className="grow overflow-x-auto">
         <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
           <UsersTableHead
-            selectedRoleIds={selected}
+            selectedProductIds={selected}
             order={user}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}

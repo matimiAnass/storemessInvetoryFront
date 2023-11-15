@@ -1,7 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getContracts = createAsyncThunk('users/getContracts', async () => {
+export const getContracts = createAsyncThunk('contracts/getContracts', async () => {
   const response = await axios.get('http://192.168.1.17:8000/api/contracts');
   const data = await response
   return data.data.recentTransactions.rows;
@@ -41,6 +41,6 @@ const contractsSlice = createSlice({
 
 export const { setContractsSearchText } = contractsSlice.actions;
 
-export const selectContractsSearchText = ({ contractsApp }) => contractsApp.contracts?.searchText;
+export const selectContractsSearchText = ({ contractsApp }) => contractsApp.contracts.searchText;
 
 export default contractsSlice.reducer;

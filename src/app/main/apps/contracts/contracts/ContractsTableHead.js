@@ -123,10 +123,10 @@ function ContractsTableHead(props) {
                 <FuseSvgIcon>heroicons-outline:dots-horizontal</FuseSvgIcon>
               </IconButton>
               <Menu
-                id="selectedRolesMenu"
+                id="selectedContractsMenu"
                 anchorEl={selectedContractsMenu}
                 open={Boolean(selectedContractsMenu)}
-                onClose={selectedContractsMenu}
+                onClose={closeSelectedContractsMenu}
               >
                 <MenuList>
                   <MenuItem

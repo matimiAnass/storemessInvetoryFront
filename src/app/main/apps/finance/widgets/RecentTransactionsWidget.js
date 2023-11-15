@@ -51,7 +51,7 @@ function RecentTransactionsWidget(props) {
           </TableHead>
 
           <TableBody>
-            {rows.map((row, index) => (
+            {rows.slice(0, 4).map((row, index) => (
               <TableRow key={index}>
                 {Object.entries(row).map(([key, value]) => {
                   switch (key) {

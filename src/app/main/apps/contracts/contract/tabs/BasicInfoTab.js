@@ -60,7 +60,9 @@ function BasicInfoTab(props) {
               className="mt-8 mb-16"
               error={!!errors.name}
               required
-              value={value || ""}
+              displayEmpty
+              value={value}
+              defaultValue=""
               onBlur={onBlur}
               onChange={onChange}
               autoFocus
@@ -68,9 +70,12 @@ function BasicInfoTab(props) {
               variant="outlined"
               fullWidth
             >
-              {Object.entries(clients).map(([key, element])=>{
-              return (<MenuItem key={key} value={element}>{element}</MenuItem>)
-              })}
+              <MenuItem key={0} disabled value="choose">Choose Client</MenuItem>
+              {
+                Object.entries(clients).map(([key, element])=> {
+                  return (<MenuItem key={key} value={element}>{element}</MenuItem>)
+                })
+              }
             </Select>
           </FormControl>
         )}
@@ -96,19 +101,28 @@ function BasicInfoTab(props) {
       <Controller
         name="type"
         control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            error={!!errors.name}
-            required
-            helperText={errors?.name?.message}
-            label="Type"
-            autoFocus
-            id="type"
-            variant="outlined"
-            fullWidth
-          />
+        render={({ field: { onChange, onBlur, value }  }) => (
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Client Name</InputLabel>
+            <Select
+              className="mt-8 mb-16"
+              error={!!errors.name}
+              required
+              displayEmpty
+              value={value}
+              defaultValue={'choose'}
+              onBlur={onBlur}
+              onChange={onChange}
+              autoFocus
+              id="type"
+              variant="outlined"
+              fullWidth
+            >
+              {Object.entries(contracts).map(([key, element])=>{
+                return (<MenuItem key={key} value={element}>{element}</MenuItem>)
+              })}
+            </Select>
+          </FormControl>
         )}
       />
 
@@ -149,16 +163,27 @@ function BasicInfoTab(props) {
       <Controller
         name="status"
         control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            id="status"
-            label="Status"
-            type="text"
-            variant="outlined"
-            fullWidth
-          />
+        render={({ field: { onChange, onBlur, value } }) => (
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+            <Select
+              className="mt-8 mb-16"
+              error={!!errors.name}
+              required
+              displayEmpty
+              value={value}
+              defaultValue={'choose'}
+              onBlur={onBlur}
+              onChange={onChange}
+              autoFocus
+              id="status"
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem key={1} value={'Start'}>{'Start'}</MenuItem>
+              <MenuItem key={2} value={'Close'}>{'Close'}</MenuItem>
+            </Select>
+          </FormControl>
         )}
       />
     </div>

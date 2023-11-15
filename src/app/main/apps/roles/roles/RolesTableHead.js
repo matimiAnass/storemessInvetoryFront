@@ -91,7 +91,7 @@ function RolesTableHead(props) {
                 id="selectedRolesMenu"
                 anchorEl={selectedRolesMenu}
                 open={Boolean(selectedRolesMenu)}
-                onClose={selectedRolesMenu}
+                onClose={OnCloseSelectedRolesMenu}
               >
                 <MenuList>
                   <MenuItem

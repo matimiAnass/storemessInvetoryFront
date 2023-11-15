@@ -30,7 +30,6 @@ export const saveUser = createAsyncThunk(
   'user/saveUser',
   async (userData, { dispatch, getState }) => {
     let response = {};
-    console.log(getState().userApp?.user.user);
     if(getState().userApp?.user?.user === undefined) {
       response = await axios.post(`http://192.168.1.17:8000/api/user/`, userData);
     }

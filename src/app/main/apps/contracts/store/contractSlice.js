@@ -14,19 +14,19 @@ export const getDropdownList = createAsyncThunk('contract/getDropdownList', asyn
 });
 
 export const removeContract = createAsyncThunk(
-  'account/removeContract',
+  'contract/removeContract',
   async (val, { dispatch, getState }) => {
-    const { id } = getState().contractApp.contract;
-    await axios.delete(`/api/contracts/${id}`);
+    const { id } = getState().contractApp.contract.contract;
+    await axios.delete(`http://192.168.1.17:8000/api/contract/${id}`);
     return id;
   }
 );
 export const saveContract = createAsyncThunk(
   'contract/saveContract',
   async (contractData, { dispatch, getState }) => {
-    const { id } = getState().contractsApp;
+    const { id } = getState().contractApp.contract.contract;
 
-    const response = await axios.put(`/api/contracts/${id}`, contractData);
+    const response = await axios.put(`http://192.168.1.17:8000/api/contract/${id}`, contractData);
 
     const data = await response.data;
 
@@ -38,12 +38,12 @@ const contractSlice = createSlice({
   name: 'contract',
   initialState: { contract : null, dropDownLists : null },
   reducers: {
-    resetContract: () => null,
+    resetContract: () => {},
     newContract: {
       reducer: (state, action) => action.payload,
       prepare: (event) => ({
         payload: {
-          id: FuseUtils.generateGUID(),
+          id: 0,
           name: '',
           client_name: '',
           value: '',
@@ -58,7 +58,7 @@ const contractSlice = createSlice({
   },
   extraReducers: {
     [getContract.fulfilled]: (state, action) => {
-      state.contract = action.payload;
+        state.contract = action.payload;
     },
     [getDropdownList.fulfilled]: (state, action) => {
       state.dropDownLists = action.payload;

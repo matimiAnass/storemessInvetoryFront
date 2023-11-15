@@ -21,7 +21,9 @@ function ContractHeader(props) {
   const navigate = useNavigate();
 
   function handleSaveContract() {
-    dispatch(saveContract(getValues()));
+    dispatch(saveContract(getValues())).then(() => {
+      navigate('/apps/contracts');
+    });;
   }
 
   function handleRemoveContract() {
@@ -41,7 +43,7 @@ function ContractHeader(props) {
             className="flex items-center sm:mb-12"
             component={Link}
             role="button"
-            to="/apps/contracts"
+            to={'/apps/contracts'}
             color="inherit"
           >
             <FuseSvgIcon size={20}>

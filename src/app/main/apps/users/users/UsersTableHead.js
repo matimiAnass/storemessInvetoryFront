@@ -64,7 +64,7 @@ const rows = [
 
 function UsersTableHead(props) {
   const { selectedProductIds } = props;
-  const numSelected = selectedProductIds?.length;
+  const numSelected = selectedProductIds.length;
 
   const [selectedUsersMenu, setSelectedUsersMenu] = useState(null);
 
@@ -119,7 +119,7 @@ function UsersTableHead(props) {
                 id="selectedRolesMenu"
                 anchorEl={selectedUsersMenu}
                 open={Boolean(selectedUsersMenu)}
-                onClose={selectedUsersMenu}
+                onClose={closeSelectedUsersMenu}
               >
                 <MenuList>
                   <MenuItem

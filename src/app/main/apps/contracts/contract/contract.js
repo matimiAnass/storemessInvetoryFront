@@ -15,7 +15,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getContract, getDropdownList, newContract, resetContract, selectContract } from '../store/contractSlice';
+import {
+  getContract,
+  getDropdownList,
+  newContract,
+  resetContract,
+  selectContract,
+  setContractObj,
+} from '../store/contractSlice';
 import reducer from '../store';
 import ContractHeader from './ContractHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -33,9 +40,8 @@ const schema = yup.object().shape({
 function Contract(props) {
   const dispatch = useDispatch();
   const data = useSelector(selectContract);
-  const contract = data.contract;
+  const contract = data?.contract;
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
-
   const routeParams = useParams();
   const [tabValue, setTabValue] = useState(0);
   const [noContract, setNoContract] = useState(false);
