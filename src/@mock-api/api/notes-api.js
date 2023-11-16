@@ -17,12 +17,15 @@ mock.onPost('/api/notes').reply(({ data }) => {
   return [200, newNote];
 });
 
-mock.onGet('/api/notes/archive').reply((config) => {
+mock.onGet('/api/notes/attachement').reply((config) => {
   return [200, _.filter(notesDB, { archived: true })];
 });
 
-mock.onGet('/api/notes/reminders').reply((config) => {
-  return [200, _.filter(notesDB, (item) => item.reminder && !item.archived)];
+mock.onGet('/api/notes/comment').reply((config) => {
+  return [200, _.filter(notesDB, { comment: true })];
+});
+mock.onGet('/api/notes/note').reply((config) => {
+  return [200, _.filter(notesDB, { notes: true })];
 });
 
 mock.onGet('/api/notes/labels').reply((config) => {

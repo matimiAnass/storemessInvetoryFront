@@ -9,11 +9,11 @@ const ContractsAppConfig = {
   },
   routes: [
     {
-      path: 'apps/contracts',
+      path: 'apps/contracts/contractsList',
       element: <Contracts />,
     },
     {
-      path: 'apps/contracts/:contractId/*',
+      path: 'apps/contracts/contractsList/:contractId/*',
       element: <Contract />,
     },
 

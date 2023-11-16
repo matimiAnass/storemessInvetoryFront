@@ -5,7 +5,7 @@ import ContactsAppConfig from './contacts/ContactsAppConfig';
 import ECommerceAppConfig from './e-commerce/ECommerceAppConfig';
 import FileManagerAppConfig from './file-manager/FileManagerAppConfig';
 import MailboxAppConfig from './mailbox/MailboxAppConfig';
-import NotesAppConfig from './notes/NotesAppConfig';
+import ContractsShowAppConfig from './show_contract/ContractsShowAppConfig';
 import ScrumboardAppConfig from './scrumboard/ScrumboardAppConfig';
 import TasksAppConfig from './tasks/TasksAppConfig';
 import HelpCenterAppConfig from './help-center/HelpCenterAppConfig';
@@ -21,10 +21,11 @@ import InvoicesAppConfig from './invoices/InvoicesAppConfig';
 import ConstantsAppConfig from './constants/ConstantsAppConfig';
 import PlanPermissionsAppConfig from './plan_permissions/PlanPermissionsAppConfig';
 import ContractsAppConfig from './contracts/ContractsAppConfig';
-import FinanceDashboardAppConfig from './finance/FinanceDashboardAppConfig';
+import ContractsDashboardAppConfig from './analytics_contracts/ContractsDashboardAppConfig';
 
 const appsConfigs = [
-  FinanceDashboardAppConfig,
+  ContractsShowAppConfig,
+  ContractsDashboardAppConfig,
   ContractsAppConfig,
   PlanPermissionsAppConfig,
   ConstantsAppConfig,
@@ -44,7 +45,7 @@ const appsConfigs = [
   ECommerceAppConfig,
   ScrumboardAppConfig,
   AcademyAppConfig,
-  NotesAppConfig,
+  ContractsAppConfig,
   TasksAppConfig,
   HelpCenterAppConfig,
   ProfileAppConfig,

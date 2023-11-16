@@ -76,7 +76,7 @@ function ContractsTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/contracts/${item.id}/${item.client_name}`);
+    props.navigate(`/apps/contracts/contractsList/${item.id}/${item.client_name}`);
   }
 
   function handleCheck(event, id) {

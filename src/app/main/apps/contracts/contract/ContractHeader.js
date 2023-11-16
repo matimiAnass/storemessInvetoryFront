@@ -22,13 +22,13 @@ function ContractHeader(props) {
 
   function handleSaveContract() {
     dispatch(saveContract(getValues())).then(() => {
-      navigate('/apps/contracts');
+      navigate('/apps/contracts/contractsList');
     });;
   }
 
   function handleRemoveContract() {
     dispatch(removeContract()).then(() => {
-      navigate('/apps/contracts');
+      navigate('/apps/contracts/contractsList');
     });
   }
 
@@ -43,7 +43,7 @@ function ContractHeader(props) {
             className="flex items-center sm:mb-12"
             component={Link}
             role="button"
-            to={'/apps/contracts'}
+            to={'/apps/contracts/contractsList'}
             color="inherit"
           >
             <FuseSvgIcon size={20}>

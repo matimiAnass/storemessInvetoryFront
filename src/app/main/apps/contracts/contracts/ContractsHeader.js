@@ -52,7 +52,7 @@ function ContractsHeader(props) {
           <Button
             className=""
             component={Link}
-            to="/apps/contracts/new"
+            to="/apps/contracts/contractsList/new"
             variant="contained"
             color="secondary"
             startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}

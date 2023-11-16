@@ -126,7 +126,7 @@ function Contract(props) {
           className="mt-24"
           component={Link}
           variant="outlined"
-          to="/apps/contracts"
+          to="/apps/contracts/contractsList"
           color="inherit"
         >
           Go to Contracts Page

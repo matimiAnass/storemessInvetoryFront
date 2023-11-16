@@ -89,29 +89,66 @@ const navigationConfig = [
           },
         ],
       },
-      {
-        id: 'apps.contracts',
-        title: 'Contract',
+      {  id: 'apps.contracts',
+        title: 'Contracts',
+        type: 'collapse',
+        icon: 'heroicons-outline:flag',
+        translate: 'Contracts',
+        children: [
+        {
+        id: 'contracts-contractsList',
+        title: 'Contracts List',
         type: 'item',
         icon: 'heroicons-outline:flag',
-        url: '/apps/contracts',
-        translate: 'Contract',
+        url: '/apps/contracts/contractsList',
         children: [
           {
-            id: 'new-contract',
+            id: 'contracts-new-contract',
             title: 'New Contract',
             type: 'item',
-            url: 'apps/contracts/new',
+            url: 'apps/contracts/contracts/contractsList/new',
           },
         ],
       },
       {
-        id: 'dashboards.finance',
-        title: 'Finance',
+        id: 'contracts-analytics.contracts',
+        title: 'Analytics Contracts',
         type: 'item',
         icon: 'heroicons-outline:cash',
-        url: '/dashboards/finance',
+        url: '/analytics/contracts',
       },
+      {
+        id: 'contracts-contractsDetails',
+        title: 'Detail Contract',
+        type: 'item',
+        icon: 'heroicons-outline:pencil-alt',
+        url: '/apps/contracts/contractsDetails',
+        // children: [
+        //   {
+        //     id: 'contracts-contractsDetails-attachments',
+        //     title: 'Attachements Contract',
+        //     type: 'item',
+        //     url: 'apps/contracts/contractsDetails/attachments',
+        //   },
+        //   {
+        //     id: 'contracts-contractsDetails-comments',
+        //     title: 'Comments Contract',
+        //     type: 'item',
+        //     url: 'apps/contracts/contractsDetails/comments',
+        //   },
+        //   {
+        //     id: 'contracts-contractsDetails-notes',
+        //     title: 'Notes Contract',
+        //     type: 'item',
+        //     url: 'apps/contracts/contractsDetails/notes',
+        //   },
+        // ],
+      }
+      ],
+      },
+
+
+
       // {
       //   id: 'apps.chat',
       //   title: 'Chat',
