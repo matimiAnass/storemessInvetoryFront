@@ -20,7 +20,7 @@ function DetailContractWidget() {
 
   return (
     <Paper className='flex flex-col flex-auto shadow rounded-2xl overflow-hidden' style={{backgroundColor:rgb(241,245,249)}}>
-      <div className='flex items-center justify-between px-8 pt-12'>
+      <div className='flex items-center justify-between px-8 pt-11'>
         <Typography
           className='px-16 text-lg font-medium tracking-tight leading-6 truncate'
           color='text.secondary'
@@ -33,26 +33,42 @@ function DetailContractWidget() {
           </FuseSvgIcon>
         </IconButton>
       </div>
-      <div className="flex items-center w-full border-t space-x-60 pl-48">
-        <Typography className='text-xl sm:text-xl font-bold tracking-tight leading-none text-red-500 col-sm'>
-          {60}
+      <div className="flex items-center w-full pl-48 pb-7 justify-between">
+        <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Name'}</Typography>
+        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
+          {'Work Contract'}
         </Typography>
-        <Typography className='text-lg font-medium text-red-600 col-sm'>{'Attachement'}</Typography>
       </div>
-
-      {/*<div className='text-center mt-8 row'>*/}
-      {/*  <Typography className='text-xl sm:text-xl font-bold tracking-tight leading-none text-red-500 col-sm'>*/}
-      {/*    {60}*/}
-      {/*  </Typography>*/}
-      {/*  <Typography className='text-lg font-medium text-red-600 col-sm'>{'Attachement'}</Typography>*/}
-      {/*</div>*/}
-      <Typography
-        className='flex items-baseline justify-center w-full mt-20 mb-24'
-        color='text.secondary'
-      >
-        <span className='truncate'>{'Last month\'s'}</span>:
-        <b className='px-8'>{70}</b>
-      </Typography>
+      <div className="flex items-center w-full pl-48 pb-7 justify-between">
+      <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Client Name'}</Typography>
+        <Typography className='text-md sm:text-lg font-bold text-blue-500 col-sm pr-24'>
+          {'messanass'}
+        </Typography>
+      </div>
+      <div className="flex items-center w-full pl-48 pb-7 justify-between">
+      <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Type'}</Typography>
+        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
+          {'Stage'}
+        </Typography>
+      </div>
+      <div className="flex items-center w-full pl-48 pb-7 justify-between">
+      <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Value'}</Typography>
+        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
+          {'$80,000.00'}
+        </Typography>
+      </div>
+      <div className="flex items-center w-full pl-48 pb-7 justify-between">
+      <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Start Date'}</Typography>
+        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
+          {'Nov 15, 2023'}
+        </Typography>
+      </div>
+      <div className="flex items-center w-full pl-48 pb-7 justify-between">
+      <Typography className='text-md font-medium col-sm' color='text.secondary'>{'End Date'}</Typography>
+        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
+          {'Mar 31, 2024'}
+        </Typography>
+      </div>
     </Paper>
 
   );
