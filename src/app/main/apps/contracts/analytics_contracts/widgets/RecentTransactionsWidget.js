@@ -12,7 +12,6 @@ import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import { selectWidgets } from '../store/widgetsSlice';
 import { useNavigate } from 'react-router-dom';
-import { savePlanPermission } from '../../plan_permissions/store/planPermissionSlice';
 
 function RecentTransactionsWidget(props) {
   const widgets = useSelector(selectWidgets);

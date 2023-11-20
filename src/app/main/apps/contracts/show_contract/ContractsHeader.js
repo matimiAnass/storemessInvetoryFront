@@ -5,12 +5,10 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import ContractsSearch from './ContractsSearch';
-import { selectVariateDescSize, toggleVariateDescSize } from './store/contractsShowSlice';
 
 function ContractsHeader(props) {
   const dispatch = useDispatch();
-  const variateDescSize = useSelector(selectVariateDescSize);
+  // const variateDescSize = useSelector(selectVariateDescSize);
 
   return (
     <div className="flex flex-col sm:flex-row flex-1 items-center justify-between p-8 sm:p-24 sm:px-32 relative">
@@ -38,16 +36,16 @@ function ContractsHeader(props) {
         </div>
       </div>
 
-      <div className="flex flex-1 w-full sm:w-auto items-center justify-end space-x-12">
-        <Tooltip title="Toggle Variate Description Size">
-          <IconButton onClick={(ev) => dispatch(toggleVariateDescSize())} size="large">
-            <FuseSvgIcon color={variateDescSize ? 'action' : 'disabled'}>
-              heroicons-solid:switch-vertical
-            </FuseSvgIcon>
-          </IconButton>
-        </Tooltip>
-        <ContractsSearch />
-      </div>
+      {/*<div className="flex flex-1 w-full sm:w-auto items-center justify-end space-x-12">*/}
+      {/*  <Tooltip title="Toggle Variate Description Size">*/}
+      {/*    <IconButton onClick={(ev) => dispatch(toggleVariateDescSize())} size="large">*/}
+      {/*      <FuseSvgIcon color={variateDescSize ? 'action' : 'disabled'}>*/}
+      {/*        heroicons-solid:switch-vertical*/}
+      {/*      </FuseSvgIcon>*/}
+      {/*    </IconButton>*/}
+      {/*  </Tooltip>*/}
+      {/*  <ContractsSearch />*/}
+      {/*</div>*/}
     </div>
   );
 }

@@ -17,9 +17,11 @@ function BasicInfoTab(props) {
   const dispatch = useDispatch();
   const methods = useFormContext();
   const { control, formState } = methods;
+  const { errors } = formState;
   const [contracts, setContracts] = useState({});
   const [clients, setClients] = useState({});
-  const { errors } = formState;
+
+  console.log(methods);
 
   useEffect(()=>{
     dispatch(getDropdownList()).then((action) => {

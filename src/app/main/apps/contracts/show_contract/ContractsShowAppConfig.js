@@ -10,7 +10,7 @@ const ContractsShowAppConfig = {
   },
   routes: [
     {
-      path: 'apps/contracts/contractsDetails',
+      path: 'apps/contracts/contractsDetails/:roleId/*',
       element: <ContractsShowApp />,
       children: [
         {

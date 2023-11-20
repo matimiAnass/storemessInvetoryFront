@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { openLabelsDialog, selectLabels } from './store/labelsSlice';
+import { useParams } from 'react-router-dom';
 
 const StyledListItem = styled(ListItem)(({ theme, active }) => ({
   color: 'inherit!important',
@@ -36,6 +37,7 @@ const StyledListItem = styled(ListItem)(({ theme, active }) => ({
 function ContractsSidebarContent(props) {
   const dispatch = useDispatch();
   const labels = useSelector(selectLabels);
+  const routeParams = useParams();
 
   return (
     <div className="px-16 py-24">
@@ -48,7 +50,7 @@ function ContractsSidebarContent(props) {
           <StyledListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contracts/contractsDetails"
+            to={`/apps/contracts/contractsDetails/${routeParams?.contractId}`}
             end
             activeClassName="active"
           >
@@ -60,7 +62,7 @@ function ContractsSidebarContent(props) {
           <StyledListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contracts/contractsDetails/attachement"
+            to={`/apps/contracts/contractsDetails/${routeParams?.contractId}/attachement`}
             end
             activeClassName="active"
           >
@@ -73,7 +75,7 @@ function ContractsSidebarContent(props) {
           <StyledListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contracts/contractsDetails/comment"
+            to={`/apps/contracts/contractsDetails/${routeParams?.contractId}/comment`}
             activeClassName="active"
           >
             <FuseSvgIcon className="list-item-icon" color="disabled">
@@ -84,7 +86,7 @@ function ContractsSidebarContent(props) {
           <StyledListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contracts/contractsDetails/note"
+            to={`/apps/contracts/contractsDetails/${routeParams?.contractId}/note`}
             activeClassName="active"
           >
             <FuseSvgIcon className="list-item-icon" color="disabled">

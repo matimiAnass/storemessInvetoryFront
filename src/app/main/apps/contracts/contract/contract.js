@@ -24,8 +24,13 @@ import {
   setContractObj,
 } from '../store/contractSlice';
 import reducer from '../store';
+import './link-info.css'
 import ContractHeader from './ContractHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
+import ProductImagesTab from '../../e-commerce/product/tabs/ProductImagesTab';
+import ContractsShowApp from '../show_contract/ContractsShowApp';
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import withRouter from '@fuse/core/withRouter';
 
 /**
  * Form Validation Schema
@@ -108,6 +113,9 @@ function Contract(props) {
   function handleTabChange(event, value) {
     setTabValue(value);
   }
+  function handleClick() {
+    props.navigate(`/apps/contracts/contractsDetails/${routeParams.contractId}`);
+  }
 
   /**
    * Show Message if the requested products is not exists
@@ -161,6 +169,8 @@ function Contract(props) {
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
               <Tab className="h-64" label="Basic Info" />
+              <Tab className="h-64 link-info" label="Details Contract" onClick=
+                { () => {handleClick() }} />
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? 'hidden' : ''}>
@@ -175,4 +185,4 @@ function Contract(props) {
   );
 }
 
-export default withReducer('contractApp', reducer)(Contract);
+export default withReducer('contractApp', reducer)(withRouter(Contract));
