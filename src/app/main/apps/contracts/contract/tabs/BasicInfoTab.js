@@ -21,7 +21,6 @@ function BasicInfoTab(props) {
   const [contracts, setContracts] = useState({});
   const [clients, setClients] = useState({});
 
-  console.log(methods);
 
   useEffect(()=>{
     dispatch(getDropdownList()).then((action) => {

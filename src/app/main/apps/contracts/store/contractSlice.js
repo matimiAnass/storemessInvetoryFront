@@ -12,6 +12,11 @@ export const getDropdownList = createAsyncThunk('contract/getDropdownList', asyn
   const data = await response.data;
   return data;
 });
+export const countersWidgets = createAsyncThunk('contract/getDropdownList', async (contractId) => {
+  const response = await axios.get(`http://192.168.1.17:8000/api/contract/show/${contractId}`);
+  const data = await response.data;
+  return data;
+});
 
 export const removeContract = createAsyncThunk(
   'contract/removeContract',
@@ -36,7 +41,7 @@ export const saveContract = createAsyncThunk(
 
 const contractSlice = createSlice({
   name: 'contract',
-  initialState: { contract : null, dropDownLists : null },
+  initialState: { contract : null, dropDownLists : null, counterWidgets: null },
   reducers: {
     resetContract: () => {},
     newContract: {
@@ -62,6 +67,9 @@ const contractSlice = createSlice({
     },
     [getDropdownList.fulfilled]: (state, action) => {
       state.dropDownLists = action.payload;
+    },
+    [countersWidgets.fulfilled]: (state, action) => {
+      state.counterWidgets = action.payload;
     },
     [saveContract.fulfilled]: (state, action) => action.payload,
     [removeContract.fulfilled]: (state, action) => null,

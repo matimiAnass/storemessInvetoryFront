@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -61,6 +61,10 @@ function MailCompose(props) {
     console.info(data);
     setOpenDialog(false);
   }
+
+  useEffect(()=>{
+    console.log(formState);
+  },[])
 
   return (
     <div className={clsx('', className)}>

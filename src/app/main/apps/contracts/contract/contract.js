@@ -16,21 +16,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
 import {
+  countersWidgets,
   getContract,
-  getDropdownList,
   newContract,
   resetContract,
   selectContract,
-  setContractObj,
 } from '../store/contractSlice';
 import reducer from '../store';
 import './link-info.css'
 import ContractHeader from './ContractHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
-import ProductImagesTab from '../../e-commerce/product/tabs/ProductImagesTab';
-import ContractsShowApp from '../show_contract/ContractsShowApp';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import withRouter from '@fuse/core/withRouter';
+import ContractShowApp from '../show_contract/ContractShowApp';
 
 /**
  * Form Validation Schema
@@ -86,6 +83,9 @@ function Contract(props) {
     updateContractState();
   }, [dispatch, routeParams]);
 
+
+
+
   useEffect(() => {
     if (!contract) {
       return;
@@ -98,6 +98,8 @@ function Contract(props) {
 
 
   useEffect(() => {
+
+
     return () => {
       /**
        * Reset User on component unload
@@ -113,8 +115,8 @@ function Contract(props) {
   function handleTabChange(event, value) {
     setTabValue(value);
   }
-  function handleClick() {
-    props.navigate(`/apps/contracts/contractsDetails/${routeParams.contractId}`);
+  function handleClick(item) {
+    props.navigate(`/apps/contracts/contractsDetails/${item.id}`);
   }
 
   /**
@@ -153,6 +155,7 @@ function Contract(props) {
     return <FuseLoading />;
   }
 
+
   return (
     <FormProvider {...methods}>
       <FusePageCarded
@@ -169,12 +172,16 @@ function Contract(props) {
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
               <Tab className="h-64" label="Basic Info" />
-              <Tab className="h-64 link-info" label="Details Contract" onClick=
-                { () => {handleClick() }} />
+              <Tab className="h-64" label="Details Contract"/>
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? 'hidden' : ''}>
                 <BasicInfoTab />
+              </div>
+            </div>
+            <div className="pl-28 pr-28 pt-7 pb-7">
+              <div className={tabValue !== 1 ? 'hidden' : ''}>
+                <ContractShowApp />
               </div>
             </div>
           </>

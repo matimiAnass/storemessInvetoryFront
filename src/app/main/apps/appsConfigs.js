@@ -5,7 +5,7 @@ import ContactsAppConfig from './contacts/ContactsAppConfig';
 import ECommerceAppConfig from './e-commerce/ECommerceAppConfig';
 import FileManagerAppConfig from './file-manager/FileManagerAppConfig';
 import MailboxAppConfig from './mailbox/MailboxAppConfig';
-import ContractsShowAppConfig from './contracts/show_contract/ContractsShowAppConfig';
+import ContractShowAppConfig from './contracts/show_contract/ContractShowAppConfig';
 import ScrumboardAppConfig from './scrumboard/ScrumboardAppConfig';
 import TasksAppConfig from './tasks/TasksAppConfig';
 import HelpCenterAppConfig from './help-center/HelpCenterAppConfig';
@@ -24,7 +24,7 @@ import ContractsAppConfig from './contracts/ContractsAppConfig';
 import ContractsDashboardAppConfig from './contracts/analytics_contracts/ContractsDashboardAppConfig';
 
 const appsConfigs = [
-  ContractsShowAppConfig,
+  ContractShowAppConfig,
   ContractsDashboardAppConfig,
   ContractsAppConfig,
   PlanPermissionsAppConfig,

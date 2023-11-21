@@ -2,21 +2,43 @@ import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { rgb } from 'polished';
+import { useParams } from 'react-router-dom';
+import { countersWidgets } from '../../store/contractSlice';
+import FuseLoading from '@fuse/core/FuseLoading';
 
 function CommentWidget() {
-  // const widgets = useSelector(selectWidgets);
-  // const { data, ranges, currentRange: currentRangeDefault } = widgets?.summary;
-  //
-  // const [currentRange, setCurrentRange] = useState(currentRangeDefault);
-  //
-  // function handleChangeRange(ev) {
-  //   setCurrentRange(ev.target.value);
-  // }
+  const dispatch = useDispatch();
+  const [counters, setCounters] = useState({});
+  const [comment, setComment] = useState({});
+  const routeParams = useParams();
+
+  useEffect(()=>{
+    dispatch(countersWidgets(routeParams.contractId)).then((action)=>{
+      setCounters(action.payload)
+    });
+
+  },[dispatch])
+
+  useEffect(()=>{
+    let i = 0;
+    Object.values(counters).map((m)=>{
+      if (i===1) {
+        setComment(m);
+      }
+      i++;
+    })
+
+  },[counters])
+
+  if (!counters){
+    return <FuseLoading />;
+  }
+
 
   return (
     <Paper className='flex flex-col flex-auto shadow rounded-2xl overflow-hidden' style={{backgroundColor:rgb(241,245,249)}}>
@@ -35,7 +57,7 @@ function CommentWidget() {
       </div>
       <div className='text-center mt-8'>
         <Typography className='text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500'>
-          {30}
+          {comment.Comments}
         </Typography>
         <Typography className='text-lg font-medium text-amber-600'>{'Comment'}</Typography>
       </div>

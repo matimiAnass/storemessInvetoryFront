@@ -2,21 +2,43 @@ import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { rgb } from 'polished';
+import { countersWidgets } from '../../store/contractSlice';
+import { useParams } from 'react-router-dom';
+import FuseLoading from '@fuse/core/FuseLoading';
 
 function AttachementWidget() {
-  // const widgets = useSelector(selectWidgets);
-  // const { data, ranges, currentRange: currentRangeDefault } = widgets?.summary;
-  //
-  // const [currentRange, setCurrentRange] = useState(currentRangeDefault);
-  //
-  // function handleChangeRange(ev) {
-  //   setCurrentRange(ev.target.value);
-  // }
+  const dispatch = useDispatch();
+  const [counters, setCounters] = useState({});
+  const [attachement, setAttachement] = useState({});
+  const routeParams = useParams();
+
+  useEffect(()=>{
+    dispatch(countersWidgets(routeParams.contractId)).then((action)=>{
+      setCounters(action.payload)
+    });
+
+  },[dispatch])
+
+  useEffect(()=>{
+    let i = 0;
+    Object.values(counters).map((m)=>{
+      if (i===0) {
+        setAttachement(m);
+      }
+      i++;
+    })
+
+  },[counters])
+
+  if (!counters){
+    return <FuseLoading />;
+  }
+
 
   return (
     <Paper className='flex flex-col flex-auto shadow rounded-2xl overflow-hidden' style={{backgroundColor:rgb(241,245,249)}}>
@@ -35,7 +57,7 @@ function AttachementWidget() {
       </div>
       <div className='text-center mt-8'>
         <Typography className='text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500'>
-          {60}
+          {attachement.Attachements}
         </Typography>
         <Typography className='text-lg font-medium text-red-600'>{'Attachement'}</Typography>
       </div>

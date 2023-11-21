@@ -1,10 +1,12 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { convertToRaw, EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import clsx from 'clsx';
+import ContentState from 'draft-js/lib/ContentState';
+import { useFormContext } from 'react-hook-form';
 
 const Root = styled('div')({
   '& .rdw-dropdown-selectedtext': {
@@ -22,6 +24,12 @@ const Root = styled('div')({
 
 const WYSIWYGEditor = forwardRef((props, ref) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const methods = useFormContext();
+  const { handleSubmit, formState, control } = methods;
+  const _contentState = ContentState.createFromText(formState.defaultValues.description);
+  const raw = convertToRaw(_contentState);  // RawDraftContentState JSON
+  const [contentState, setContentState] = useState(raw); // ContentState JSON
+
 
   function onEditorStateChange(_editorState) {
     setEditorState(_editorState);
@@ -31,7 +39,7 @@ const WYSIWYGEditor = forwardRef((props, ref) => {
 
   return (
     <Root className={clsx('rounded-4 border-1 overflow-hidden w-full', props.className)} ref={ref}>
-      <Editor editorState={editorState} onEditorStateChange={onEditorStateChange} />
+      <Editor defaultContentState={contentState} onContentStateChange={setContentState} />
     </Root>
   );
 });

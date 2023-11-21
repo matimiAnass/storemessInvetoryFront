@@ -5,10 +5,13 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import { useFormContext } from 'react-hook-form';
 
-function ContractsHeader(props) {
+function ContractHeader(props) {
   const dispatch = useDispatch();
-  // const variateDescSize = useSelector(selectVariateDescSize);
+  const methods = useFormContext();
+  const { formState, watch, getValues } = methods;
+  const { isValid, dirtyFields } = formState;
 
   return (
     <div className="flex flex-col sm:flex-row flex-1 items-center justify-between p-8 sm:p-24 sm:px-32 relative">
@@ -50,4 +53,4 @@ function ContractsHeader(props) {
   );
 }
 
-export default ContractsHeader;
+export default ContractHeader;

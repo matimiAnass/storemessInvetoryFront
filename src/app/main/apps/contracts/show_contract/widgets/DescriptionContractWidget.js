@@ -12,20 +12,8 @@ import FuseLoading from '@fuse/core/FuseLoading';
 
 function DetailContractWidget(contract) {
   const [data, setData] = useState();
-  const { formState, control } = useForm();
-  const { isValid, dirtyFields, errors } = formState;
-
-
-  useEffect(() => {
-    if (contract){
-      setData(contract.handleData);
-    }
-  }, [contract]);
-
-  if(!data){
-    return <FuseLoading />;
-  }
-
+  const methods = useFormContext();
+  const { handleSubmit, formState, control } = methods;
 
 
   return (
@@ -41,9 +29,9 @@ function DetailContractWidget(contract) {
       </div>
       <Controller
         className="mt-8 mb-16"
-        render={({ field }) => <WYSIWYGEditor {...field} />}
         name="description"
         control={control}
+        render={({ field }) => <WYSIWYGEditor {...field} />}
       />
         <motion.div
         initial={{ opacity: 0, x: 20 }}

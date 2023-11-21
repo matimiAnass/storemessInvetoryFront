@@ -13,22 +13,13 @@ import FuseLoading from '@fuse/core/FuseLoading';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
+import InputBase from '@mui/material/InputBase';
 
 function DetailContractWidget(contract,props) {
-  const [data, setData] = useState();
   const methods = useFormContext();
   const { control, formState } = methods;
   const { errors } = formState;
 
-  useEffect(() => {
-    if (contract) {
-      setData(contract.handleData);
-    }
-  }, [contract]);
-
-  if (!data) {
-    return <FuseLoading />;
-  }
   return (
     <Paper className='flex flex-col flex-auto shadow rounded-2xl overflow-hidden'
            style={{ backgroundColor: rgb(241, 245, 249) }}>
@@ -47,65 +38,75 @@ function DetailContractWidget(contract,props) {
       </div>
       <div className='flex items-center w-full pl-48 pb-7 justify-between'>
         <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Name'}</Typography>
-        {/*<Controller*/}
-        {/*  name='client_name'*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Typography {...field}*/}
-        {/*                className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>*/}
-        {/*    </Typography>*/}
-        {/*  )}*/}
-        {/*/>*/}
-      </div>
-      <div className='flex items-center w-full pl-48 pb-7 justify-between'>
-        <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Client Name'}</Typography>
-        {/*<InputLabel*/}
-        {/*  className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'*/}
-        {/*>*/}
-        {/*  {data.client_name}*/}
-        {/*</InputLabel>*/}
         <Controller
-          name='client_name'
+          name='name'
           control={control}
           render={({ field }) => (
-            <TextField
-              {...field}
-              className='mt-8 mb-16'
-              error={!!errors.name}
-              required
-              helperText={errors?.name?.message}
-              label='Client Name'
-              autoFocus
-              id='client_name'
-              variant='outlined'
-              fullWidth
+            <InputBase {...field}
+                       className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
             />
           )}
         />
       </div>
       <div className='flex items-center w-full pl-48 pb-7 justify-between'>
+        <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Client Name'}</Typography>
+        <Controller
+          name='client_name'
+          control={control}
+          render={({ field }) => (
+        <InputBase {...field}
+          className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
+        />
+          )}
+        />
+      </div>
+      <div className='flex items-center w-full pl-48 pb-7 justify-between'>
         <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Type'}</Typography>
-        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
-          {data.type}
-        </Typography>
+        <Controller
+          name='type'
+          control={control}
+          render={({ field }) => (
+            <InputBase {...field}
+                       className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
+            />
+          )}
+        />
       </div>
       <div className='flex items-center w-full pl-48 pb-7 justify-between'>
         <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Value'}</Typography>
-        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
-          {data.value}
-        </Typography>
+        <Controller
+          name='value'
+          control={control}
+          render={({ field }) => (
+            <InputBase {...field}
+                       className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
+            />
+          )}
+        />
       </div>
       <div className='flex items-center w-full pl-48 pb-7 justify-between'>
         <Typography className='text-md font-medium col-sm' color='text.secondary'>{'Start Date'}</Typography>
-        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
-          {data.start_date}
-        </Typography>
+        <Controller
+          name='start_date'
+          control={control}
+          render={({ field }) => (
+            <InputBase {...field}
+                       className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
+            />
+          )}
+        />
       </div>
       <div className='flex items-center w-full pl-48 pb-7 justify-between'>
         <Typography className='text-md font-medium col-sm' color='text.secondary'>{'End Date'}</Typography>
-        <Typography className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'>
-          {data.end_date}
-        </Typography>
+        <Controller
+          name='end_date'
+          control={control}
+          render={({ field }) => (
+            <InputBase {...field}
+                       className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
+            />
+          )}
+        />
       </div>
     </Paper>
   );

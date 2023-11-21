@@ -637,18 +637,18 @@ const navigationConfig = [
       //     },
       //   ],
       // },
-      // {
-      //   id: 'apps.mailbox',
-      //   title: 'Mailbox',
-      //   type: 'item',
-      //   icon: 'heroicons-outline:mail',
-      //   url: '/apps/mailbox',
-      //   translate: 'MAIL',
-      //   badge: {
-      //     title: '27',
-      //     classes: 'px-8 bg-pink-600 text-white rounded-full',
-      //   },
-      // },
+      {
+        id: 'apps.mailbox',
+        title: 'Mailbox',
+        type: 'item',
+        icon: 'heroicons-outline:mail',
+        url: '/apps/mailbox',
+        translate: 'MAIL',
+        badge: {
+          title: '27',
+          classes: 'px-8 bg-pink-600 text-white rounded-full',
+        },
+      },
       // {
       //   id: 'apps.notes',
       //   title: 'Notes',

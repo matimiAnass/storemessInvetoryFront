@@ -68,7 +68,7 @@ function AttachementUploadWidget(props) {
                   onChange([newImage, ...value]);
                 }}
               />
-              <FuseSvgIcon size={32} color="inherit" >
+              <FuseSvgIcon size={32} style={{color:'white'}}  >
                 heroicons-outline:upload
               </FuseSvgIcon>
             </Box>
