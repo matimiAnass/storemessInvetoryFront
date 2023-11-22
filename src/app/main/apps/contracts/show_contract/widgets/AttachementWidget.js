@@ -10,34 +10,11 @@ import { rgb } from 'polished';
 import { countersWidgets } from '../../store/contractSlice';
 import { useParams } from 'react-router-dom';
 import FuseLoading from '@fuse/core/FuseLoading';
+import { useFormContext } from 'react-hook-form';
 
 function AttachementWidget() {
-  const dispatch = useDispatch();
-  const [counters, setCounters] = useState({});
-  const [attachement, setAttachement] = useState({});
-  const routeParams = useParams();
-
-  useEffect(()=>{
-    dispatch(countersWidgets(routeParams.contractId)).then((action)=>{
-      setCounters(action.payload)
-    });
-
-  },[dispatch])
-
-  useEffect(()=>{
-    let i = 0;
-    Object.values(counters).map((m)=>{
-      if (i===0) {
-        setAttachement(m);
-      }
-      i++;
-    })
-
-  },[counters])
-
-  if (!counters){
-    return <FuseLoading />;
-  }
+  const methods = useFormContext();
+  const { getValues, formState, control } = methods;
 
 
   return (
@@ -57,7 +34,7 @@ function AttachementWidget() {
       </div>
       <div className='text-center mt-8'>
         <Typography className='text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500'>
-          {attachement.Attachements}
+          {getValues().Attachements}
         </Typography>
         <Typography className='text-lg font-medium text-red-600'>{'Attachement'}</Typography>
       </div>

@@ -47,12 +47,13 @@ function Contract(props) {
   const routeParams = useParams();
   const [tabValue, setTabValue] = useState(0);
   const [noContract, setNoContract] = useState(false);
+  const [check, setCheck] = useState(false);
   const methods = useForm({
     mode: 'onChange',
     defaultValues: {},
     resolver: yupResolver(schema),
   });
-  const { reset, watch, control, onChange, formState } = methods;
+  const { reset, watch, control, onChange, formState, setValue,getValues } = methods;
   const form = watch();
 
 
@@ -70,6 +71,7 @@ function Contract(props) {
          * Get User data
          */
         dispatch(getContract(contractId)).then((action) => {
+          setCheck(true)
           /**
            * If the requested product is not exist show message
            */
@@ -96,6 +98,14 @@ function Contract(props) {
     reset(contract);
   }, [contract, reset]);
 
+  useEffect(() => {
+    if(check){
+      setValue("tabValue", 0)
+    }
+
+  }, [check, setValue]);
+
+
 
   useEffect(() => {
 
@@ -114,7 +124,9 @@ function Contract(props) {
    */
   function handleTabChange(event, value) {
     setTabValue(value);
+    setValue("tabValue", value)
   }
+
   function handleClick(item) {
     props.navigate(`/apps/contracts/contractsDetails/${item.id}`);
   }
@@ -171,16 +183,16 @@ function Contract(props) {
               scrollButtons="auto"
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
-              <Tab className="h-64" label="Basic Info" />
               <Tab className="h-64" label="Details Contract"/>
+              <Tab className="h-64" label="Basic Info" />
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
-              <div className={tabValue !== 0 ? 'hidden' : ''}>
+              <div className={tabValue !== 1 ? 'hidden' : ''}>
                 <BasicInfoTab />
               </div>
             </div>
             <div className="pl-28 pr-28 pt-7 pb-7">
-              <div className={tabValue !== 1 ? 'hidden' : ''}>
+              <div className={tabValue !== 0 ? 'hidden' : ''}>
                 <ContractShowApp />
               </div>
             </div>

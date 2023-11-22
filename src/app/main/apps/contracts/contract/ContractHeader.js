@@ -23,7 +23,7 @@ function ContractHeader(props) {
   function handleSaveContract() {
     dispatch(saveContract(getValues())).then(() => {
       navigate('/apps/contracts/contractsList');
-    });;
+    });
   }
 
   function handleRemoveContract() {
@@ -79,6 +79,7 @@ function ContractHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
+          disabled={getValues().tabValue === 0 || getValues().tabValue === undefined }
           onClick={handleRemoveContract}
           startIcon={<FuseSvgIcon className="hidden sm:flex">heroicons-outline:trash</FuseSvgIcon>}
         >
@@ -88,7 +89,7 @@ function ContractHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
+          disabled={_.isEmpty(dirtyFields) || !isValid || getValues().tabValue === 0 || getValues().tabValue === undefined }
           onClick={handleSaveContract}
         >
           Save

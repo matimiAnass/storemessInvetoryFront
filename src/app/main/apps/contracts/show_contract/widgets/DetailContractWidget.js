@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
 import InputBase from '@mui/material/InputBase';
+import moment from 'moment';
 
 function DetailContractWidget(contract,props) {
   const methods = useFormContext();
@@ -89,8 +90,8 @@ function DetailContractWidget(contract,props) {
         <Controller
           name='start_date'
           control={control}
-          render={({ field }) => (
-            <InputBase {...field}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <InputBase value={moment(value).format('MMM D, y')}
                        className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
             />
           )}
@@ -101,8 +102,8 @@ function DetailContractWidget(contract,props) {
         <Controller
           name='end_date'
           control={control}
-          render={({ field }) => (
-            <InputBase {...field}
+          render={({ field: { onChange, onBlur, value }}) => (
+            <InputBase value={moment(value).format('MMM D, y')}
                        className='text-md sm:text-lg font-bold tracking-tight leading-none text-blue-500 col-sm pr-24'
             />
           )}

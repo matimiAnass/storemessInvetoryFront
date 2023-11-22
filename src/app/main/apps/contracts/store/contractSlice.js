@@ -12,8 +12,23 @@ export const getDropdownList = createAsyncThunk('contract/getDropdownList', asyn
   const data = await response.data;
   return data;
 });
-export const countersWidgets = createAsyncThunk('contract/getDropdownList', async (contractId) => {
+export const countersWidgets = createAsyncThunk('contract/getCountersWidgets', async (contractId) => {
   const response = await axios.get(`http://192.168.1.17:8000/api/contract/show/${contractId}`);
+  const data = await response.data;
+  return data;
+});
+export const descriptionStore = createAsyncThunk('contract/getDescriptionStore',
+  async (contractData,{ dispatch, getState }) => {
+  const { id } = getState().contractApp.contract.contract;
+  const response = await axios.post(`http://192.168.1.17:8000/api/contract/${id}/description/`,contractData);
+  const data = await response.data;
+  return data;
+});
+
+export const fileUpload = createAsyncThunk('contract/fileUpload',
+  async (formData,{ dispatch, getState }) => {
+  const { id } = getState().contractApp.contract.contract;
+  const response = await axios.post(`http://192.168.1.17:8000/api/contract/${id}/file`,formData);
   const data = await response.data;
   return data;
 });

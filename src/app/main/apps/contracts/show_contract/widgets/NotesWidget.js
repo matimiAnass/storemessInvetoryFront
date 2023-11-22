@@ -10,34 +10,11 @@ import { rgb } from 'polished';
 import { useParams } from 'react-router-dom';
 import { countersWidgets } from '../../store/contractSlice';
 import FuseLoading from '@fuse/core/FuseLoading';
+import { useFormContext } from 'react-hook-form';
 
 function NoteWidget() {
-  const dispatch = useDispatch();
-  const [counters, setCounters] = useState({});
-  const [notes, setNotes] = useState({});
-  const routeParams = useParams();
-
-  useEffect(()=>{
-    dispatch(countersWidgets(routeParams.contractId)).then((action)=>{
-      setCounters(action.payload)
-    });
-
-  },[dispatch])
-
-  useEffect(()=>{
-    let i = 0;
-    Object.values(counters).map((m)=>{
-      if (i===2) {
-        setNotes(m);
-      }
-      i++;
-    })
-
-  },[counters])
-
-  if (!counters){
-    return <FuseLoading />;
-  }
+  const methods = useFormContext();
+  const { getValues, formState, control } = methods;
 
 
   return (
@@ -57,7 +34,7 @@ function NoteWidget() {
       </div>
       <div className='text-center mt-8'>
         <Typography className='text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500'>
-          {notes.Notes}
+          {getValues().Notes}
         </Typography>
         <Typography className='text-lg font-medium text-blue-600 dark:text-blue-500'>{'Notes'}</Typography>
       </div>

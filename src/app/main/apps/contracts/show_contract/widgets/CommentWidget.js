@@ -10,34 +10,12 @@ import { rgb } from 'polished';
 import { useParams } from 'react-router-dom';
 import { countersWidgets } from '../../store/contractSlice';
 import FuseLoading from '@fuse/core/FuseLoading';
+import { useFormContext } from 'react-hook-form';
 
 function CommentWidget() {
-  const dispatch = useDispatch();
-  const [counters, setCounters] = useState({});
-  const [comment, setComment] = useState({});
-  const routeParams = useParams();
+  const methods = useFormContext();
+  const { getValues, formState, control } = methods;
 
-  useEffect(()=>{
-    dispatch(countersWidgets(routeParams.contractId)).then((action)=>{
-      setCounters(action.payload)
-    });
-
-  },[dispatch])
-
-  useEffect(()=>{
-    let i = 0;
-    Object.values(counters).map((m)=>{
-      if (i===1) {
-        setComment(m);
-      }
-      i++;
-    })
-
-  },[counters])
-
-  if (!counters){
-    return <FuseLoading />;
-  }
 
 
   return (
@@ -57,7 +35,7 @@ function CommentWidget() {
       </div>
       <div className='text-center mt-8'>
         <Typography className='text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500'>
-          {comment.Comments}
+          {getValues().Comments}
         </Typography>
         <Typography className='text-lg font-medium text-amber-600'>{'Comment'}</Typography>
       </div>
