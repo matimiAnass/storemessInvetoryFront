@@ -52,7 +52,7 @@ function DetailContractWidget(contract) {
         onClick={handleSaveDescription}
         variant="contained"
         color="secondary"
-        startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+        startIcon={<FuseSvgIcon>heroicons-outline:inbox</FuseSvgIcon>}
       >
         Save  </Button>
         </motion.div>

@@ -8,9 +8,12 @@ import Box from '@mui/material/Box';
 import { rgb } from 'polished';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import { descriptionStore, fileUpload } from '../../store/contractSlice';
-import { useDispatch } from 'react-redux';
+import { getFilesAttachement, fileUpload, selectContract } from '../../store/contractSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
+import MailAttachment from '../../../mailbox/MailAttachment';
+import { useParams } from 'react-router-dom';
 
 
 function AttachementUploadWidget(props) {
@@ -18,18 +21,34 @@ function AttachementUploadWidget(props) {
   const [img, setImg] = useState(null);
   const dispatch = useDispatch();
   const methods = useFormContext();
+  const routeParams = useParams();
   const { getValues, formState, control, setValue } = methods;
+  const data = useSelector(selectContract);
 
+
+  useEffect(()=>
+  {
+    //get the files contracts
+    dispatch(getFilesAttachement(routeParams.contractId));
+  },[dispatch,routeParams])
+
+  console.log(data);
 
 
   function handleSaveFile() {
-    let formData = new FormData()
-    // formData = {
-    //   "file" : getValues().file
-    // }
-    dispatch(fileUpload(getValues().file ))/*.then(() => {
-      // window.location.reload(true);
-    });*/
+    var val = getValues().Attachements;
+    // e.preventDefault();
+    var data = new FormData();
+    if(getValues().file) {
+      // console.log(getValues().file);
+      data.append("file", getValues()?.file);
+    }
+    for (const value of data.values()) {
+      console.log(value);
+    }
+    dispatch(fileUpload(data)).then(() => {
+      window.location.reload(true);
+    });
   }
 
 
@@ -44,9 +63,10 @@ function AttachementUploadWidget(props) {
           {'Attachments'}
         </Typography>
       </div>
+      {/*<form onSubmit={handleSaveFile} encType="multipart/form-data">*/}
       <div className='flex justify-center sm:justify-center flex-wrap -mx-16'>
         <Controller
-          name='images'
+          name='file'
           control={control}
           render={({ field: { onChange, value } }) => (
             <Box
@@ -59,10 +79,10 @@ function AttachementUploadWidget(props) {
               style={{ backgroundColor: rgb(79, 70, 229) }}
               component='label'
               htmlFor='button-file'
-              className="productImageUpload flex items-center justify-center relative w-128 h-128 rounded-16 mx-12 mb-24 overflow-hidden cursor-pointer shadow hover:shadow-lg"
+              className="productImageUpload flex items-center justify-center relative w-80 h-80 rounded-16 mx-12 mb-24 overflow-hidden cursor-pointer shadow hover:shadow-lg"
             >
               <input
-                accept='image/png, image/jpeg, image/jpg, application/pdf, application/pdf, application/txt, application/doc'
+                accept='image/png, image/jpeg, image/jpg, application/pdf, application/pdf, application/txt, application/doc,'
                 className='hidden'
                 id='button-file'
                 name='file'
@@ -71,6 +91,7 @@ function AttachementUploadWidget(props) {
                   function readFileAsync() {
                     return new Promise((resolve, reject) => {
                       const file = e.target.files[0];
+
                       if (!file) {
                         return;
                       }
@@ -89,15 +110,14 @@ function AttachementUploadWidget(props) {
 
                       reader.readAsBinaryString(file);
 
-                      setImg(file);
-                      setValue('file', file );
-
                     });
                   }
 
                   const img_ = await readFileAsync()
                   onChange(img_)
+                  setValue('file',e.target.files[0]);
                   handleSaveFile()
+
                 }}
               />
               <FuseSvgIcon size={32} style={{ color: 'white' }}>
@@ -106,6 +126,11 @@ function AttachementUploadWidget(props) {
             </Box>
           )}
         />
+      </div>
+      <div className="pt-8">
+        {data.filesAttachement?.files.files.map((m)=>{
+        return (<MailAttachment fileName={m.files} size="12 kb" />)
+        })}
       </div>
     </Paper>
   );

@@ -12,7 +12,7 @@ export const getDropdownList = createAsyncThunk('contract/getDropdownList', asyn
   const data = await response.data;
   return data;
 });
-export const countersWidgets = createAsyncThunk('contract/getCountersWidgets', async (contractId) => {
+export const getFilesAttachement = createAsyncThunk('contract/getFilesAttachement', async (contractId) => {
   const response = await axios.get(`http://192.168.1.17:8000/api/contract/show/${contractId}`);
   const data = await response.data;
   return data;
@@ -28,7 +28,9 @@ export const descriptionStore = createAsyncThunk('contract/getDescriptionStore',
 export const fileUpload = createAsyncThunk('contract/fileUpload',
   async (formData,{ dispatch, getState }) => {
   const { id } = getState().contractApp.contract.contract;
-  const response = await axios.post(`http://192.168.1.17:8000/api/contract/${id}/file`,formData);
+  const response = await axios.post(`http://192.168.1.17:8000/api/contract/${id}/file`,formData,
+    { headers: { 'Content-Type':  `multipart/form-data; boundary=${ Math.random().toString().substr(2)}` }, });
+
   const data = await response.data;
   return data;
 });
@@ -56,7 +58,7 @@ export const saveContract = createAsyncThunk(
 
 const contractSlice = createSlice({
   name: 'contract',
-  initialState: { contract : null, dropDownLists : null, counterWidgets: null },
+  initialState: { contract : null, dropDownLists : null, filesAttachement: null },
   reducers: {
     resetContract: () => {},
     newContract: {
@@ -83,8 +85,8 @@ const contractSlice = createSlice({
     [getDropdownList.fulfilled]: (state, action) => {
       state.dropDownLists = action.payload;
     },
-    [countersWidgets.fulfilled]: (state, action) => {
-      state.counterWidgets = action.payload;
+    [getFilesAttachement.fulfilled]: (state, action) => {
+      state.filesAttachement = action.payload;
     },
     [saveContract.fulfilled]: (state, action) => action.payload,
     [removeContract.fulfilled]: (state, action) => null,

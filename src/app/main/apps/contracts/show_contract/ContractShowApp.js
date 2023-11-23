@@ -17,7 +17,7 @@ import AttachementUploadWidget from './widgets/AttachementUploadWidget';
 import CommentFieldWidget from './widgets/CommentFieldWidget';
 import NoteFieldWidget from './widgets/NoteFieldWidget';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { countersWidgets, getContract, getDropdownList, newContract, selectContract } from '../store/contractSlice';
+import {  getContract, getDropdownList, newContract, selectContract } from '../store/contractSlice';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDeepCompareEffect } from '@fuse/hooks';
@@ -47,8 +47,6 @@ function ContractShowApp(props) {
 
   },[dispatch])
 
-
-  // console.log(attachement);
 
     if (!contract){
       return <FuseLoading />;

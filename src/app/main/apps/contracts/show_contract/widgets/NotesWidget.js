@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { rgb } from 'polished';
 import { useParams } from 'react-router-dom';
-import { countersWidgets } from '../../store/contractSlice';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useFormContext } from 'react-hook-form';
 
