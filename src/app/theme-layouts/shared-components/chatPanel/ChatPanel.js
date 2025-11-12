@@ -1,21 +1,12 @@
-import AppBar from '@mui/material/AppBar';
 import { styled, useTheme } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import withReducer from 'app/store/withReducer';
 import keycode from 'keycode';
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSwipeable } from 'react-swipeable';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import Chat from './Chat';
-import ContactList from './ContactList';
 import reducer from './store';
 import { getContacts, selectContacts, selectSelectedContactId } from './store/contactsSlice';
-import { closeChatPanel, openChatPanel, selectChatPanelState } from './store/stateSlice';
+import { closeChatPanel, selectChatPanelState } from './store/stateSlice';
 import { getUserData } from './store/userSlice';
 import { getChats } from './store/chatsSlice';
 
@@ -168,58 +159,58 @@ function ChatPanel(props) {
 
   return (
     <Root opened={state ? 1 : 0} {...handlers}>
-      {/*<div className="panel flex flex-col max-w-full" ref={ref}>*/}
-      {/*  <AppBar position="static" className="shadow-md">*/}
-      {/*    <Toolbar className="px-4">*/}
-      {/*      {(!state || !selectedContactId) && (*/}
-      {/*        <div className="flex flex-1 items-center px-8 space-x-12">*/}
-      {/*          <IconButton*/}
-      {/*            className=""*/}
-      {/*            color="inherit"*/}
-      {/*            onClick={(ev) => dispatch(openChatPanel())}*/}
-      {/*            size="large"*/}
-      {/*          >*/}
-      {/*            <FuseSvgIcon size={24}>heroicons-outline:chat-alt-2</FuseSvgIcon>*/}
-      {/*          </IconButton>*/}
-      {/*          {!selectedContactId && (*/}
-      {/*            <Typography className="text-16" color="inherit">*/}
-      {/*              Team Chat*/}
-      {/*            </Typography>*/}
-      {/*          )}*/}
-      {/*        </div>*/}
-      {/*      )}*/}
-      {/*      {state && selectedContact && (*/}
-      {/*        <div className="flex flex-1 items-center px-12">*/}
-      {/*          <Avatar src={selectedContact.avatar} />*/}
-      {/*          <Typography className="mx-16 text-16" color="inherit">*/}
-      {/*            {selectedContact.name}*/}
-      {/*          </Typography>*/}
-      {/*        </div>*/}
-      {/*      )}*/}
-      {/*      <div className="flex px-4">*/}
-      {/*        <IconButton onClick={(ev) => dispatch(closeChatPanel())} color="inherit" size="large">*/}
-      {/*          <FuseSvgIcon>heroicons-outline:x</FuseSvgIcon>*/}
-      {/*        </IconButton>*/}
-      {/*      </div>*/}
-      {/*    </Toolbar>*/}
-      {/*  </AppBar>*/}
-      {/*  <Paper className="flex flex-1 flex-row min-h-px shadow-0">*/}
-      {/*    <ContactList className="flex shrink-0" />*/}
+      {/* <div className="panel flex flex-col max-w-full" ref={ref}> */}
+      {/*  <AppBar position="static" className="shadow-md"> */}
+      {/*    <Toolbar className="px-4"> */}
+      {/*      {(!state || !selectedContactId) && ( */}
+      {/*        <div className="flex flex-1 items-center px-8 space-x-12"> */}
+      {/*          <IconButton */}
+      {/*            className="" */}
+      {/*            color="inherit" */}
+      {/*            onClick={(ev) => dispatch(openChatPanel())} */}
+      {/*            size="large" */}
+      {/*          > */}
+      {/*            <FuseSvgIcon size={24}>heroicons-outline:chat-alt-2</FuseSvgIcon> */}
+      {/*          </IconButton> */}
+      {/*          {!selectedContactId && ( */}
+      {/*            <Typography className="text-16" color="inherit"> */}
+      {/*              Team Chat */}
+      {/*            </Typography> */}
+      {/*          )} */}
+      {/*        </div> */}
+      {/*      )} */}
+      {/*      {state && selectedContact && ( */}
+      {/*        <div className="flex flex-1 items-center px-12"> */}
+      {/*          <Avatar src={selectedContact.avatar} /> */}
+      {/*          <Typography className="mx-16 text-16" color="inherit"> */}
+      {/*            {selectedContact.name} */}
+      {/*          </Typography> */}
+      {/*        </div> */}
+      {/*      )} */}
+      {/*      <div className="flex px-4"> */}
+      {/*        <IconButton onClick={(ev) => dispatch(closeChatPanel())} color="inherit" size="large"> */}
+      {/*          <FuseSvgIcon>heroicons-outline:x</FuseSvgIcon> */}
+      {/*        </IconButton> */}
+      {/*      </div> */}
+      {/*    </Toolbar> */}
+      {/*  </AppBar> */}
+      {/*  <Paper className="flex flex-1 flex-row min-h-px shadow-0"> */}
+      {/*    <ContactList className="flex shrink-0" /> */}
 
-      {/*    {state && selectedContact ? (*/}
-      {/*      <Chat className="flex flex-1 z-10" />*/}
-      {/*    ) : (*/}
-      {/*      <div className="flex flex-col flex-1 items-center justify-center p-24">*/}
-      {/*        <FuseSvgIcon size={128} color="disabled">*/}
-      {/*          heroicons-outline:chat*/}
-      {/*        </FuseSvgIcon>*/}
-      {/*        <Typography className="px-16 pb-24 mt-24 text-center" color="text.secondary">*/}
-      {/*          Select a contact to start a conversation.*/}
-      {/*        </Typography>*/}
-      {/*      </div>*/}
-      {/*    )}*/}
-      {/*  </Paper>*/}
-      {/*</div>*/}
+      {/*    {state && selectedContact ? ( */}
+      {/*      <Chat className="flex flex-1 z-10" /> */}
+      {/*    ) : ( */}
+      {/*      <div className="flex flex-col flex-1 items-center justify-center p-24"> */}
+      {/*        <FuseSvgIcon size={128} color="disabled"> */}
+      {/*          heroicons-outline:chat */}
+      {/*        </FuseSvgIcon> */}
+      {/*        <Typography className="px-16 pb-24 mt-24 text-center" color="text.secondary"> */}
+      {/*          Select a contact to start a conversation. */}
+      {/*        </Typography> */}
+      {/*      </div> */}
+      {/*    )} */}
+      {/*  </Paper> */}
+      {/* </div> */}
     </Root>
   );
 }

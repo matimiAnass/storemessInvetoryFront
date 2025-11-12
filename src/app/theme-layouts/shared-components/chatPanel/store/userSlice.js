@@ -9,13 +9,16 @@ export const getUserData = createAsyncThunk('chatPanel/users/getUserData', async
   return data;
 });
 
-export const updateUserData = createAsyncThunk('chatPanel/users/updateUserData', async (newData) => {
-  const response = await axios.post('/api/chat/user', newData);
+export const updateUserData = createAsyncThunk(
+  'chatPanel/users/updateUserData',
+  async (newData) => {
+    const response = await axios.post('/api/chat/user', newData);
 
-  const data = await response.data;
+    const data = await response.data;
 
-  return data;
-});
+    return data;
+  }
+);
 
 const userSlice = createSlice({
   name: 'chatPanel/user',

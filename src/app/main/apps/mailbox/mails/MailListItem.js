@@ -33,7 +33,7 @@ const StyledListItem = styled(ListItem)(({ theme, unread, selected }) => ({
   },
 }));
 
-const MailListItem = (props) => {
+function MailListItem(props) {
   const dispatch = useDispatch();
   const selectedMailIds = useSelector(selectSelectedMailIds);
   const { mail } = props;
@@ -117,6 +117,6 @@ const MailListItem = (props) => {
       </div>
     </StyledListItem>
   );
-};
+}
 
 export default withRouter(MailListItem);

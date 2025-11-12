@@ -8,18 +8,19 @@ export const getAccounts = createAsyncThunk('users/getAccounts', async () => {
   return data;
 });
 
-export const removeAccounts =
-  createAsyncThunk('accounts', async (accountIds, { dispatch, getState }) => {
+export const removeAccounts = createAsyncThunk(
+  'accounts',
+  async (accountIds, { dispatch, getState }) => {
     await axios.delete('/api/accounts', { data: accountIds });
 
     return accountIds;
-  });
+  }
+);
 
 const accountsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectAccounts, selectById: selectAccountsById } = accountsAdapter.getSelectors(
-  (state) => state.accountsApp.accounts,
-);
+export const { selectAll: selectAccounts, selectById: selectAccountsById } =
+  accountsAdapter.getSelectors((state) => state.accountsApp.accounts);
 
 const accountsSlice = createSlice({
   name: 'accounts',
@@ -36,7 +37,8 @@ const accountsSlice = createSlice({
   },
   extraReducers: {
     [getAccounts.fulfilled]: accountsAdapter.setAll,
-    [removeAccounts.fulfilled]: (state, action) => accountsAdapter.removeMany(state, action.payload),
+    [removeAccounts.fulfilled]: (state, action) =>
+      accountsAdapter.removeMany(state, action.payload),
   },
 });
 

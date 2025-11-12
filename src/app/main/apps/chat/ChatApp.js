@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import withReducer from 'app/store/withReducer';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import FusePageSimple from '@fuse/core/FusePageSimple';
@@ -60,10 +60,14 @@ function ChatApp(props) {
       setMainSidebarOpen(false);
     }
   }, [location, isMobile]);
-
+  const contextValue = useMemo(() => ({
+    setMainSidebarOpen,
+    setContactSidebarOpen,
+    setUserSidebarOpen,
+  }), [setMainSidebarOpen, setContactSidebarOpen, setUserSidebarOpen]);
   return (
     <ChatAppContext.Provider
-      value={{ setMainSidebarOpen, setContactSidebarOpen, setUserSidebarOpen }}
+      value={contextValue}
     >
       <Root
         content={<Outlet />}

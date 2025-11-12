@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { ChatAppContext } from '../ChatApp';
 
-const MainSidebarMoreMenu = (props) => {
+function MainSidebarMoreMenu(props) {
   const { setContactSidebarOpen } = useContext(ChatAppContext);
 
   const { className } = props;
@@ -46,6 +46,6 @@ const MainSidebarMoreMenu = (props) => {
       </Menu>
     </div>
   );
-};
+}
 
 export default MainSidebarMoreMenu;

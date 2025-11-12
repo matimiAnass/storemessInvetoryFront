@@ -16,7 +16,6 @@ const PlanPermissionsAppConfig = {
       path: 'apps/planPermissions/:planPermissionId/*',
       element: <PlanPermission />,
     },
-
   ],
 };
 

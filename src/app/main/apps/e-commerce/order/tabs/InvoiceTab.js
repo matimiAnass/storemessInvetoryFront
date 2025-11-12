@@ -38,7 +38,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 }));
 
-const InvoiceTab = (props) => {
+function InvoiceTab(props) {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -238,6 +238,6 @@ const InvoiceTab = (props) => {
       )}
     </Root>
   );
-};
+}
 
 export default memo(InvoiceTab);

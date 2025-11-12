@@ -1,8 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getContractTypes =
-  createAsyncThunk(
+export const getContractTypes = createAsyncThunk(
   'constantApp/contractTypes/getContractTypes',
   async () => {
     const response = await axios.get('/api/constants/contractTypes');

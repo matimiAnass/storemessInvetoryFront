@@ -16,7 +16,6 @@ const AccountsAppConfig = {
       path: 'apps/accounts/:accountId/*',
       element: <Account />,
     },
-
   ],
 };
 

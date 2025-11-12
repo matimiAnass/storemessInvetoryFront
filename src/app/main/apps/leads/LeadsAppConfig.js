@@ -16,7 +16,6 @@ const LeadsAppConfig = {
       path: 'apps/leads/:leadId/*',
       element: <Lead />,
     },
-
   ],
 };
 export default LeadsAppConfig;

@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getSaleOrder = createAsyncThunk(
-  'saleOrder/getSaleOrder',
-  async (saleOrderId) => {
-    const response = await axios.get(`/api/saleOrder/${saleOrderId}`);
-    const data = await response.data;
+export const getSaleOrder = createAsyncThunk('saleOrder/getSaleOrder', async (saleOrderId) => {
+  const response = await axios.get(`/api/saleOrder/${saleOrderId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeSaleOrder = createAsyncThunk(
   '/removeSaleOrder',
@@ -17,7 +15,7 @@ export const removeSaleOrder = createAsyncThunk(
     const { id } = getState().saleOrderApp.lead;
     await axios.delete(`/api/saleOrder/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveSaleOrder = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveSaleOrder = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const saleOrderSlice = createSlice({

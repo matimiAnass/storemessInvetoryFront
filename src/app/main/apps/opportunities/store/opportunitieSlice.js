@@ -9,7 +9,8 @@ export const getOpportunitie = createAsyncThunk(
     const data = await response.data;
 
     return data === undefined ? null : data;
-  });
+  }
+);
 
 export const removeOpportunitie = createAsyncThunk(
   '/removeOpportunitie',
@@ -17,7 +18,7 @@ export const removeOpportunitie = createAsyncThunk(
     const { id } = getState().opportunitieApp.opportunitie;
     await axios.delete(`/api/opportunities/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveOpportunitie = createAsyncThunk(
@@ -30,7 +31,7 @@ export const saveOpportunitie = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const opportunitieSlice = createSlice({

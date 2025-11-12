@@ -2,23 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getTax = createAsyncThunk(
-  'tax/getTaxs',
-  async (taxId) => {
-    const response = await axios.get(`/api/constants/products/taxs/${taxId}`);
-    const data = await response.data;
+export const getTax = createAsyncThunk('tax/getTaxs', async (taxId) => {
+  const response = await axios.get(`/api/constants/products/taxs/${taxId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
-export const removeTax = createAsyncThunk(
-  '/removeTax',
-  async (val, { dispatch, getState }) => {
-    const { id } = getState().constantApp.tax;
-    await axios.delete(`/api/constants/products/tax/${id}`);
-    return id;
-  },
-);
+export const removeTax = createAsyncThunk('/removeTax', async (val, { dispatch, getState }) => {
+  const { id } = getState().constantApp.tax;
+  await axios.delete(`/api/constants/products/tax/${id}`);
+  return id;
+});
 
 export const saveTax = createAsyncThunk(
   'constantApp/products/tax',
@@ -30,7 +25,7 @@ export const saveTax = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const taxSlice = createSlice({
@@ -58,6 +53,6 @@ const taxSlice = createSlice({
 
 export const { newTax, resetTax } = taxSlice.actions;
 
-export const selectTax   = ({ constantApp }) => constantApp.tax;
+export const selectTax = ({ constantApp }) => constantApp.tax;
 
 export default taxSlice.reducer;

@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getOpportunitie, newOpportunitie, resetOpportunitie, selectOpportunitie } from '../store/opportunitieSlice';
+import {
+  getOpportunitie,
+  newOpportunitie,
+  resetOpportunitie,
+  selectOpportunitie,
+} from '../store/opportunitieSlice';
 import reducer from '../store';
 import OpportunitieHeader from './OpportunitieHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -131,7 +136,9 @@ function Opportunitie(props) {
    */
   if (
     _.isEmpty(form) ||
-    (opportunitie && routeParams.opportunitieId !== opportunitie.id && routeParams.opportunitieId !== 'new')
+    (opportunitie &&
+      routeParams.opportunitieId !== opportunitie.id &&
+      routeParams.opportunitieId !== 'new')
   ) {
     return <FuseLoading />;
   }

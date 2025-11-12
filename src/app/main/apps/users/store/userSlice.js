@@ -1,28 +1,26 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import FuseUtils from '@fuse/utils';
-import { getUsers } from './usersSlice';
 
 export const getUser = createAsyncThunk('user/getUser', async (userId) => {
-  const response = await axios.get(`http://192.168.1.17:8000/api/users/${userId}`);
+  const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_API}users/${userId}`);
   const data = await response.data;
-  return data ;
+  return data;
 });
 export const getListRoles = createAsyncThunk('user/getListRoles', async () => {
-  const response = await axios.get(`http://192.168.1.17:8000/api/roles/`);
+  const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_API}roles/`);
   const data = await response.data;
   const list_roles = [];
   for (const element of data) {
     list_roles.push(element.name);
   }
-  return list_roles ;
+  return list_roles;
 });
 
 export const removeUser = createAsyncThunk(
   'user/removeUser',
   async (val, { dispatch, getState }) => {
-    const  id  = getState().userApp?.user?.user.id;
-    await axios.delete(`http://192.168.1.17:8000/api/user/${id}`);
+    const id = getState().userApp?.user?.user.id;
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL_API}user/${id}`);
     return id;
   }
 );
@@ -30,12 +28,11 @@ export const saveUser = createAsyncThunk(
   'user/saveUser',
   async (userData, { dispatch, getState }) => {
     let response = {};
-    if(getState().userApp?.user?.user === undefined) {
-      response = await axios.post(`http://192.168.1.17:8000/api/user/`, userData);
-    }
-    else{
-      const  id  = getState().userApp?.user?.user.id;
-      response = await axios.put(`http://192.168.1.17:8000/api/user/${id}`, userData);
+    if (getState().userApp?.user?.user === undefined) {
+      response = await axios.post(`${process.env.REACT_APP_BACKEND_URL_API}user/`, userData);
+    } else {
+      const id = getState().userApp?.user?.user.id;
+      response = await axios.put(`${process.env.REACT_APP_BACKEND_URL_API}user/${id}`, userData);
     }
 
     const data = await response.data;
@@ -46,9 +43,9 @@ export const saveUser = createAsyncThunk(
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: { userUpdated : {}, user : null, roles : null },
+  initialState: { userUpdated: {}, user: null, roles: null },
   reducers: {
-    setUserUpdated : (state, action) => {
+    setUserUpdated: (state, action) => {
       state.userUpdated = action.payload;
     },
     resetUser: () => {},
@@ -56,7 +53,7 @@ const userSlice = createSlice({
       reducer: (state, action) => action.payload,
       prepare: (event) => ({
         payload: {
-          id:0,
+          id: 0,
           avatar: '',
           username: '',
           name: '',
@@ -80,7 +77,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { newUser, setUserUpdated,resetUser } = userSlice.actions;
+export const { newUser, setUserUpdated, resetUser } = userSlice.actions;
 
 export const selectUser = ({ userApp }) => userApp?.user;
 export default userSlice.reducer;

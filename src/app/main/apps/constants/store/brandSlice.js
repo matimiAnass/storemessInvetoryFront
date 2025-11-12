@@ -2,23 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getBrand = createAsyncThunk(
-  'brand/getBrands',
-  async (brandId) => {
-    const response = await axios.get(`/api/constants/products/brands/${brandId}`);
-    const data = await response.data;
+export const getBrand = createAsyncThunk('brand/getBrands', async (brandId) => {
+  const response = await axios.get(`/api/constants/products/brands/${brandId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
-export const removeBrand = createAsyncThunk(
-  '/removeBrand',
-  async (val, { dispatch, getState }) => {
-    const { id } = getState().constantApp.Brand;
-    await axios.delete(`/api/constants/products/brand/${id}`);
-    return id;
-  },
-);
+export const removeBrand = createAsyncThunk('/removeBrand', async (val, { dispatch, getState }) => {
+  const { id } = getState().constantApp.Brand;
+  await axios.delete(`/api/constants/products/brand/${id}`);
+  return id;
+});
 
 export const saveBrand = createAsyncThunk(
   'constantApp/products/brand',
@@ -30,7 +25,7 @@ export const saveBrand = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const brandSlice = createSlice({
@@ -55,7 +50,7 @@ const brandSlice = createSlice({
     [removeBrand.fulfilled]: (state, action) => null,
   },
 });
-``
+``;
 export const { newBrand, resetBrand } = brandSlice.actions;
 
 export const selectBrand = ({ constantApp }) => constantApp.brand;

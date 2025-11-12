@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getSaleOrder, newSaleOrder, resetSaleOrder, selectSaleOrder } from '../store/saleOrderSlice';
+import {
+  getSaleOrder,
+  newSaleOrder,
+  resetSaleOrder,
+  selectSaleOrder,
+} from '../store/saleOrderSlice';
 import reducer from '../store';
 import SaleOrderHeader from './saleOrderHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';

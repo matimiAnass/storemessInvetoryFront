@@ -33,7 +33,6 @@ const rows = [
     label: 'Lead Source',
     sort: true,
   },
-
 ];
 
 function LeadSourcesTableHead(props) {

@@ -1,8 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getLeadSources =
-  createAsyncThunk(
+export const getLeadSources = createAsyncThunk(
   'constantApp/leadSources/getLeadSources',
   async () => {
     const response = await axios.get('/api/constants/leadSources');
@@ -47,7 +46,6 @@ const leadSourcesSlice = createSlice({
 
 export const { setLeadSourcesSearchText } = leadSourcesSlice.actions;
 
-export const selectLeadSourcesSearchText = ({ constantApp }) =>
-  constantApp.leadSources.searchText;
+export const selectLeadSourcesSearchText = ({ constantApp }) => constantApp.leadSources.searchText;
 
 export default leadSourcesSlice.reducer;

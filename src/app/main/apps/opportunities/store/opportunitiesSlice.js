@@ -2,24 +2,25 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 
 export const getOpportunities = createAsyncThunk('opportunities/getOpportunities', async () => {
-  const response = await axios.get('/api/opportunities');
+  const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_API}opportunities`);
   const data = await response.data;
 
   return data;
 });
 
-export const removeOpportunities =
-  createAsyncThunk('opportunities', async (opportunitieIds, { dispatch, getState }) => {
-  await axios.delete('/api/opportunities', { data: opportunitieIds });
+export const removeOpportunities = createAsyncThunk(
+  'opportunities',
+  async (opportunitieIds, { dispatch, getState }) => {
+    await axios.delete('/api/opportunities', { data: opportunitieIds });
 
-  return opportunitieIds;
-});
+    return opportunitieIds;
+  }
+);
 
 const opportunitiesAdapter = createEntityAdapter({});
 
-export const { selectAll: selectOpportunities, selectById: selectOpportunitiesById } = opportunitiesAdapter.getSelectors(
-  (state) => state.opportunitiesApp.opportunities
-);
+export const { selectAll: selectOpportunities, selectById: selectOpportunitiesById } =
+  opportunitiesAdapter.getSelectors((state) => state.opportunitiesApp.opportunities);
 
 const opportunitiesSlice = createSlice({
   name: 'opportunities',
@@ -36,7 +37,8 @@ const opportunitiesSlice = createSlice({
   },
   extraReducers: {
     [getOpportunities.fulfilled]: opportunitiesAdapter.setAll,
-    [removeOpportunities.fulfilled]: (state, action) => opportunitiesAdapter.removeMany(state, action.payload),
+    [removeOpportunities.fulfilled]: (state, action) =>
+      opportunitiesAdapter.removeMany(state, action.payload),
   },
 });
 

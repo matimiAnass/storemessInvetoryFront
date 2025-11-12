@@ -1,6 +1,6 @@
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 
-const NotificationIcon = ({ value }) => {
+function NotificationIcon({ value }) {
   switch (value) {
     case 'error': {
       return (
@@ -34,6 +34,6 @@ const NotificationIcon = ({ value }) => {
       return null;
     }
   }
-};
+}
 
 export default NotificationIcon;

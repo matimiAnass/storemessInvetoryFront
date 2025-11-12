@@ -119,7 +119,7 @@ function FuseSettings(props) {
     user,
   ]);
 
-  const ThemeSelect = ({ value, name, handleThemeChange }) => {
+  function ThemeSelect({ value, name, handleThemeChange }) {
     return (
       <Select
         className="w-full rounded-8 h-40 overflow-hidden my-8"
@@ -194,7 +194,7 @@ function FuseSettings(props) {
           ))}
       </Select>
     );
-  };
+  }
 
   const getForm = useCallback(
     (_formConfigs, prefix) =>

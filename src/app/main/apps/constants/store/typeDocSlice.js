@@ -2,23 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getType = createAsyncThunk(
-  'type/getTypes',
-  async (typeId) => {
-    const response = await axios.get(`/api/constants/documents/types/${typeId}`);
-    const data = await response.data;
+export const getType = createAsyncThunk('type/getTypes', async (typeId) => {
+  const response = await axios.get(`/api/constants/documents/types/${typeId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
-export const removeType = createAsyncThunk(
-  '/removeType',
-  async (val, { dispatch, getState }) => {
-    const { id } = getState().constantApp.typeDoc;
-    await axios.delete(`/api//constants/documents/type/${id}`);
-    return id;
-  },
-);
+export const removeType = createAsyncThunk('/removeType', async (val, { dispatch, getState }) => {
+  const { id } = getState().constantApp.typeDoc;
+  await axios.delete(`/api//constants/documents/type/${id}`);
+  return id;
+});
 
 export const saveType = createAsyncThunk(
   'constantApp/documents/type',
@@ -30,7 +25,7 @@ export const saveType = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const typeDocSlice = createSlice({

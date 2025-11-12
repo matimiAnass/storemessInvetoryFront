@@ -1,5 +1,4 @@
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { Controller, useFormContext } from 'react-hook-form';
 
 function BasicInfoTab(props) {
@@ -9,7 +8,6 @@ function BasicInfoTab(props) {
 
   return (
     <div>
-
       <Controller
         name="categorie"
         control={control}

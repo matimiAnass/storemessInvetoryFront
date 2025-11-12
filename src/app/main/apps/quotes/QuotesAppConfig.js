@@ -16,7 +16,6 @@ const QuotesAppConfig = {
       path: 'apps/quotes/:quoteId/*',
       element: <Quote />,
     },
-
   ],
 };
 export default QuotesAppConfig;

@@ -4,7 +4,7 @@ import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { useContext } from 'react';
 import { ChatAppContext } from './ChatApp';
 
-const ChatFirstScreen = () => {
+function ChatFirstScreen() {
   const { setMainSidebarOpen } = useContext(ChatAppContext);
 
   return (
@@ -28,6 +28,6 @@ const ChatFirstScreen = () => {
       </Button>
     </div>
   );
-};
+}
 
 export default ChatFirstScreen;

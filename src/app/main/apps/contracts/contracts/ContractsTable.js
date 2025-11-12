@@ -13,11 +13,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import format from 'date-fns/format';
 import { getContracts, selectContracts, selectContractsSearchText } from '../store/contractsSlice';
 import ContractsTableHead from './ContractsTableHead';
-import format from 'date-fns/format';
-import { setContractObj } from '../store/contractSlice';
 
 function ContractsTable(props) {
   const dispatch = useDispatch();
@@ -41,7 +39,7 @@ function ContractsTable(props) {
   useEffect(() => {
     if (searchText.length !== 0) {
       setData(
-        _.filter(contracts, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
+        _.filter(contracts, (item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
       );
       setPage(0);
     } else {
@@ -92,7 +90,7 @@ function ContractsTable(props) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -109,21 +107,20 @@ function ContractsTable(props) {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-full'>
+      <div className="flex items-center justify-center h-full">
         <FuseLoading />
       </div>
     );
   }
-
 
   if (data.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-1 items-center justify-center h-full'
+        className="flex flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There are no contracts!
         </Typography>
       </motion.div>
@@ -131,9 +128,9 @@ function ContractsTable(props) {
   }
 
   return (
-    <div className='w-full flex flex-col min-h-full'>
-      <FuseScrollbars className='grow overflow-x-auto'>
-        <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
+    <div className="w-full flex flex-col min-h-full">
+      <FuseScrollbars className="grow overflow-x-auto">
+        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
           <ContractsTableHead
             selectedContractIds={selected}
             order={contracts}
@@ -144,25 +141,22 @@ function ContractsTable(props) {
           />
 
           <TableBody>
-            {_.orderBy(
-              data,
-              [contract.direction],
-            )
+            {_.orderBy(data, [contract.direction])
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((n) => {
                 const isSelected = selected.indexOf(n.id) !== -1;
                 return (
                   <TableRow
-                    className='h-72 cursor-pointer'
+                    className="h-72 cursor-pointer"
                     hover
-                    role='checkbox'
+                    role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
                     onClick={(event) => handleClick(n)}
                   >
-                    <TableCell align='left' className='w-40 md:w-64 text-center' padding='none'>
+                    <TableCell align="left" className="w-40 md:w-64 text-center" padding="none">
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
@@ -170,42 +164,43 @@ function ContractsTable(props) {
                       />
                     </TableCell>
 
-                    <TableCell align='left'
-                      className='p-4 md:p-16'
-                      component='th'
-                      scope='row'
-                    >
+                    <TableCell align="left" className="p-4 md:p-16" component="th" scope="row">
                       {n.name}
                     </TableCell>
 
-                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row'>
+                    <TableCell align="left" className="p-4 md:p-16" component="th" scope="row">
                       {n.client_name}
                     </TableCell>
 
-                    <TableCell align='left' className='p-4 md:p-16 truncate' component='th' scope='row'>
+                    <TableCell
+                      align="left"
+                      className="p-4 md:p-16 truncate"
+                      component="th"
+                      scope="row"
+                    >
                       <span>$</span>
                       {n.value}
                     </TableCell>
 
-                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                    <TableCell align="left" className="p-4 md:p-16" component="th" scope="row">
                       {n.type}
                     </TableCell>
 
-                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                    <TableCell align="left" className="p-4 md:p-16" component="th" scope="row">
                       {format(new Date(n.start_date), 'MMM dd, y')}
                     </TableCell>
-                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                    <TableCell align="left" className="p-4 md:p-16" component="th" scope="row">
                       {format(new Date(n.end_date), 'MMM dd, y')}
                     </TableCell>
 
-                    <TableCell align='left' className='p-4 md:p-16' component='th' scope='row' >
+                    <TableCell align="left" className="p-4 md:p-16" component="th" scope="row">
                       <Typography
                         className={clsx(
                           'inline-flex items-center font-bold text-10 px-10 py-2 rounded-full tracking-wide uppercase',
                           n.status === 'Close' &&
-                          'bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50',
+                            'bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50',
                           n.status === 'Start' &&
-                          'bg-green-50 text-green-800 dark:bg-green-600 dark:text-green-50'
+                            'bg-green-50 text-green-800 dark:bg-green-600 dark:text-green-50'
                         )}
                       >
                         {n.status}
@@ -219,8 +214,8 @@ function ContractsTable(props) {
       </FuseScrollbars>
 
       <TablePagination
-        className='shrink-0 border-t-1'
-        component='div'
+        className="shrink-0 border-t-1"
+        component="div"
         count={data?.length}
         rowsPerPage={rowsPerPage}
         page={page}

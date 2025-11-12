@@ -26,31 +26,38 @@ const rows = [
     sort: true,
   },
   {
-    id: 'account',
+    id: 'account_name',
     align: 'left',
     disablePadding: false,
     label: 'account',
     sort: true,
   },
   {
+    id: 'campaign_name',
+    align: 'left',
+    disablePadding: false,
+    label: 'compaign',
+    sort: true,
+  },
+  {
     id: 'amount',
-    align: 'right',
+    align: 'left',
     disablePadding: false,
     label: 'amount',
     sort: true,
   },
   {
-    id: 'assignedUser',
-    align: 'right',
+    id: 'user_id',
+    align: 'left',
     disablePadding: false,
-    label: 'assigned user',
+    label: 'user',
     sort: true,
   },
 ];
 
 function OpportunitiesTableHead(props) {
   const { selectedOpportunitieIds } = props;
-  const numSelected = selectedOpportunitieIds.length;
+  const numSelected = selectedOpportunitieIds?.length;
 
   const [selectedOpportunitiesMenu, setSelectedOpportunitiesMenu] = useState(null);
 

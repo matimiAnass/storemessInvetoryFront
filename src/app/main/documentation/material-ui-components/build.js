@@ -474,7 +474,7 @@ function removeUnnecessaryFiles() {
 }
 
 function build(dir) {
-  fs.unlink(path.resolve(examplesDirectory, './.eslintrc.js'), (err) => {});
+  fs.unlink(path.resolve(examplesDirectory, './.eslintrc.json'), (err) => {});
 
   removeUnnecessaryFiles();
 

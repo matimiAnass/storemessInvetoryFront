@@ -16,7 +16,6 @@ const UsersAppConfig = {
       path: 'apps/users/:userId/*',
       element: <User />,
     },
-
   ],
 };
 

@@ -131,7 +131,7 @@ function User(props) {
    */
   if (
     _.isEmpty(form) ||
-      (data && parseInt(routeParams?.userId) !== data?.user?.id && routeParams?.userId !== 'new')
+    (data && parseInt(routeParams?.userId) !== data?.user?.id && routeParams?.userId !== 'new')
   ) {
     return <FuseLoading />;
   }

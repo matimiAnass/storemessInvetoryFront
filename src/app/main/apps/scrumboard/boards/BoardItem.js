@@ -43,15 +43,13 @@ function BoardItem(props) {
 
       <div className="flex flex-col flex-auto justify-end w-full">
         {Boolean(boardMembers?.length) && (
-          <>
-            <div className="flex items-center mt-24 -space-x-6">
-              <AvatarGroup max={4}>
-                {boardMembers.map((member, index) => (
-                  <Avatar key={index} alt="member" src={member.avatar} />
-                ))}
-              </AvatarGroup>
-            </div>
-          </>
+          <div className="flex items-center mt-24 -space-x-6">
+            <AvatarGroup max={4}>
+              {boardMembers.map((member, index) => (
+                <Avatar key={index} alt="member" src={member.avatar} />
+              ))}
+            </AvatarGroup>
+          </div>
         )}
 
         <div className="flex items-center mt-24 text-md font-md">

@@ -16,7 +16,7 @@ import { getContact, selectContact } from '../store/contactSlice';
 import { selectCountries } from '../store/countriesSlice';
 import { selectTags } from '../store/tagsSlice';
 
-const ContactView = () => {
+function ContactView() {
   const contact = useSelector(selectContact);
   const countries = useSelector(selectCountries);
   const tags = useSelector(selectTags);
@@ -123,12 +123,10 @@ const ContactView = () => {
                             {item.email}
                           </a>
                           {item.label && (
-                            <>
-                              <Typography className="text-md truncate" color="text.secondary">
-                                <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{item.label}</span>
-                              </Typography>
-                            </>
+                            <Typography className="text-md truncate" color="text.secondary">
+                              <span className="mx-8">&bull;</span>
+                              <span className="font-medium">{item.label}</span>
+                            </Typography>
                           )}
                         </div>
                       )
@@ -163,12 +161,10 @@ const ContactView = () => {
                             <div className="ml-10 font-mono">{item.phoneNumber}</div>
 
                             {item.label && (
-                              <>
-                                <Typography className="text-md truncate" color="text.secondary">
-                                  <span className="mx-8">&bull;</span>
-                                  <span className="font-medium">{item.label}</span>
-                                </Typography>
-                              </>
+                              <Typography className="text-md truncate" color="text.secondary">
+                                <span className="mx-8">&bull;</span>
+                                <span className="font-medium">{item.label}</span>
+                              </Typography>
                             )}
                           </div>
                         )
@@ -207,6 +203,6 @@ const ContactView = () => {
       </div>
     </>
   );
-};
+}
 
 export default ContactView;

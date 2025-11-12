@@ -1,12 +1,13 @@
-import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { selectPlanPermissionsSearchText, setPlanPermissionsSearchText } from '../store/planPermissionsSlice';
+import {
+  selectPlanPermissionsSearchText,
+  setPlanPermissionsSearchText,
+} from '../store/planPermissionsSlice';
 
 function PlanPermissionsHeader(props) {
   const dispatch = useDispatch();
@@ -49,16 +50,16 @@ function PlanPermissionsHeader(props) {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
         >
-          {/*<Button*/}
-          {/*  className=""*/}
-          {/*  component={Link}*/}
-          {/*  to="/apps/planPermissions/new"*/}
-          {/*  variant="contained"*/}
-          {/*  color="secondary"*/}
-          {/*  startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}*/}
-          {/*>*/}
-          {/*  Add*/}
-          {/*</Button>*/}
+          {/* <Button */}
+          {/*  className="" */}
+          {/*  component={Link} */}
+          {/*  to="/apps/planPermissions/new" */}
+          {/*  variant="contained" */}
+          {/*  color="secondary" */}
+          {/*  startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>} */}
+          {/* > */}
+          {/*  Add */}
+          {/* </Button> */}
         </motion.div>
       </div>
     </div>

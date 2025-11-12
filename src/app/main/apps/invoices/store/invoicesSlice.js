@@ -8,18 +8,19 @@ export const getInvoices = createAsyncThunk('invoices/getInvoices', async () => 
   return data;
 });
 
-export const removeInvoices =
-  createAsyncThunk('invoices', async (invoiceIds, { dispatch, getState }) => {
+export const removeInvoices = createAsyncThunk(
+  'invoices',
+  async (invoiceIds, { dispatch, getState }) => {
     await axios.delete('/api/invoices', { data: invoiceIds });
 
     return invoiceIds;
-});
+  }
+);
 
 const invoicesAdapter = createEntityAdapter({});
 
-export const { selectAll: selectInvoices, selectById: selectInvoicesById } = invoicesAdapter.getSelectors(
-  (state) => state.invoicesApp.invoices
-);
+export const { selectAll: selectInvoices, selectById: selectInvoicesById } =
+  invoicesAdapter.getSelectors((state) => state.invoicesApp.invoices);
 
 const invoicesSlice = createSlice({
   name: 'invoices',
@@ -36,7 +37,8 @@ const invoicesSlice = createSlice({
   },
   extraReducers: {
     [getInvoices.fulfilled]: invoicesAdapter.setAll,
-    [removeInvoices.fulfilled]: (state, action) => invoicesAdapter.removeMany(state, action.payload),
+    [removeInvoices.fulfilled]: (state, action) =>
+      invoicesAdapter.removeMany(state, action.payload),
   },
 });
 

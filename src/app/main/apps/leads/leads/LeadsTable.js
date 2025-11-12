@@ -14,11 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import {
-  getLeads,
-  selectLeads,
-  selectLeadsSearchText,
-} from '../store/leadsSlice';
+import { getLeads, selectLeads, selectLeadsSearchText } from '../store/leadsSlice';
 import LeadsTableHead from './LeadsTableHead';
 
 function LeadsTable(props) {
@@ -43,7 +39,7 @@ function LeadsTable(props) {
   useEffect(() => {
     if (searchText?.length !== 0) {
       setData(
-        _.filter(leads, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
+        _.filter(leads, (item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
       );
       setPage(0);
     } else {
@@ -94,7 +90,7 @@ function LeadsTable(props) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -111,7 +107,7 @@ function LeadsTable(props) {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-full'>
+      <div className="flex items-center justify-center h-full">
         <FuseLoading />
       </div>
     );
@@ -122,9 +118,9 @@ function LeadsTable(props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-1 items-center justify-center h-full'
+        className="flex flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There are no leads!
         </Typography>
       </motion.div>
@@ -132,9 +128,9 @@ function LeadsTable(props) {
   }
 
   return (
-    <div className='w-full flex flex-col min-h-full'>
-      <FuseScrollbars className='grow overflow-x-auto'>
-        <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
+    <div className="w-full flex flex-col min-h-full">
+      <FuseScrollbars className="grow overflow-x-auto">
+        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
           <LeadsTableHead
             selectedRoleIds={selected}
             order={leads}
@@ -159,23 +155,23 @@ function LeadsTable(props) {
                   }
                 },
               ],
-              [quote.direction],
+              [quote.direction]
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((n) => {
                 const isSelected = selected.indexOf(n.id) !== -1;
                 return (
                   <TableRow
-                    className='h-72 cursor-pointer'
+                    className="h-72 cursor-pointer"
                     hover
-                    role='checkbox'
+                    role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
                     onClick={(event) => handleClick(n)}
                   >
-                    <TableCell className='w-40 md:w-64 text-center' padding='none'>
+                    <TableCell className="w-40 md:w-64 text-center" padding="none">
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
@@ -184,58 +180,58 @@ function LeadsTable(props) {
                     </TableCell>
 
                     <TableCell
-                      className='w-52 px-4 md:px-0'
-                      component='th'
-                      scope='row'
-                      padding='none'
+                      className="w-52 px-4 md:px-0"
+                      component="th"
+                      scope="row"
+                      padding="none"
                     >
                       {n.images.length > 0 && n.featuredImageId ? (
                         <img
-                          className='w-full block rounded'
+                          className="w-full block rounded"
                           src={_.find(n.images, { id: n.featuredImageId }).url}
                           alt={n.name}
                         />
                       ) : (
                         <img
-                          className='w-full block rounded'
-                          src='assets/images/apps/ecommerce/product-image-placeholder.png'
+                          className="w-full block rounded"
+                          src="assets/images/apps/ecommerce/product-image-placeholder.png"
                           alt={n.name}
                         />
                       )}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row">
                       {n.name}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
+                    <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
                       {n.categories.join(', ')}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
                       <span>$</span>
                       {n.priceTaxIncl}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
                       {n.quantity}
                       <i
                         className={clsx(
                           'inline-block w-8 h-8 rounded mx-8',
                           n.quantity <= 5 && 'bg-red',
                           n.quantity > 5 && n.quantity <= 25 && 'bg-orange',
-                          n.quantity > 25 && 'bg-green',
+                          n.quantity > 25 && 'bg-green'
                         )}
                       />
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row' align='right'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
                       {n.active ? (
-                        <FuseSvgIcon className='text-green' size={20}>
+                        <FuseSvgIcon className="text-green" size={20}>
                           heroicons-outline:check-circle
                         </FuseSvgIcon>
                       ) : (
-                        <FuseSvgIcon className='text-red' size={20}>
+                        <FuseSvgIcon className="text-red" size={20}>
                           heroicons-outline:minus-circle
                         </FuseSvgIcon>
                       )}
@@ -248,8 +244,8 @@ function LeadsTable(props) {
       </FuseScrollbars>
 
       <TablePagination
-        className='shrink-0 border-t-1'
-        component='div'
+        className="shrink-0 border-t-1"
+        component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}

@@ -8,8 +8,7 @@ export const getLeads = createAsyncThunk('leads/getLeads', async () => {
   return data;
 });
 
-export const removeLeads =
-  createAsyncThunk('leads', async (quoteIds, { dispatch, getState }) => {
+export const removeLeads = createAsyncThunk('leads', async (quoteIds, { dispatch, getState }) => {
   await axios.delete('/api/leads', { data: quoteIds });
 
   return quoteIds;

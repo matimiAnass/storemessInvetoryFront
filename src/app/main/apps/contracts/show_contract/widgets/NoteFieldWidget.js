@@ -1,39 +1,36 @@
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
-import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { memo, useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import { useSelector } from 'react-redux';
+import { memo } from 'react';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { rgb } from 'polished';
 import { motion } from 'framer-motion';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import './Iconstyle.css'
+import './Iconstyle.css';
 
 function NoteFieldWidget() {
-
   return (
-    <Paper className='flex flex-col flex-auto shadow rounded-2xl overflow-hidden'
-           style={{ backgroundColor: rgb(241, 245, 249) }}>
-      <div className='flex items-center justify-between px-8 pt-12'>
+    <Paper
+      className="flex flex-col flex-auto shadow rounded-2xl overflow-hidden"
+      style={{ backgroundColor: rgb(241, 245, 249) }}
+    >
+      <div className="flex items-center justify-between px-8 pt-12">
         <Typography
-          className='px-16 text-lg font-medium tracking-tight leading-6 truncate'
-          color='text.secondary'
+          className="px-16 text-lg font-medium tracking-tight leading-6 truncate"
+          color="text.secondary"
         >
-          {'Notes'}
+          Notes
         </Typography>
       </div>
       <TextField
-        className='m-16'
-        id='comments'
-        label='Add a note'
-        type='text'
+        className="m-16"
+        id="comments"
+        label="Add a note"
+        type="text"
         multiline
         rows={5}
-        variant='outlined'
+        variant="outlined"
       />
       <motion.div
         initial={{ opacity: 0, x: 20 }}
@@ -45,12 +42,11 @@ function NoteFieldWidget() {
           to="/apps/contracts/contractsDetails/new"
           variant="contained"
           color="secondary"
-
-          startIcon={<FuseSvgIcon className="my-class" >heroicons-outline:plus</FuseSvgIcon>}
-        >Add
+          startIcon={<FuseSvgIcon className="my-class">heroicons-outline:plus</FuseSvgIcon>}
+        >
+          Add
         </Button>
       </motion.div>
-
     </Paper>
   );
 }

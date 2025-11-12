@@ -24,16 +24,9 @@ function ContactListItem(props) {
           classes={{ root: 'm-0', primary: 'font-medium leading-5 truncate' }}
           primary={contact.name}
           secondary={
-            <>
-              <Typography
-                className="inline"
-                component="span"
-                variant="body2"
-                color="text.secondary"
-              >
-                {contact.title}
-              </Typography>
-            </>
+            <Typography className="inline" component="span" variant="body2" color="text.secondary">
+              {contact.title}
+            </Typography>
           }
         />
       </ListItem>

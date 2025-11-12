@@ -16,7 +16,6 @@ const InvoicesAppConfig = {
       path: 'apps/invoices/:invoiceId/*',
       element: <Invoice />,
     },
-
   ],
 };
 export default InvoicesAppConfig;

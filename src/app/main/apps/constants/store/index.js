@@ -17,9 +17,9 @@ import folder from './folderSlice';
 import folders from './foldersSlice';
 import categorie from './categorieSlice';
 import categories from './categoriesSlice';
-import brand from './brandSlice'
+import brand from './brandSlice';
 import brands from './brandsSlice';
-import tax from './taxSlice'
+import tax from './taxSlice';
 import taxs from './taxsSlice';
 
 const reducer = combineReducers({
@@ -44,7 +44,7 @@ const reducer = combineReducers({
   brand,
   brands,
   tax,
-  taxs
+  taxs,
 });
 
 export default reducer;

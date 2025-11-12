@@ -69,7 +69,7 @@ const StyledStatus = styled('div')(({ theme, value }) => ({
   }),
 }));
 
-const ContactButton = ({ contact, selectedContactId, onClick }) => {
+function ContactButton({ contact, selectedContactId, onClick }) {
   return (
     <Root title={contact.name} placement="left" active={selectedContactId === contact.id ? 1 : 0}>
       <Button
@@ -89,6 +89,6 @@ const ContactButton = ({ contact, selectedContactId, onClick }) => {
       </Button>
     </Root>
   );
-};
+}
 
 export default ContactButton;

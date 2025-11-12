@@ -8,8 +8,7 @@ export const getRoles = createAsyncThunk('roles/getRoles', async () => {
   return data;
 });
 
-export const removeRoles =
-  createAsyncThunk('roles', async (roleIds, { dispatch, getState }) => {
+export const removeRoles = createAsyncThunk('roles', async (roleIds, { dispatch, getState }) => {
   await axios.delete('/api/roles', { data: roleIds });
 
   return roleIds;

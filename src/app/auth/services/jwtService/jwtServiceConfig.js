@@ -1,7 +1,7 @@
 const jwtServiceConfig = {
-  signIn: 'http://192.168.1.17:8000/api/auth/login',
+  signIn: `${process.env.REACT_APP_BACKEND_URL_API}auth/login-api`,
   signUp: 'api/auth/sign-up',
-  accessToken: 'http://192.168.1.17:8000/api/auth/refresh-token',
+  accessToken: `${process.env.REACT_APP_BACKEND_URL_API}auth/get-token`,
   // accessToken: 'api/auth/access-token',
   updateUser: 'api/auth/users/update',
 };

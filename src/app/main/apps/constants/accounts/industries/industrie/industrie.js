@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getIndustrie, newIndustrie, resetIndustrie, selectIndustrie } from '../../../store/industrieSlice';
+import {
+  getIndustrie,
+  newIndustrie,
+  resetIndustrie,
+  selectIndustrie,
+} from '../../../store/industrieSlice';
 import reducer from '../../../store';
 import IndustrieHeader from './IndustrieHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -107,17 +112,17 @@ function Industrie(props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-col flex-1 items-center justify-center h-full'
+        className="flex flex-col flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There is no such Industrie!
         </Typography>
         <Button
-          className='mt-24'
+          className="mt-24"
           component={Link}
-          variant='outlined'
-          to='/apps/constants/accounts/industries'
-          color='inherit'
+          variant="outlined"
+          to="/apps/constants/accounts/industries"
+          color="inherit"
         >
           Go to Industrie Page
         </Button>
@@ -144,15 +149,15 @@ function Industrie(props) {
             <Tabs
               value={tabValue}
               onChange={handleTabChange}
-              indicatorColor='secondary'
-              textColor='secondary'
-              variant='scrollable'
-              scrollButtons='auto'
+              indicatorColor="secondary"
+              textColor="secondary"
+              variant="scrollable"
+              scrollButtons="auto"
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
-              <Tab className='h-64' label='Basic Info' />
+              <Tab className="h-64" label="Basic Info" />
             </Tabs>
-            <div className='p-16 sm:p-24 max-w-3xl'>
+            <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? 'hidden' : ''}>
                 <BasicInfoTab />
               </div>

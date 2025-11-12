@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getShippingProvider, newShippingProvider, resetShippingProvider, selectShippingProvider } from '../../store/shippingProviderSlice';
+import {
+  getShippingProvider,
+  newShippingProvider,
+  resetShippingProvider,
+  selectShippingProvider,
+} from '../../store/shippingProviderSlice';
 import reducer from '../../store';
 import ShippingProviderHeader from './ShippingProviderHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -131,7 +136,9 @@ function ShippingProvider(props) {
    */
   if (
     _.isEmpty(form) ||
-    (shippingProvider && routeParams.shippingProviderId !== shippingProvider.id && routeParams.shippingProviderId !== 'new')
+    (shippingProvider &&
+      routeParams.shippingProviderId !== shippingProvider.id &&
+      routeParams.shippingProviderId !== 'new')
   ) {
     return <FuseLoading />;
   }

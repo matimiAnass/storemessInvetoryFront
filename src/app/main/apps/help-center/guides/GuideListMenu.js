@@ -5,7 +5,7 @@ import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import Button from '@mui/material/Button';
 import { darken } from '@mui/material/styles';
 
-const GuideListMenu = (props) => {
+function GuideListMenu(props) {
   const { list, className, categorySlug, maxItems } = props;
 
   if (list?.length === 0) {
@@ -46,7 +46,7 @@ const GuideListMenu = (props) => {
       )}
     </div>
   );
-};
+}
 
 GuideListMenu.defaultProps = {
   items: [],

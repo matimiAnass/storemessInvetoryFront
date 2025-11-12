@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getTaskStage = createAsyncThunk(
-  'taskStage/getTaskStages',
-  async (taskStageId) => {
-    const response = await axios.get(`/api/taskStages/${taskStageId}`);
-    const data = await response.data;
+export const getTaskStage = createAsyncThunk('taskStage/getTaskStages', async (taskStageId) => {
+  const response = await axios.get(`/api/taskStages/${taskStageId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeTaskStage = createAsyncThunk(
   '/removeTaskStage',
@@ -17,7 +15,7 @@ export const removeTaskStage = createAsyncThunk(
     const { id } = getState().constantApp.taskStage;
     await axios.delete(`/api/taskStage/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveTaskStage = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveTaskStage = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const taskStageSlice = createSlice({

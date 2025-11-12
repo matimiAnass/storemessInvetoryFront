@@ -11,9 +11,9 @@ export const setUser = createAsyncThunk('users/setUser', async (user, { dispatch
   /*
     You can redirect the logged-in users to a specific route depending on his role
     */
-  //if (user.loginRedirectUrl) {
-    settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example '/apps/academy'
- // }
+  // if (user.loginRedirectUrl) {
+  settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example '/apps/academy'
+  // }
   return user;
 });
 
@@ -118,10 +118,9 @@ const initialState = {
     //   type_name: "",
     //   user_roles_name: ""
     //   },
-      shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
+    shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
   },
 };
-
 
 const userSlice = createSlice({
   name: 'user',

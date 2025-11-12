@@ -8,8 +8,7 @@ export const getQuotes = createAsyncThunk('quotes/getQuotes', async () => {
   return data;
 });
 
-export const removeQuotes =
-  createAsyncThunk('quotes', async (quoteIds, { dispatch, getState }) => {
+export const removeQuotes = createAsyncThunk('quotes', async (quoteIds, { dispatch, getState }) => {
   await axios.delete('/api/quotes', { data: quoteIds });
 
   return quoteIds;

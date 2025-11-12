@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getIndustrie = createAsyncThunk(
-  'industrie/getIndustries',
-  async (industrieId) => {
-    const response = await axios.get(`/api/constants/accounts/industries/${industrieId}`);
-    const data = await response.data;
+export const getIndustrie = createAsyncThunk('industrie/getIndustries', async (industrieId) => {
+  const response = await axios.get(`/api/constants/accounts/industries/${industrieId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeIndustrie = createAsyncThunk(
   '/removeIndustrie',
@@ -17,7 +15,7 @@ export const removeIndustrie = createAsyncThunk(
     const { id } = getState().constantApp.industrie;
     await axios.delete(`/api/constants/accounts/industrie/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveIndustrie = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveIndustrie = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const industrieSlice = createSlice({

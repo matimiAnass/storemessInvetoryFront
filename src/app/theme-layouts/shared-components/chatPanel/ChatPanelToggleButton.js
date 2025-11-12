@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { toggleChatPanel } from './store/stateSlice';
 
-const ChatPanelToggleButton = (props) => {
+function ChatPanelToggleButton(props) {
   const dispatch = useDispatch();
 
   return (
@@ -11,7 +11,7 @@ const ChatPanelToggleButton = (props) => {
       {props.children}
     </IconButton>
   );
-};
+}
 
 ChatPanelToggleButton.defaultProps = {
   children: <FuseSvgIcon>heroicons-outline:chat</FuseSvgIcon>,

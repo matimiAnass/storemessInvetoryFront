@@ -1,17 +1,11 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getTax } from './taxSlice';
-import { removeTax } from './taxSlice';
 
-export const getTaxs =
-  createAsyncThunk(
-    'constantApp/products/taxs/getTaxs',
-    async () => {
-      const response = await axios.get('/api/constants/accounts/taxs');
-      const data = await response.data;
-      return data;
-    }
-  );
+export const getTaxs = createAsyncThunk('constantApp/products/taxs/getTaxs', async () => {
+  const response = await axios.get('/api/constants/accounts/taxs');
+  const data = await response.data;
+  return data;
+});
 
 export const removeTaxs = createAsyncThunk(
   'constantApp/products/taxs',
@@ -24,8 +18,9 @@ export const removeTaxs = createAsyncThunk(
 
 const taxsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectTaxs, selectById: selectTaxsById } =
-  taxsAdapter.getSelectors((state) => state.constantApp.taxs);
+export const { selectAll: selectTaxs, selectById: selectTaxsById } = taxsAdapter.getSelectors(
+  (state) => state.constantApp.taxs
+);
 
 const taxsSlice = createSlice({
   name: 'constantApp/products/taxs',
@@ -42,14 +37,12 @@ const taxsSlice = createSlice({
   },
   extraReducers: {
     [getTaxs.fulfilled]: taxsAdapter.setAll,
-    [removeTaxs.fulfilled]: (state, action) =>
-      taxsAdapter.removeMany(state, action.payload),
+    [removeTaxs.fulfilled]: (state, action) => taxsAdapter.removeMany(state, action.payload),
   },
 });
 
 export const { setTaxsSearchText } = taxsSlice.actions;
 
-export const selectTaxsSearchText = ({ constantApp }) =>
-  constantApp.taxs.searchText;
+export const selectTaxsSearchText = ({ constantApp }) => constantApp.taxs.searchText;
 
 export default taxsSlice.reducer;

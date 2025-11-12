@@ -9,14 +9,11 @@ export const getRole = createAsyncThunk('role/getRole', async (roleId) => {
   return data === undefined ? null : data;
 });
 
-export const removeRole = createAsyncThunk(
-  '/removeRole',
-  async (val, { dispatch, getState }) => {
-    const { id } = getState().roleApp.role;
-    await axios.delete(`/api/roles/${id}`);
-    return id;
-  },
-);
+export const removeRole = createAsyncThunk('/removeRole', async (val, { dispatch, getState }) => {
+  const { id } = getState().roleApp.role;
+  await axios.delete(`/api/roles/${id}`);
+  return id;
+});
 
 export const saveRole = createAsyncThunk(
   'roleApp/role',
@@ -28,7 +25,7 @@ export const saveRole = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const roleSlice = createSlice({

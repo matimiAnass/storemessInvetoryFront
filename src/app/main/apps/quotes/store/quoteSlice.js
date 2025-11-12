@@ -2,23 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getQuote = createAsyncThunk(
-  'quote/getQuote',
-  async (quoteId) => {
-    const response = await axios.get(`/api/quotes/${quoteId}`);
-    const data = await response.data;
+export const getQuote = createAsyncThunk('quote/getQuote', async (quoteId) => {
+  const response = await axios.get(`/api/quotes/${quoteId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
-export const removeQuote = createAsyncThunk(
-  '/removeQuote',
-  async (val, { dispatch, getState }) => {
-    const { id } = getState().quoteApp.quote;
-    await axios.delete(`/api/quotes/${id}`);
-    return id;
-  },
-);
+export const removeQuote = createAsyncThunk('/removeQuote', async (val, { dispatch, getState }) => {
+  const { id } = getState().quoteApp.quote;
+  await axios.delete(`/api/quotes/${id}`);
+  return id;
+});
 
 export const saveQuote = createAsyncThunk(
   'quoteApp/quote',
@@ -30,7 +25,7 @@ export const saveQuote = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const quoteSlice = createSlice({

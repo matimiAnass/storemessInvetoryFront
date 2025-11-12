@@ -62,9 +62,9 @@ function MailCompose(props) {
     setOpenDialog(false);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(formState);
-  },[])
+  }, []);
 
   return (
     <div className={clsx('', className)}>

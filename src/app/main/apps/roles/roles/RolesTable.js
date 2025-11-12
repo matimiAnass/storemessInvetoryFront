@@ -7,17 +7,14 @@ import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import Chip from '@mui/material/Chip';
 import { getRoles, selectRoles, selectRolesSearchText } from '../store/rolesSlice';
 import RolesTableHead from './RolesTableHead';
-import PlanPermissionsTableHead from '../../plan_permissions/plan_permissions/PlanPermissionsTableHead';
-import Chip from '@mui/material/Chip';
 
 function RolesTable(props) {
   const dispatch = useDispatch();
@@ -130,9 +127,9 @@ function RolesTable(props) {
   }
 
   return (
-    <div className='w-full flex flex-col min-h-full'>
-      <FuseScrollbars className='grow overflow-x-auto'>
-        <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
+    <div className="w-full flex flex-col min-h-full">
+      <FuseScrollbars className="grow overflow-x-auto">
+        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
           <RolesTableHead
             selectedRoleIds={selected}
             order={roles}
@@ -149,32 +146,38 @@ function RolesTable(props) {
                 const isSelected = selected.indexOf(ct.id) !== -1;
                 return (
                   <TableRow
-                    className='h-72 cursor-pointer'
+                    className="h-72 cursor-pointer"
                     hover
-                    role='checkbox'
+                    role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={ct.id}
                     selected={isSelected}
                     onClick={(event) => handleClick(ct)}
                   >
-                    <TableCell className='w-40 md:w-64 text-center' padding='none'>
+                    <TableCell className="w-40 md:w-64 text-center" padding="none">
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
                         onChange={(event) => handleCheck(event, ct.id)}
                       />
                     </TableCell>
-                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row">
                       {ct.role}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16 truncate' component='th' scope='row'>
+                    <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
                       {ct.permissions.map((pr) => {
-                        return (<Chip className="ml-5" style={{ background:  `linear-gradient(slateblue, white)` }} label={pr} variant='outlined'/>)
+                        return (
+                          <Chip
+                            className="ml-5"
+                            style={{ background: `linear-gradient(slateblue, white)` }}
+                            label={pr}
+                            variant="outlined"
+                          />
+                        );
                       })}
                     </TableCell>
-
                   </TableRow>
                 );
               })}
@@ -183,8 +186,8 @@ function RolesTable(props) {
       </FuseScrollbars>
 
       <TablePagination
-        className='shrink-0 border-t-1'
-        component='div'
+        className="shrink-0 border-t-1"
+        component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}

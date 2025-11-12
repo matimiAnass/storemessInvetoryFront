@@ -125,29 +125,28 @@ const navigationConfig = [
               },
             ],
           },
-            // children: [
-            //   {
-            //     id: 'contracts-contractsDetails-attachments',
-            //     title: 'Attachements Contract',
-            //     type: 'item',
-            //     url: 'apps/contracts/contractsDetails/attachments',
-            //   },
-            //   {
-            //     id: 'contracts-contractsDetails-comments',
-            //     title: 'Comments Contract',
-            //     type: 'item',
-            //     url: 'apps/contracts/contractsDetails/comments',
-            //   },
-            //   {
-            //     id: 'contracts-contractsDetails-notes',
-            //     title: 'Notes Contract',
-            //     type: 'item',
-            //     url: 'apps/contracts/contractsDetails/notes',
-            //   },
-            // ],
+          // children: [
+          //   {
+          //     id: 'contracts-contractsDetails-attachments',
+          //     title: 'Attachements Contract',
+          //     type: 'item',
+          //     url: 'apps/contracts/contractsDetails/attachments',
+          //   },
+          //   {
+          //     id: 'contracts-contractsDetails-comments',
+          //     title: 'Comments Contract',
+          //     type: 'item',
+          //     url: 'apps/contracts/contractsDetails/comments',
+          //   },
+          //   {
+          //     id: 'contracts-contractsDetails-notes',
+          //     title: 'Notes Contract',
+          //     type: 'item',
+          //     url: 'apps/contracts/contractsDetails/notes',
+          //   },
+          // ],
         ],
       },
-
 
       // {
       //   id: 'apps.chat',
@@ -233,7 +232,6 @@ const navigationConfig = [
             url: 'apps/opportunities/new',
           },
         ],
-
       },
       {
         id: 'apps.leads',
@@ -381,7 +379,6 @@ const navigationConfig = [
                     url: 'apps/constants/accounts/industries/new',
                   },
                 ],
-
               },
             ],
           },
@@ -422,7 +419,6 @@ const navigationConfig = [
                 ],
               },
             ],
-
           },
           {
             id: 'constants-products',
@@ -517,7 +513,6 @@ const navigationConfig = [
                 url: 'apps/constants/leadSources/new',
               },
             ],
-
           },
           {
             id: 'constants-taskStages',
@@ -532,7 +527,6 @@ const navigationConfig = [
                 url: 'apps/constants/taskStages/new',
               },
             ],
-
           },
         ],
       },

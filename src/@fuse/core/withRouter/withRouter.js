@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function withRouter(Child) {
-  return (props) => {
+  return function (props) {
     const location = useLocation();
     const navigate = useNavigate();
     return <Child {...props} navigate={navigate} location={location} />;

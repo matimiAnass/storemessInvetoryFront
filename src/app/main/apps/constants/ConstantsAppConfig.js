@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
 
 import ContractType from './contractTypes/contractType/contractType';
 import LeadSource from './leadSources/leadSource/leadSource';
@@ -15,7 +14,9 @@ import Tax from './products/taxs/tax/tax';
 
 const ContractTypes = lazy(() => import('./contractTypes/contractTypes/ContractTypes'));
 const LeadSources = lazy(() => import('./leadSources/leadSources/LeadSources'));
-const ShippingProviders = lazy(() => import('./shippingProviders/shippingProviders/ShippingProviders'));
+const ShippingProviders = lazy(() =>
+  import('./shippingProviders/shippingProviders/ShippingProviders')
+);
 const TaskStages = lazy(() => import('./taskStages/taskStages/TaskStages'));
 const TypesDoc = lazy(() => import('./documents/types/types/TypesDoc'));
 const Types = lazy(() => import('./accounts/types/types/Types'));

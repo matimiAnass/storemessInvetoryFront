@@ -9,7 +9,8 @@ export const getShippingProvider = createAsyncThunk(
     const data = await response.data;
 
     return data === undefined ? null : data;
-  });
+  }
+);
 
 export const removeShippingProvider = createAsyncThunk(
   '/removeShippingProvider',
@@ -17,7 +18,7 @@ export const removeShippingProvider = createAsyncThunk(
     const { id } = getState().constantApp.shippingProvider;
     await axios.delete(`/api/shippingProvider/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveShippingProvider = createAsyncThunk(
@@ -30,7 +31,7 @@ export const saveShippingProvider = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const shippingProviderSlice = createSlice({

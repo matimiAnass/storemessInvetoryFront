@@ -9,7 +9,8 @@ export const getContractType = createAsyncThunk(
     const data = await response.data;
 
     return data === undefined ? null : data;
-  });
+  }
+);
 
 export const removeContractType = createAsyncThunk(
   '/removeContractType',
@@ -17,7 +18,7 @@ export const removeContractType = createAsyncThunk(
     const { id } = getState().constantApp.contractType;
     await axios.delete(`/api/contractType/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveContractType = createAsyncThunk(
@@ -30,7 +31,7 @@ export const saveContractType = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const contractTypeSlice = createSlice({

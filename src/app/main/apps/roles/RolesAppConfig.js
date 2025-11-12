@@ -16,7 +16,6 @@ const RolesAppConfig = {
       path: 'apps/roles/:roleId/*',
       element: <Role />,
     },
-
   ],
 };
 

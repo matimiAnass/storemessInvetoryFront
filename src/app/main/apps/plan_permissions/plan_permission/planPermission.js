@@ -52,9 +52,7 @@ function PlanPermission(props) {
   const form = watch();
   const [dataTab, setDataTab] = useState();
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
   const handleDataTab = (value) => {
     setDataTab(value);
   };
@@ -97,7 +95,6 @@ function PlanPermission(props) {
   }, [planPermission, reset]);
 
   useEffect(() => {
-
     return () => {
       /**
        * Reset PlanPermission on component unload
@@ -146,8 +143,10 @@ function PlanPermission(props) {
    */
   if (
     _.isEmpty(form) ||
-    (planPermission && parseInt(routeParams?.planPermissionId) !== planPermission?.plan?.id && routeParams.planPermissionId !== 'new'))
-  {
+    (planPermission &&
+      parseInt(routeParams?.planPermissionId) !== planPermission?.plan?.id &&
+      routeParams.planPermissionId !== 'new')
+  ) {
     return <FuseLoading />;
   }
   return (
@@ -169,7 +168,7 @@ function PlanPermission(props) {
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
               <div>
-                <BasicInfoTab  handleData={handleDataTab} />
+                <BasicInfoTab handleData={handleDataTab} />
               </div>
             </div>
           </>

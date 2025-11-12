@@ -1,9 +1,8 @@
 import Hidden from '@mui/material/Hidden';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { useFormContext } from 'react-hook-form';
 
@@ -39,16 +38,16 @@ function ContractHeader(props) {
         </div>
       </div>
 
-      {/*<div className="flex flex-1 w-full sm:w-auto items-center justify-end space-x-12">*/}
-      {/*  <Tooltip title="Toggle Variate Description Size">*/}
-      {/*    <IconButton onClick={(ev) => dispatch(toggleVariateDescSize())} size="large">*/}
-      {/*      <FuseSvgIcon color={variateDescSize ? 'action' : 'disabled'}>*/}
-      {/*        heroicons-solid:switch-vertical*/}
-      {/*      </FuseSvgIcon>*/}
-      {/*    </IconButton>*/}
-      {/*  </Tooltip>*/}
-      {/*  <ContractsSearch />*/}
-      {/*</div>*/}
+      {/* <div className="flex flex-1 w-full sm:w-auto items-center justify-end space-x-12"> */}
+      {/*  <Tooltip title="Toggle Variate Description Size"> */}
+      {/*    <IconButton onClick={(ev) => dispatch(toggleVariateDescSize())} size="large"> */}
+      {/*      <FuseSvgIcon color={variateDescSize ? 'action' : 'disabled'}> */}
+      {/*        heroicons-solid:switch-vertical */}
+      {/*      </FuseSvgIcon> */}
+      {/*    </IconButton> */}
+      {/*  </Tooltip> */}
+      {/*  <ContractsSearch /> */}
+      {/* </div> */}
     </div>
   );
 }

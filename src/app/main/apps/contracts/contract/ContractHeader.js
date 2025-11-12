@@ -43,7 +43,7 @@ function ContractHeader(props) {
             className="flex items-center sm:mb-12"
             component={Link}
             role="button"
-            to={'/apps/contracts/contractsList'}
+            to="/apps/contracts/contractsList"
             color="inherit"
           >
             <FuseSvgIcon size={20}>
@@ -79,7 +79,7 @@ function ContractHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={getValues().tabValue === 0 || getValues().tabValue === undefined }
+          disabled={getValues().tabValue === 0 || getValues().tabValue === undefined}
           onClick={handleRemoveContract}
           startIcon={<FuseSvgIcon className="hidden sm:flex">heroicons-outline:trash</FuseSvgIcon>}
         >
@@ -89,7 +89,12 @@ function ContractHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={_.isEmpty(dirtyFields) || !isValid || getValues().tabValue === 0 || getValues().tabValue === undefined }
+          disabled={
+            _.isEmpty(dirtyFields) ||
+            !isValid ||
+            getValues().tabValue === 0 ||
+            getValues().tabValue === undefined
+          }
           onClick={handleSaveContract}
         >
           Save

@@ -6,6 +6,7 @@ const themeLayoutConfigs = {
   layout1,
   layout2,
   layout3,
+
 };
 
 export default themeLayoutConfigs;

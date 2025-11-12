@@ -18,28 +18,28 @@ function ContractsDashboardAppHeader(props) {
           </Typography>
         </div>
         <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-          {/*<Button*/}
-          {/*  className="whitespace-nowrap"*/}
-          {/*  startIcon={<FuseSvgIcon size={20}>heroicons-solid:document-report</FuseSvgIcon>}*/}
-          {/*>*/}
-          {/*  Reports*/}
-          {/*</Button>*/}
-          {/*<Button*/}
-          {/*  className="whitespace-nowrap"*/}
-          {/*  startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}*/}
-          {/*>*/}
-          {/*  Settings*/}
-          {/*</Button>*/}
-          { widgets?.error=== 'Permission Denied.' ?
-          <Button
-            className="whitespace-nowrap"
-            variant="contained"
-            color="secondary"
-            startIcon={<FuseSvgIcon size={20}>heroicons-solid:save</FuseSvgIcon>}
-          >
-            Export
-          </Button> : null
-          }
+          {/* <Button */}
+          {/*  className="whitespace-nowrap" */}
+          {/*  startIcon={<FuseSvgIcon size={20}>heroicons-solid:document-report</FuseSvgIcon>} */}
+          {/* > */}
+          {/*  Reports */}
+          {/* </Button> */}
+          {/* <Button */}
+          {/*  className="whitespace-nowrap" */}
+          {/*  startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>} */}
+          {/* > */}
+          {/*  Settings */}
+          {/* </Button> */}
+          {widgets?.error === 'Permission Denied.' ? (
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="secondary"
+              startIcon={<FuseSvgIcon size={20}>heroicons-solid:save</FuseSvgIcon>}
+            >
+              Export
+            </Button>
+          ) : null}
         </div>
       </div>
     </div>

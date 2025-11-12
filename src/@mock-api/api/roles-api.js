@@ -1,10 +1,7 @@
-import _ from '@lodash';
-import FuseUtils from '@fuse/utils';
 import mockApi from '../mock-api.json';
 import mock from '../mock';
 
 let contractTypesDB = mockApi.components.examples.roles.value;
-
 
 mock.onGet('/api/roles').reply((config) => {
   return [200, contractTypesDB];
@@ -15,7 +12,6 @@ mock.onDelete('/api/roles').reply(({ data }) => {
 
   return [200, contractTypesDB];
 });
-
 
 // mock.onPost('/api/ecommerce/products').reply(({ data }) => {
 //   const newProduct = { id: FuseUtils.generateGUID(), ...JSON.parse(data) };

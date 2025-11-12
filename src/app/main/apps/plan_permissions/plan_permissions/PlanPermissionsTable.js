@@ -12,15 +12,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
+import PlanPermissionsTableHead from './PlanPermissionsTableHead';
 import {
   getPlanPermissions,
   selectPlanPermissions,
   selectPlanPermissionsSearchText,
 } from '../store/planPermissionsSlice';
-import PlanPermissionsTableHead from './PlanPermissionsTableHead';
-import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
 
 function PlanPermissionsTable(props) {
   const dispatch = useDispatch();
@@ -33,33 +32,32 @@ function PlanPermissionsTable(props) {
   const [page, setPage] = useState(0);
   const [permissions, setPermissions] = useState([]);
   const [permissionsList, setPermissionsList] = useState([]);
-  let permissionsSet = new Set();
+  const permissionsSet = new Set();
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [planPermission, setPlanPermission] = useState({
     direction: 'asc',
     id: null,
   });
 
-
   useEffect(() => {
     if (data[0] !== 'Permission denied.') {
       data.map((ct) => {
         ct.permissions.map((pr) => {
-          setPermissions((v) => [...v, pr.name.split(" ")[1]])
-        })
-      })
+          setPermissions((v) => [...v, pr.name.split(' ')[1]]);
+        });
+      });
     }
-  }, [permissions,data]);
+  }, [permissions, data]);
 
   useEffect(() => {
-    permissions?.forEach(entry => {
+    permissions?.forEach((entry) => {
       permissionsSet.add(entry);
     });
-  }, [permissions,permissionsSet]);
+  }, [permissions, permissionsSet]);
 
   useEffect(() => {
     permissionsSet?.forEach((d) => {
-      setPermissionsList((v)=>[...v,d])
+      setPermissionsList((v) => [...v, d]);
     });
   }, [permissionsSet]);
 
@@ -68,16 +66,16 @@ function PlanPermissionsTable(props) {
   }, [dispatch]);
 
   useEffect(() => {
-
     if (searchText?.length !== 0) {
       setData(
-        _.filter(planPermissions, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
+        _.filter(planPermissions, (item) =>
+          item.name.toLowerCase().includes(searchText.toLowerCase())
+        )
       );
       setPage(0);
     } else {
       setData(planPermissions);
     }
-
   }, [planPermissions, searchText]);
 
   function handleRequestSort(event, property) {
@@ -123,7 +121,7 @@ function PlanPermissionsTable(props) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -140,7 +138,7 @@ function PlanPermissionsTable(props) {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-full'>
+      <div className="flex items-center justify-center h-full">
         <FuseLoading />
       </div>
     );
@@ -151,9 +149,9 @@ function PlanPermissionsTable(props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-1 items-center justify-center h-full'
+        className="flex flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There are no Plan Permissions!
         </Typography>
       </motion.div>
@@ -302,11 +300,10 @@ function PlanPermissionsTable(props) {
     );
   }
 
-
   return (
-    <div className='w-full flex flex-col min-h-full'>
-      <FuseScrollbars className='grow overflow-x-auto'>
-        <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
+    <div className="w-full flex flex-col min-h-full">
+      <FuseScrollbars className="grow overflow-x-auto">
+        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
           <PlanPermissionsTableHead
             selectedRoleIds={selected}
             order={planPermissions}
@@ -323,32 +320,39 @@ function PlanPermissionsTable(props) {
                 const isSelected = selected.indexOf(ct.id) !== -1;
                 return (
                   <TableRow
-                    className='h-72 cursor-pointer'
+                    className="h-72 cursor-pointer"
                     hover
-                    role='checkbox'
+                    role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={ct.id}
                     selected={isSelected}
                     onClick={(event) => handleClick(ct)}
                   >
-                    <TableCell className='w-40 md:w-64 text-center' padding='none'>
+                    <TableCell className="w-40 md:w-64 text-center" padding="none">
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
                         onChange={(event) => handleCheck(event, ct.id)}
                       />
                     </TableCell>
-                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row">
                       {ct.name}
                     </TableCell>
 
-                    <TableCell className='p-4 md:p-16' component='th' scope='row'>
+                    <TableCell className="p-4 md:p-16" component="th" scope="row">
                       {ct.permissions.map((pr) => {
-                        return (<Chip key={pr.id} className="ml-5 mt-5" style={{ background: `linear-gradient(slateblue, white)` }} label={pr.name} variant='outlined'/>)
+                        return (
+                          <Chip
+                            key={pr.id}
+                            className="ml-5 mt-5"
+                            style={{ background: `linear-gradient(slateblue, white)` }}
+                            label={pr.name}
+                            variant="outlined"
+                          />
+                        );
                       })}
                     </TableCell>
-
                   </TableRow>
                 );
               })}
@@ -357,8 +361,8 @@ function PlanPermissionsTable(props) {
       </FuseScrollbars>
 
       <TablePagination
-        className='shrink-0 border-t-1'
-        component='div'
+        className="shrink-0 border-t-1"
+        component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}

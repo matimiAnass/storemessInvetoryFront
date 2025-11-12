@@ -129,10 +129,7 @@ function Role(props) {
   /**
    * Wait while product data is loading and form is setted
    */
-  if (
-    _.isEmpty(form) ||
-    (role && routeParams.roleId !== role.id && routeParams.roleId !== 'new')
-  ) {
+  if (_.isEmpty(form) || (role && routeParams.roleId !== role.id && routeParams.roleId !== 'new')) {
     return <FuseLoading />;
   }
 

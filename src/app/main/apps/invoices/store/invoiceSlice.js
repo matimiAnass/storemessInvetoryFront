@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getInvoice = createAsyncThunk(
-  'invoice/getInvoice',
-  async (invoiceId) => {
-    const response = await axios.get(`/api/invoice/${invoiceId}`);
-    const data = await response.data;
+export const getInvoice = createAsyncThunk('invoice/getInvoice', async (invoiceId) => {
+  const response = await axios.get(`/api/invoice/${invoiceId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeInvoice = createAsyncThunk(
   '/removeInvoice',
@@ -17,7 +15,7 @@ export const removeInvoice = createAsyncThunk(
     const { id } = getState().invoiceApp.lead;
     await axios.delete(`/api/invoice/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveInvoice = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveInvoice = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const invoiceSlice = createSlice({

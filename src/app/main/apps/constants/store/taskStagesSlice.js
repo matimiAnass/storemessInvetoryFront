@@ -1,15 +1,11 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getTaskStages =
-  createAsyncThunk(
-  'constantApp/taskStages/getTaskStages',
-  async () => {
-    const response = await axios.get('/api/constants/taskStages');
-    const data = await response.data;
-    return data;
-  }
-);
+export const getTaskStages = createAsyncThunk('constantApp/taskStages/getTaskStages', async () => {
+  const response = await axios.get('/api/constants/taskStages');
+  const data = await response.data;
+  return data;
+});
 
 export const removeTaskStages = createAsyncThunk(
   'constantApp/taskStages',
@@ -47,7 +43,6 @@ const taskStagesSlice = createSlice({
 
 export const { setTaskStagesSearchText } = taskStagesSlice.actions;
 
-export const selectTaskStagesSearchText = ({ constantApp }) =>
-  constantApp.taskStages.searchText;
+export const selectTaskStagesSearchText = ({ constantApp }) => constantApp.taskStages.searchText;
 
 export default taskStagesSlice.reducer;

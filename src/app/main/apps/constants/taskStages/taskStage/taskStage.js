@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getTaskStage, newTaskStage, resetTaskStage, selectTaskStage } from '../../store/taskStageSlice';
+import {
+  getTaskStage,
+  newTaskStage,
+  resetTaskStage,
+  selectTaskStage,
+} from '../../store/taskStageSlice';
 import reducer from '../../store';
 import TaskStageHeader from './TaskStageHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';

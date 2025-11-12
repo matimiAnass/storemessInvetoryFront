@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getWidgets = createAsyncThunk('contractsDashboardApp/widgets/getWidgets', async () => {
-  const response = await axios.get('http://192.168.1.17:8000/api/contracts');
+  const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_API}contracts`);
 
   const data = await response.data;
 

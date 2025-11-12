@@ -8,7 +8,7 @@ function stringToColor(string) {
 
   /* eslint-disable no-bitwise */
   for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    hash = string?.charCodeAt(i) + ((hash << 5) - hash);
   }
 
   let color = '#';

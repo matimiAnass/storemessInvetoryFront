@@ -62,12 +62,10 @@ function FuseHighlight(props) {
     };
 
     return (
-      <>
-        <Wrapper ref={domNode} className={clsx('border', className)}>
-          {/* {trimCode()} */}
-          {trimCode()}
-        </Wrapper>
-      </>
+      <Wrapper ref={domNode} className={clsx('border', className)}>
+        {/* {trimCode()} */}
+        {trimCode()}
+      </Wrapper>
     );
   }, [children, className]);
 }

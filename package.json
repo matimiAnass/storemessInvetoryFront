@@ -142,8 +142,8 @@
         "util": "^0.12.5"
     },
     "scripts": {
-        "start": "react-app-rewired  start",
-        "build": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build",
+        "start": "react-app-rewired  start --no-eslint",
+        "build": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build --no-eslint",
         "test": "react-app-rewired test --env=node",
         "eject": "react-app-rewired eject",
         "build-docs": "babel-node --presets @babel/preset-env src/app/main/documentation/material-ui-components/build.js",

@@ -8,18 +8,19 @@ export const getSalesOrders = createAsyncThunk('salesOrders/getSalesOrders', asy
   return data;
 });
 
-export const removeSalesOrders =
-  createAsyncThunk('salesOrders', async (saleOrderIds, { dispatch, getState }) => {
+export const removeSalesOrders = createAsyncThunk(
+  'salesOrders',
+  async (saleOrderIds, { dispatch, getState }) => {
     await axios.delete('/api/salesOrders', { data: saleOrderIds });
 
     return saleOrderIds;
-});
+  }
+);
 
 const salesOrdersAdapter = createEntityAdapter({});
 
-export const { selectAll: selectSalesOrders, selectById: selectSalesOrdersById } = salesOrdersAdapter.getSelectors(
-  (state) => state.salesOrdersApp.salesOrders
-);
+export const { selectAll: selectSalesOrders, selectById: selectSalesOrdersById } =
+  salesOrdersAdapter.getSelectors((state) => state.salesOrdersApp.salesOrders);
 
 const salesOrdersSlice = createSlice({
   name: 'salesOrders',
@@ -36,12 +37,14 @@ const salesOrdersSlice = createSlice({
   },
   extraReducers: {
     [getSalesOrders.fulfilled]: salesOrdersAdapter.setAll,
-    [removeSalesOrders.fulfilled]: (state, action) => salesOrdersAdapter.removeMany(state, action.payload),
+    [removeSalesOrders.fulfilled]: (state, action) =>
+      salesOrdersAdapter.removeMany(state, action.payload),
   },
 });
 
 export const { setSalesOrdersSearchText } = salesOrdersSlice.actions;
 
-export const selectSalesOrdersSearchText = ({ SalesOrdersApp }) => SalesOrdersApp?.salesOrders?.searchText;
+export const selectSalesOrdersSearchText = ({ SalesOrdersApp }) =>
+  SalesOrdersApp?.salesOrders?.searchText;
 
 export default salesOrdersSlice.reducer;

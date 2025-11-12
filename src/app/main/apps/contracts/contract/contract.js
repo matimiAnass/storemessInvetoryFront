@@ -15,14 +15,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import {
-  getContract,
-  newContract,
-  resetContract,
-  selectContract,
-} from '../store/contractSlice';
+import { getContract, newContract, resetContract, selectContract } from '../store/contractSlice';
 import reducer from '../store';
-import './link-info.css'
+import './link-info.css';
 import ContractHeader from './ContractHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
 import withRouter from '@fuse/core/withRouter';
@@ -52,9 +47,8 @@ function Contract(props) {
     defaultValues: {},
     resolver: yupResolver(schema),
   });
-  const { reset, watch, control, onChange, formState, setValue,getValues } = methods;
+  const { reset, watch, control, onChange, formState, setValue, getValues } = methods;
   const form = watch();
-
 
   useDeepCompareEffect(() => {
     function updateContractState() {
@@ -70,7 +64,7 @@ function Contract(props) {
          * Get User data
          */
         dispatch(getContract(contractId)).then((action) => {
-          setCheck(true)
+          setCheck(true);
           /**
            * If the requested product is not exist show message
            */
@@ -84,9 +78,6 @@ function Contract(props) {
     updateContractState();
   }, [dispatch, routeParams]);
 
-
-
-
   useEffect(() => {
     if (!contract) {
       return;
@@ -98,17 +89,12 @@ function Contract(props) {
   }, [contract, reset]);
 
   useEffect(() => {
-    if(check){
-      setValue("tabValue", 0)
+    if (check) {
+      setValue('tabValue', 0);
     }
-
   }, [check, setValue]);
 
-
-
   useEffect(() => {
-
-
     return () => {
       /**
        * Reset User on component unload
@@ -123,7 +109,7 @@ function Contract(props) {
    */
   function handleTabChange(event, value) {
     setTabValue(value);
-    setValue("tabValue", value)
+    setValue('tabValue', value);
   }
 
   function handleClick(item) {
@@ -161,11 +147,12 @@ function Contract(props) {
    */
   if (
     _.isEmpty(form) ||
-    (contract && parseInt(routeParams?.contractId) !== contract?.id && routeParams?.contractId !== 'new'))
-  {
+    (contract &&
+      parseInt(routeParams?.contractId) !== contract?.id &&
+      routeParams?.contractId !== 'new')
+  ) {
     return <FuseLoading />;
   }
-
 
   return (
     <FormProvider {...methods}>
@@ -182,7 +169,7 @@ function Contract(props) {
               scrollButtons="auto"
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
-              <Tab className="h-64" label="Details Contract"/>
+              <Tab className="h-64" label="Details Contract" />
               <Tab className="h-64" label="Basic Info" />
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">

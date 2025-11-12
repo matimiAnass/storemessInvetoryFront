@@ -10,8 +10,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import _ from '@lodash';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import AvatarGroup from '@mui/material/AvatarGroup';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
@@ -25,13 +23,13 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Please enter your password.')
-    .min(4, 'Password is too short - must be at least 4 chars.'),
+    .min(4, 'Password is too short - must be at least 8 chars.'),
 });
 
 const defaultValues = {
   email: '',
   password: '',
-  remember: true,
+  remember: false,
 };
 
 function SignInPage() {
@@ -46,421 +44,235 @@ function SignInPage() {
   const { isValid, dirtyFields, errors } = formState;
 
   useEffect(() => {
-    setValue('email', 'superadmin@example.com', { shouldDirty: true, shouldValidate: true });
-    setValue('password', '1234', { shouldDirty: true, shouldValidate: true });
+    setValue('email', 'admin@example.com', { shouldDirty: true, shouldValidate: true });
+    setValue('password', '123456', { shouldDirty: true, shouldValidate: true });
   }, [setValue]);
 
   function onSubmit({ email, password }) {
     jwtService
       .signInWithEmailAndPassword(email, password)
-      .then((user) => {
+      // .then((user) => {
         // No need to do anything, users data will be set at app/auth/AuthContext
-      })
-      .catch((_errors) => {
-        _errors.forEach((error) => {
-          setError(error.type, {
-            type: 'manual',
-            message: error.message,
-          });
-        });
-      });
+      // })
+      // .catch((_errors) => {
+      //   _errors?.forEach ? _errors.forEach((error) => {
+      //     setError(error.type, {
+      //       type: 'manual',
+      //       message: error.message,
+      //     });
+      //   }) : _errors.message;
+      // });
   }
 
   return (
-    // <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-1 min-w-0">
-    //   <Paper className="h-full sm:h-auto md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-16 sm:p-48 md:p-64 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none ltr:border-r-1 rtl:border-l-1">
-    //     <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
-    //       <img className="w-48" src="assets/images/logo/logo.svg" alt="logo" />
+    <div className='flex flex-col flex-auto items-center sm:justify-center min-w-0 md:p-32' style={{ backgroundColor: '#0D0907' }}>
+      <Paper
+        className='flex w-full sm:w-auto min-h-full p-32 sm:min-h-auto md:w-full md:max-w-6xl rounded-0 sm:rounded-2xl sm:shadow overflow-hidden'
+        style={{ backgroundColor: '#0D0907' }} >
+        <div className='w-full sm:w-auto py-32 px-16 sm:p-48 md:p-64 ltr:border-r-1 rtl:border-l-1 text-white'>
+          <div className='w-full max-w-320 sm:w-320 mx-auto sm:mx-0'>
+            {/* <img className="w-48" src="assets/images/logo/logo.svg" alt="logo" /> */}
 
-    //       <Typography className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">
-    //         Sign in
-    //       </Typography>
-    //       <div className="flex items-baseline mt-2 font-medium">
-    //         <Typography>Don't have an account?</Typography>
-    //         <Link className="ml-4" to="/sign-up">
-    //           Sign up
-    //         </Link>
-    //       </div>
+            <Typography className='mt-32 text-4xl font-extrabold tracking-tight leading-tight'>
+              Sign in
+            </Typography>
+            <div className='flex items-baseline mt-2 font-medium'>
+              {/* <Typography>Don't have an account?</Typography> */}
+              {/* <Link className='ml-4' to='/sign-up'> */}
+              {/*   Sign up */}
+              {/* </Link> */}
+            </div>
 
-    //       <form
-    //         name="loginForm"
-    //         noValidate
-    //         className="flex flex-col justify-center w-full mt-32"
-    //         onSubmit={handleSubmit(onSubmit)}
-    //       >
-    //         <Controller
-    //           name="email"
-    //           control={control}
-    //           render={({ field }) => (
-    //             <TextField
-    //               {...field}
-    //               className="mb-24"
-    //               label="Email"
-    //               autoFocus
-    //               type="email"
-    //               error={!!errors.email}
-    //               helperText={errors?.email?.message}
-    //               variant="outlined"
-    //               required
-    //               fullWidth
-    //             />
-    //           )}
-    //         />
-
-    //         <Controller
-    //           name="password"
-    //           control={control}
-    //           render={({ field }) => (
-    //             <TextField
-    //               {...field}
-    //               className="mb-24"
-    //               label="Password"
-    //               type="password"
-    //               error={!!errors.password}
-    //               helperText={errors?.password?.message}
-    //               variant="outlined"
-    //               required
-    //               fullWidth
-    //             />
-    //           )}
-    //         />
-
-    //         <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-    //           <Controller
-    //             name="remember"
-    //             control={control}
-    //             render={({ field }) => (
-    //               <FormControl>
-    //                 <FormControlLabel
-    //                   label="Remember me"
-    //                   control={<Checkbox size="small" {...field} />}
-    //                 />
-    //               </FormControl>
-    //             )}
-    //           />
-
-    //           <Link className="text-md font-medium" to="/pages/auth/forgot-password">
-    //             Forgot password?
-    //           </Link>
-    //         </div>
-
-    //         <Button
-    //           variant="contained"
-    //           color="secondary"
-    //           className=" w-full mt-16"
-    //           aria-label="Sign in"
-    //           disabled={_.isEmpty(dirtyFields) || !isValid}
-    //           type="submit"
-    //           size="large"
-    //         >
-    //           Sign in
-    //         </Button>
-
-    //         <div className="flex items-center mt-32">
-    //           <div className="flex-auto mt-px border-t" />
-    //           <Typography className="mx-8" color="text.secondary">
-    //             Or continue with
-    //           </Typography>
-    //           <div className="flex-auto mt-px border-t" />
-    //         </div>
-
-    //         <div className="flex items-center mt-32 space-x-16">
-    //           <Button variant="outlined" className="flex-auto">
-    //             <FuseSvgIcon size={20} color="action">
-    //               feather:facebook
-    //             </FuseSvgIcon>
-    //           </Button>
-    //           <Button variant="outlined" className="flex-auto">
-    //             <FuseSvgIcon size={20} color="action">
-    //               feather:twitter
-    //             </FuseSvgIcon>
-    //           </Button>
-    //           <Button variant="outlined" className="flex-auto">
-    //             <FuseSvgIcon size={20} color="action">
-    //               feather:github
-    //             </FuseSvgIcon>
-    //           </Button>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </Paper>
-
-    //   <Box
-    //     className="relative hidden md:flex flex-auto items-center justify-center h-full p-64 lg:px-112 overflow-hidden"
-    //     sx={{ backgroundColor: 'primary.main' }}
-    //   >
-    //     <svg
-    //       className="absolute inset-0 pointer-events-none"
-    //       viewBox="0 0 960 540"
-    //       width="100%"
-    //       height="100%"
-    //       preserveAspectRatio="xMidYMax slice"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <Box
-    //         component="g"
-    //         sx={{ color: 'primary.light' }}
-    //         className="opacity-20"
-    //         fill="none"
-    //         stroke="currentColor"
-    //         strokeWidth="100"
-    //       >
-    //         <circle r="234" cx="196" cy="23" />
-    //         <circle r="234" cx="790" cy="491" />
-    //       </Box>
-    //     </svg>
-    //     <Box
-    //       component="svg"
-    //       className="absolute -top-64 -right-64 opacity-20"
-    //       sx={{ color: 'primary.light' }}
-    //       viewBox="0 0 220 192"
-    //       width="220px"
-    //       height="192px"
-    //       fill="none"
-    //     >
-    //       <defs>
-    //         <pattern
-    //           id="837c3e70-6c3a-44e6-8854-cc48c737b659"
-    //           x="0"
-    //           y="0"
-    //           width="20"
-    //           height="20"
-    //           patternUnits="userSpaceOnUse"
-    //         >
-    //           <rect x="0" y="0" width="4" height="4" fill="currentColor" />
-    //         </pattern>
-    //       </defs>
-    //       <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
-    //     </Box>
-
-    //     <div className="z-10 relative w-full max-w-2xl">
-    //       <div className="text-7xl font-bold leading-none text-gray-100">
-    //         <div>Welcome to</div>
-    //         <div>our community</div>
-    //       </div>
-    //       <div className="mt-24 text-lg tracking-tight leading-6 text-gray-400">
-    //         Fuse helps developers to build organized and well coded dashboards full of beautiful and
-    //         rich modules. Join us and start building your application today.
-    //       </div>
-    //       <div className="flex items-center mt-32">
-    //         <AvatarGroup
-    //           sx={{
-    //             '& .MuiAvatar-root': {
-    //               borderColor: 'primary.main',
-    //             },
-    //           }}
-    //         >
-    //           <Avatar src="assets/images/avatars/female-18.jpg" />
-    //           <Avatar src="assets/images/avatars/female-11.jpg" />
-    //           <Avatar src="assets/images/avatars/male-09.jpg" />
-    //           <Avatar src="assets/images/avatars/male-16.jpg" />
-    //         </AvatarGroup>
-
-    //         <div className="ml-16 font-medium tracking-tight text-gray-400">
-    //           More than 17k people joined us, it's your turn
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </Box>
-    // </div>
-    <div className="flex flex-col flex-auto items-center sm:justify-center min-w-0 md:p-32">
-    <Paper className="flex w-full sm:w-auto min-h-full sm:min-h-auto md:w-full md:max-w-6xl rounded-0 sm:rounded-2xl sm:shadow overflow-hidden">
-      <div className="w-full sm:w-auto py-32 px-16 sm:p-48 md:p-64 ltr:border-r-1 rtl:border-l-1">
-        <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
-          <img className="w-48" src="assets/images/logo/logo.svg" alt="logo" />
-
-          <Typography className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">
-            Sign in
-          </Typography>
-          <div className="flex items-baseline mt-2 font-medium">
-            <Typography>Don't have an account?</Typography>
-            <Link className="ml-4" to="/sign-up">
-              Sign up
-            </Link>
-          </div>
-
-          <form
-            name="loginForm"
-            noValidate
-            className="flex flex-col justify-center w-full mt-32"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Email"
-                  autoFocus
-                  type="email"
-                  error={!!errors.email}
-                  helperText={errors?.email?.message}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
-              )}
-            />
-
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Password"
-                  type="password"
-                  error={!!errors.password}
-                  helperText={errors?.password?.message}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
-              )}
-            />
-
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
+            <form
+              name='loginForm'
+              noValidate
+              className='flex flex-col justify-center w-full mt-32'
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <Controller
-                name="remember"
+                name='email'
                 control={control}
                 render={({ field }) => (
-                  <FormControl>
-                    <FormControlLabel
-                      label="Remember me"
-                      control={<Checkbox size="small" {...field} />}
-                    />
-                  </FormControl>
+                  <TextField
+                    {...field}
+                    className='mb-24'
+                    label='Email'
+                    autoFocus
+                    type='email'
+                    error={!!errors.email}
+                    helperText={errors?.email?.message}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    sx={{
+                      '& .MuiInputBase-input': {
+                        color: 'white', // change input text color
+                      },
+                      '& .MuiFormLabel-root': {
+                        color: 'white', // change label color
+                      }
+                    }}
+                  />
                 )}
               />
 
-              <Link className="text-md font-medium" to="/pages/auth/forgot-password">
-                Forgot password?
-              </Link>
-            </div>
 
-            <Button
-              variant="contained"
-              color="secondary"
-              className=" w-full mt-16"
-              aria-label="Sign in"
-              disabled={_.isEmpty(dirtyFields) || !isValid}
-              type="submit"
-              size="large"
-            >
-              Sign in
-            </Button>
+              <Controller
+                name='password'
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    className='mb-24'
+                    label='Password'
+                    type='password'
+                    error={!!errors.password}
+                    helperText={errors?.password?.message}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    sx={{
+                      '& .MuiInputBase-input': {
+                        color: 'white', // input text color
+                      },
+                      '& .MuiFormLabel-root': {
+                        color: 'white', // label color
+                      },
+                    }}
+                  />
+                )}
+              />
 
-            <div className="flex items-center mt-32">
-              <div className="flex-auto mt-px border-t" />
-              <Typography className="mx-8" color="text.secondary">
-                Or continue with
-              </Typography>
-              <div className="flex-auto mt-px border-t" />
-            </div>
 
-            <div className="flex items-center mt-32 space-x-16">
-              <Button variant="outlined" className="flex-auto">
-                <FuseSvgIcon size={20} color="action">
-                  feather:facebook
-                </FuseSvgIcon>
+              {/* <div className='flex flex-col sm:flex-row items-center justify-center sm:justify-between'> */}
+              {/*   <Controller */}
+              {/*     name='remember' */}
+              {/*     control={control} */}
+              {/*     render={({ field }) => ( */}
+              {/*       <FormControl> */}
+              {/*         <FormControlLabel */}
+              {/*           label='Remember me' */}
+              {/*           control={<Checkbox size='small' {...field} />} */}
+              {/*         /> */}
+              {/*       </FormControl> */}
+              {/*     )} */}
+              {/*   /> */}
+
+              {/*   <Link className='text-md font-medium' to='/pages/auth/forgot-password'> */}
+              {/*     Forgot password? */}
+              {/*   </Link> */}
+              {/* </div> */}
+
+              <Button
+                variant='contained'
+                color='secondary'
+                className=' w-full mt-16'
+                aria-label='Sign in'
+                sx={{
+                  backgroundColor: '#2B1B17',}}
+                disabled={_.isEmpty(dirtyFields) || !isValid}
+                type='submit'
+                size='large'
+              >
+                Sign in
               </Button>
-              <Button variant="outlined" className="flex-auto">
-                <FuseSvgIcon size={20} color="action">
-                  feather:twitter
-                </FuseSvgIcon>
-              </Button>
-              <Button variant="outlined" className="flex-auto">
-                <FuseSvgIcon size={20} color="action">
-                  feather:github
-                </FuseSvgIcon>
-              </Button>
-            </div>
-          </form>
+
+              {/* <div className='flex items-center mt-32'> */}
+              {/*   <div className='flex-auto mt-px border-t' /> */}
+              {/*   <Typography className='mx-8' color='text.secondary'> */}
+              {/*     Or continue with */}
+              {/*   </Typography> */}
+              {/*   <div className='flex-auto mt-px border-t' /> */}
+              {/* </div> */}
+
+              {/* <div className='flex items-center mt-32 space-x-16'> */}
+              {/*   <Button variant='outlined' className='flex-auto'> */}
+              {/*     <FuseSvgIcon size={20} color='action'> */}
+              {/*       feather:facebook */}
+              {/*     </FuseSvgIcon> */}
+              {/*   </Button> */}
+              {/*   <Button variant='outlined' className='flex-auto'> */}
+              {/*     <FuseSvgIcon size={20} color='action'> */}
+              {/*       feather:twitter */}
+              {/*     </FuseSvgIcon> */}
+              {/*   </Button> */}
+              {/*   <Button variant='outlined' className='flex-auto'> */}
+              {/*     <FuseSvgIcon size={20} color='action'> */}
+              {/*       feather:github */}
+              {/*     </FuseSvgIcon> */}
+              {/*   </Button> */}
+              {/* </div> */}
+            </form>
+          </div>
         </div>
-      </div>
 
-      <Box
-        className="relative hidden md:flex flex-auto items-center justify-center h-full p-64 lg:px-112 overflow-hidden"
-        sx={{ backgroundColor: 'primary.main' }}
-      >
-        <svg
-          className="absolute inset-0 pointer-events-none"
-          viewBox="0 0 960 540"
-          width="100%"
-          height="100%"
-          preserveAspectRatio="xMidYMax slice"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <Box
-            component="g"
-            sx={{ color: 'primary.light' }}
-            className="opacity-20"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="100"
-          >
-            <circle r="234" cx="196" cy="23" />
-            <circle r="234" cx="790" cy="491" />
-          </Box>
-        </svg>
         <Box
-          component="svg"
-          className="absolute -top-64 -right-64 opacity-20"
-          sx={{ color: 'primary.light' }}
-          viewBox="0 0 220 192"
-          width="220px"
-          height="192px"
-          fill="none"
+          className='relative hidden md:flex flex-auto items-center justify-center h-full p-64 lg:px-112 overflow-hidden'
+          sx={{
+            borderTopLeftRadius: '30px',
+            borderBottomLeftRadius: '30px',
+          }}
         >
-          <defs>
-            <pattern
-              id="837c3e70-6c3a-44e6-8854-cc48c737b659"
-              x="0"
-              y="0"
-              width="20"
-              height="20"
-              patternUnits="userSpaceOnUse"
+          {/* Decorative infinity symbol */}
+          <svg
+            className='absolute inset-0 pointer-events-none opacity-15'
+            viewBox='0 0 960 540'
+            width='100%'
+            height='100%'
+            preserveAspectRatio='xMidYMid meet'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <text
+              x='50%'
+              y='80%'
+              textAnchor='middle'
+              dominantBaseline='middle'
+              fontSize='1680'
+              fill='#1E120F'
+              fontWeight='bold'
+              fontFamily='sans-serif'
             >
-              <rect x="0" y="0" width="4" height="4" fill="currentColor" />
-            </pattern>
-          </defs>
-          <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
-        </Box>
+              ∞
+            </text>
+          </svg>
 
-        <div className="z-10 relative w-full max-w-2xl">
-          <div className="text-7xl font-bold leading-none text-gray-100">
-            <div>Welcome to SafeCrm {/*{process.env.REACT_APP_BACKEND_URL}*/}  </div>
-            <div>our community</div>
-          </div>
-          <div className="mt-24 text-lg tracking-tight leading-6 text-gray-400">
-            Fuse helps developers to build organized and well coded dashboards full of beautiful
-            and rich modules. Join us and start building your application today.
-          </div>
-          <div className="flex items-center mt-32">
-            <AvatarGroup
-              sx={{
-                '& .MuiAvatar-root': {
-                  borderColor: 'primary.main',
-                },
-              }}
-            >
-              <Avatar src="assets/images/avatars/female-18.jpg" />
-              <Avatar src="assets/images/avatars/female-11.jpg" />
-              <Avatar src="assets/images/avatars/male-09.jpg" />
-              <Avatar src="assets/images/avatars/male-16.jpg" />
-            </AvatarGroup>
+          {/* Optional top-right pattern for subtle texture */}
+          <Box className='absolute -top-64 -right-64 opacity-10'
 
-            <div className="ml-16 font-medium tracking-tight text-gray-400">
-              More than 17k people joined us, it's your turn
+                          component='svg'
+            sx={{ color: 'white' }}
+            viewBox='0 0 220 192'
+            width='220px'
+            height='192px'
+            fill='none'
+          >
+            <defs>
+              <pattern
+                id='pattern-bg'
+                x='0'
+                y='0'
+                width='20'
+                height='20'
+                patternUnits='userSpaceOnUse'
+              >
+                <rect x='0' y='0' width='4' height='4' fill='currentColor' />
+              </pattern>
+            </defs>
+            <rect width='220' height='192' fill='url(#pattern-bg)' />
+          </Box>
+
+          {/* Text content */}
+          <div className='z-10 relative w-full max-w-2xl'>
+            <div className='text-7xl font-bold leading-none text-gray-100'>
+              <div>Storemess Pos Inventory Management</div>
+            </div>
+            <div className='mt-24 text-lg tracking-tight leading-6 text-gray-200'>
+              Storemess inventory is a best choice for your company stock management
             </div>
           </div>
-        </div>
-      </Box>
-    </Paper>
-  </div>
+        </Box>
+      </Paper>
+    </div>
   );
 }
 

@@ -2,23 +2,24 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 
 export const getContracts = createAsyncThunk('contracts/getContracts', async () => {
-  const response = await axios.get('http://192.168.1.17:8000/api/contracts');
-  const data = await response
+  const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_API}contracts`);
+  const data = await response;
   return data.data.recentTransactions.rows;
 });
 
-export const removeContracts =
-  createAsyncThunk('contracts', async (contractIds, { dispatch, getState }) => {
+export const removeContracts = createAsyncThunk(
+  'contracts',
+  async (contractIds, { dispatch, getState }) => {
     await axios.delete('/api/contracts', { data: contractIds });
 
     return contractIds;
-  });
+  }
+);
 
 const contractsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectContracts, selectById: selectContractsById } = contractsAdapter.getSelectors(
-  (state) => state.contractsApp.contracts,
-);
+export const { selectAll: selectContracts, selectById: selectContractsById } =
+  contractsAdapter.getSelectors((state) => state.contractsApp.contracts);
 
 const contractsSlice = createSlice({
   name: 'contracts',
@@ -35,7 +36,8 @@ const contractsSlice = createSlice({
   },
   extraReducers: {
     [getContracts.fulfilled]: contractsAdapter.setAll,
-    [removeContracts.fulfilled]: (state, action) => contractsAdapter.removeMany(state, action.payload),
+    [removeContracts.fulfilled]: (state, action) =>
+      contractsAdapter.removeMany(state, action.payload),
   },
 });
 

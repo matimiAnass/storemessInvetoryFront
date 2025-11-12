@@ -94,63 +94,61 @@ function NewLabelForm(props) {
   }
 
   return (
-    <>
-      <ListItem className="p-0 mb-16" dense>
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              className={clsx('flex flex-1')}
-              error={!!errors.title}
-              helperText={errors?.title?.message}
-              placeholder="Create new label"
-              variant="outlined"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Controller
-                      name="color"
-                      control={control}
-                      render={({ field: { onChange: _onChange, value: _value } }) => (
-                        <FormLabel
-                          className="w-16 h-16 shrink-0 rounded-full"
-                          sx={{ backgroundColor: _value }}
-                        >
-                          <Input
-                            value={_value}
-                            onChange={(ev) => {
-                              _onChange(ev.target.value);
-                            }}
-                            type="color"
-                            className="opacity-0"
-                          />
-                        </FormLabel>
-                      )}
-                    />
-                  </InputAdornment>
-                ),
-                endAdornment: !isLast && (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleOnRemove}
-                      className="w-32 h-32 p-0"
-                      aria-label="Delete"
-                      size="large"
-                    >
-                      <FuseSvgIcon color="action" size={20}>
-                        heroicons-outline:trash
-                      </FuseSvgIcon>
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-      </ListItem>
-    </>
+    <ListItem className="p-0 mb-16" dense>
+      <Controller
+        name="title"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            className={clsx('flex flex-1')}
+            error={!!errors.title}
+            helperText={errors?.title?.message}
+            placeholder="Create new label"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Controller
+                    name="color"
+                    control={control}
+                    render={({ field: { onChange: _onChange, value: _value } }) => (
+                      <FormLabel
+                        className="w-16 h-16 shrink-0 rounded-full"
+                        sx={{ backgroundColor: _value }}
+                      >
+                        <Input
+                          value={_value}
+                          onChange={(ev) => {
+                            _onChange(ev.target.value);
+                          }}
+                          type="color"
+                          className="opacity-0"
+                        />
+                      </FormLabel>
+                    )}
+                  />
+                </InputAdornment>
+              ),
+              endAdornment: !isLast && (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleOnRemove}
+                    className="w-32 h-32 p-0"
+                    aria-label="Delete"
+                    size="large"
+                  >
+                    <FuseSvgIcon color="action" size={20}>
+                      heroicons-outline:trash
+                    </FuseSvgIcon>
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        )}
+      />
+    </ListItem>
   );
 }
 

@@ -15,7 +15,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import { getContractType, newContractType, resetContractType, selectContractType } from '../../store/contractTypeSlice';
+import {
+  getContractType,
+  newContractType,
+  resetContractType,
+  selectContractType,
+} from '../../store/contractTypeSlice';
 import reducer from '../../store';
 import ContractTypeHeader from './ContractTypeHeader';
 import BasicInfoTab from './tabs/BasicInfoTab';
@@ -107,17 +112,17 @@ function ContractType(props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-col flex-1 items-center justify-center h-full'
+        className="flex flex-col flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There is no such contractType!
         </Typography>
         <Button
-          className='mt-24'
+          className="mt-24"
           component={Link}
-          variant='outlined'
-          to='/apps/constants/contractTypes'
-          color='inherit'
+          variant="outlined"
+          to="/apps/constants/contractTypes"
+          color="inherit"
         >
           Go to ContractTypes Page
         </Button>
@@ -130,7 +135,9 @@ function ContractType(props) {
    */
   if (
     _.isEmpty(form) ||
-    (contractType && routeParams.contractTypeId !== contractType.id && routeParams.contractTypeId !== 'new')
+    (contractType &&
+      routeParams.contractTypeId !== contractType.id &&
+      routeParams.contractTypeId !== 'new')
   ) {
     return <FuseLoading />;
   }
@@ -144,15 +151,15 @@ function ContractType(props) {
             <Tabs
               value={tabValue}
               onChange={handleTabChange}
-              indicatorColor='secondary'
-              textColor='secondary'
-              variant='scrollable'
-              scrollButtons='auto'
+              indicatorColor="secondary"
+              textColor="secondary"
+              variant="scrollable"
+              scrollButtons="auto"
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
-              <Tab className='h-64' label='Basic Info' />
+              <Tab className="h-64" label="Basic Info" />
             </Tabs>
-            <div className='p-16 sm:p-24 max-w-3xl'>
+            <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? 'hidden' : ''}>
                 <BasicInfoTab />
               </div>

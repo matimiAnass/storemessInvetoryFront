@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux';
 import format from 'date-fns/format';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
-import { selectWidgets } from '../store/widgetsSlice';
 import { useNavigate } from 'react-router-dom';
+import { selectWidgets } from '../store/widgetsSlice';
 
 function RecentTransactionsWidget(props) {
   const widgets = useSelector(selectWidgets);
@@ -27,9 +27,9 @@ function RecentTransactionsWidget(props) {
         <Typography className="mr-16 text-lg font-medium tracking-tight leading-6 truncate">
           Recent transactions
         </Typography>
-        {/*<Typography className="font-medium" color="text.secondary">*/}
-        {/*  1 pending, 4 completed*/}
-        {/*</Typography>*/}
+        {/* <Typography className="font-medium" color="text.secondary"> */}
+        {/*  1 pending, 4 completed */}
+        {/* </Typography> */}
       </div>
 
       <div className="table-responsive mt-24">
@@ -66,9 +66,7 @@ function RecentTransactionsWidget(props) {
                     case 'client name': {
                       return (
                         <TableCell key={key} component="th" scope="row">
-                          <Typography className="">
-                            {value}
-                          </Typography>
+                          <Typography className="">{value}</Typography>
                         </TableCell>
                       );
                     }
@@ -87,9 +85,7 @@ function RecentTransactionsWidget(props) {
                     case 'type': {
                       return (
                         <TableCell key={key} component="th" scope="row">
-                          <Typography className="">
-                            {value}
-                          </Typography>
+                          <Typography className="">{value}</Typography>
                         </TableCell>
                       );
                     }
@@ -142,9 +138,9 @@ function RecentTransactionsWidget(props) {
           </TableBody>
         </Table>
         <div className="pt-24">
-          <Button variant="outlined"
-                  onClick={handleNavigateToContracts}
-          >See all transactions</Button>
+          <Button variant="outlined" onClick={handleNavigateToContracts}>
+            See all transactions
+          </Button>
         </div>
       </div>
     </Paper>

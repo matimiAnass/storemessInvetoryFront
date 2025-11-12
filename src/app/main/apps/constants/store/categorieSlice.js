@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getCategorie = createAsyncThunk(
-  'categorie/getCategories',
-  async (categorieId) => {
-    const response = await axios.get(`/api/constants/products/categories/${categorieId}`);
-    const data = await response.data;
+export const getCategorie = createAsyncThunk('categorie/getCategories', async (categorieId) => {
+  const response = await axios.get(`/api/constants/products/categories/${categorieId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeCategorie = createAsyncThunk(
   '/removeCategorie',
@@ -17,7 +15,7 @@ export const removeCategorie = createAsyncThunk(
     const { id } = getState().constantApp.categorie;
     await axios.delete(`/api/constants/products/categorie/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveCategorie = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveCategorie = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const categorieSlice = createSlice({

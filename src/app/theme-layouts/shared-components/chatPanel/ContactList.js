@@ -61,30 +61,15 @@ function ContactList(props) {
 
         return (
           contacts.length > 0 && (
-            <>
-              <motion.div
-                variants={container}
-                initial="hidden"
-                animate="show"
-                className="flex flex-col shrink-0"
-              >
-                {chatListContacts &&
-                  chatListContacts.map((contact) => {
-                    return (
-                      <motion.div variants={item} key={contact.id}>
-                        <ContactButton
-                          contact={contact}
-                          selectedContactId={selectedContactId}
-                          onClick={handleContactClick}
-                        />
-                      </motion.div>
-                    );
-                  })}
-                <Divider className="mx-24 my-8" />
-                {contacts.map((contact) => {
-                  const chatContact = chats.find((_chat) => _chat.contactId === contact.id);
-
-                  return !chatContact ? (
+            <motion.div
+              variants={container}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col shrink-0"
+            >
+              {chatListContacts &&
+                chatListContacts.map((contact) => {
+                  return (
                     <motion.div variants={item} key={contact.id}>
                       <ContactButton
                         contact={contact}
@@ -92,10 +77,23 @@ function ContactList(props) {
                         onClick={handleContactClick}
                       />
                     </motion.div>
-                  ) : null;
+                  );
                 })}
-              </motion.div>
-            </>
+              <Divider className="mx-24 my-8" />
+              {contacts.map((contact) => {
+                const chatContact = chats.find((_chat) => _chat.contactId === contact.id);
+
+                return !chatContact ? (
+                  <motion.div variants={item} key={contact.id}>
+                    <ContactButton
+                      contact={contact}
+                      selectedContactId={selectedContactId}
+                      onClick={handleContactClick}
+                    />
+                  </motion.div>
+                ) : null;
+              })}
+            </motion.div>
           )
         );
       }, [chats, contacts, dispatch, selectedContactId])}

@@ -1,17 +1,14 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getCategorie } from './categorieSlice';
-import { removeCategorie } from './categorieSlice';
 
-export const getCategories =
-  createAsyncThunk(
-    'constantApp/products/categories/getCategories',
-    async () => {
-      const response = await axios.get('/api/constants/accounts/categories');
-      const data = await response.data;
-      return data;
-    }
-  );
+export const getCategories = createAsyncThunk(
+  'constantApp/products/categories/getCategories',
+  async () => {
+    const response = await axios.get('/api/constants/accounts/categories');
+    const data = await response.data;
+    return data;
+  }
+);
 
 export const removeCategories = createAsyncThunk(
   'constantApp/products/categories',
@@ -49,7 +46,6 @@ const categoriesSlice = createSlice({
 
 export const { setCategoriesSearchText } = categoriesSlice.actions;
 
-export const selectCategoriesSearchText = ({ constantApp }) =>
-  constantApp.categories.searchText;
+export const selectCategoriesSearchText = ({ constantApp }) => constantApp.categories.searchText;
 
 export default categoriesSlice.reducer;

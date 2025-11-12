@@ -1,9 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getShippingProvider } from './shippingProviderSlice';
 
-export const getShippingProviders =
-  createAsyncThunk(
+export const getShippingProviders = createAsyncThunk(
   'constantApp/shippingProviders/getShippingProviders',
   async () => {
     const response = await axios.get('/api/constants/shippingProviders');

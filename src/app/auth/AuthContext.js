@@ -5,7 +5,6 @@ import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import { logoutUser, setUser } from 'app/store/userSlice';
 import jwtService from './services/jwtService';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = React.createContext();
 
@@ -13,8 +12,6 @@ function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [waitAuthCheck, setWaitAuthCheck] = useState(true);
   const dispatch = useDispatch();
-
-
 
   useEffect(() => {
     jwtService.on('onAutoLogin', () => {
@@ -91,7 +88,7 @@ function AuthProvider({ children }) {
   return waitAuthCheck ? (
     <FuseSplashScreen />
   ) : (
-    <AuthContext.Provider value={{isAuthenticated}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isAuthenticated }}>{children}</AuthContext.Provider>
   );
 }
 

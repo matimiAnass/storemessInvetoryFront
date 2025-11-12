@@ -14,7 +14,7 @@ import NavigationSearch from '../../shared-components/NavigationSearch';
 import UserMenu from '../../shared-components/UserMenu';
 import QuickPanelToggleButton from '../../shared-components/quickPanel/QuickPanelToggleButton';
 import ChatPanelToggleButton from '../../shared-components/chatPanel/ChatPanelToggleButton';
-import Logo from '../../shared-components/Logo';
+// import Logo from '../../shared-components/Logo';
 import NavbarToggleButton from '../../shared-components/NavbarToggleButton';
 
 function ToolbarLayout3(props) {
@@ -38,7 +38,7 @@ function ToolbarLayout3(props) {
 
           <Hidden lgDown>
             <div className={clsx('flex shrink-0 items-center')}>
-              <Logo />
+              {/* <Logo /> */}
             </div>
           </Hidden>
 

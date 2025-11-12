@@ -54,7 +54,6 @@ function Tax(props) {
          * Create New Tax data
          */
         dispatch(newTax());
-
       } else {
         /**
          * Get Tax data
@@ -71,13 +70,10 @@ function Tax(props) {
     }
 
     updateTaxState();
-
   }, [dispatch, routeParams]);
-
 
   useEffect(() => {
     if (!tax) {
-
       return;
     }
 
@@ -112,17 +108,17 @@ function Tax(props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-col flex-1 items-center justify-center h-full'
+        className="flex flex-col flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There is no such Tax!
         </Typography>
         <Button
-          className='mt-24'
+          className="mt-24"
           component={Link}
-          variant='outlined'
-          to='/apps/constants/products/taxs'
-          color='inherit'
+          variant="outlined"
+          to="/apps/constants/products/taxs"
+          color="inherit"
         >
           Go to Tax Page
         </Button>
@@ -133,10 +129,7 @@ function Tax(props) {
   /**
    * Wait while product data is loading and form is setted
    */
-  if (
-    _.isEmpty(form) ||
-    (tax && routeParams.taxId !== tax.id && routeParams.taxId !== 'new')
-  ) {
+  if (_.isEmpty(form) || (tax && routeParams.taxId !== tax.id && routeParams.taxId !== 'new')) {
     return <FuseLoading />;
   }
 
@@ -149,15 +142,15 @@ function Tax(props) {
             <Tabs
               value={tabValue}
               onChange={handleTabChange}
-              indicatorColor='secondary'
-              textColor='secondary'
-              variant='scrollable'
-              scrollButtons='auto'
+              indicatorColor="secondary"
+              textColor="secondary"
+              variant="scrollable"
+              scrollButtons="auto"
               classes={{ root: 'w-full h-64 border-b-1' }}
             >
-              <Tab className='h-64' label='Basic Info' />
+              <Tab className="h-64" label="Basic Info" />
             </Tabs>
-            <div className='p-16 sm:p-24 max-w-3xl'>
+            <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? 'hidden' : ''}>
                 <BasicInfoTab />
               </div>

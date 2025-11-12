@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getFolder = createAsyncThunk(
-  'folder/getFolders',
-  async (folderId) => {
-    const response = await axios.get(`/api/constants/documents/folders/${folderId}`);
-    const data = await response.data;
+export const getFolder = createAsyncThunk('folder/getFolders', async (folderId) => {
+  const response = await axios.get(`/api/constants/documents/folders/${folderId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeFolder = createAsyncThunk(
   '/removeFolder',
@@ -17,7 +15,7 @@ export const removeFolder = createAsyncThunk(
     const { id } = getState().constantApp.folder;
     await axios.delete(`/api//constants/documents/folder/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveFolder = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveFolder = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const folderSlice = createSlice({

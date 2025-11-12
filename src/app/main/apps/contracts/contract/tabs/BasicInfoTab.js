@@ -1,17 +1,13 @@
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { Controller, useFormContext } from 'react-hook-form';
-import { DateField, DatePicker } from '@mui/x-date-pickers';
-import { parseISO } from 'date-fns';
+import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
-import moment from 'moment';
-import dayjs from 'dayjs';
-import { getDropdownList } from '../../store/contractSlice';
 import { useDispatch } from 'react-redux';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { getDropdownList } from '../../store/contractSlice';
 
 function BasicInfoTab(props) {
   const dispatch = useDispatch();
@@ -21,15 +17,14 @@ function BasicInfoTab(props) {
   const [contracts, setContracts] = useState({});
   const [clients, setClients] = useState({});
 
-
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getDropdownList()).then((action) => {
       if (action.payload) {
         setContracts(action.payload.contractTypes);
         setClients(action.payload.clients);
       }
     });
-  },[dispatch])
+  }, [dispatch]);
 
   return (
     <div>
@@ -54,7 +49,7 @@ function BasicInfoTab(props) {
       <Controller
         name="client_name"
         control={control}
-        render={({ field: { onChange, onBlur, value }  }) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Client Name</InputLabel>
             <Select
@@ -71,12 +66,16 @@ function BasicInfoTab(props) {
               variant="outlined"
               fullWidth
             >
-              <MenuItem key={0} disabled value="choose">Choose Client</MenuItem>
-              {
-                Object.entries(clients).map(([key, element])=> {
-                  return (<MenuItem key={key} value={element}>{element}</MenuItem>)
-                })
-              }
+              <MenuItem key={0} disabled value="choose">
+                Choose Client
+              </MenuItem>
+              {Object.entries(clients).map(([key, element]) => {
+                return (
+                  <MenuItem key={key} value={element}>
+                    {element}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
         )}
@@ -102,7 +101,7 @@ function BasicInfoTab(props) {
       <Controller
         name="type"
         control={control}
-        render={({ field: { onChange, onBlur, value }  }) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Client Name</InputLabel>
             <Select
@@ -111,7 +110,7 @@ function BasicInfoTab(props) {
               required
               displayEmpty
               value={value}
-              defaultValue={'choose'}
+              defaultValue="choose"
               onBlur={onBlur}
               onChange={onChange}
               autoFocus
@@ -119,8 +118,12 @@ function BasicInfoTab(props) {
               variant="outlined"
               fullWidth
             >
-              {Object.entries(contracts).map(([key, element])=>{
-                return (<MenuItem key={key} value={element}>{element}</MenuItem>)
+              {Object.entries(contracts).map(([key, element]) => {
+                return (
+                  <MenuItem key={key} value={element}>
+                    {element}
+                  </MenuItem>
+                );
               })}
             </Select>
           </FormControl>
@@ -130,8 +133,7 @@ function BasicInfoTab(props) {
       <Controller
         name="start_date"
         control={control}
-        render={({ field: { onChange, onBlur, value } }) =>
-          (
+        render={({ field: { onChange, onBlur, value } }) => (
           <DatePicker
             className="mt-8 mb-16"
             id="start_date"
@@ -142,8 +144,7 @@ function BasicInfoTab(props) {
             variant="outlined"
             fullWidth
           />
-        )
-        }
+        )}
       />
       <Controller
         name="end_date"
@@ -173,7 +174,7 @@ function BasicInfoTab(props) {
               required
               displayEmpty
               value={value}
-              defaultValue={'choose'}
+              defaultValue="choose"
               onBlur={onBlur}
               onChange={onChange}
               autoFocus
@@ -181,8 +182,12 @@ function BasicInfoTab(props) {
               variant="outlined"
               fullWidth
             >
-              <MenuItem key={1} value={'Start'}>{'Start'}</MenuItem>
-              <MenuItem key={2} value={'Close'}>{'Close'}</MenuItem>
+              <MenuItem key={1} value="Start">
+                Start
+              </MenuItem>
+              <MenuItem key={2} value="Close">
+                Close
+              </MenuItem>
             </Select>
           </FormControl>
         )}

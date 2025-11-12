@@ -2,7 +2,7 @@ import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { memo } from 'react';
-import Logo from '../../../../shared-components/Logo';
+// import Logo from '../../../../shared-components/Logo';
 import NavbarToggleButton from '../../../../shared-components/NavbarToggleButton';
 import UserNavbarHeader from '../../../../shared-components/UserNavbarHeader';
 import Navigation from '../../../../shared-components/Navigation';
@@ -37,7 +37,6 @@ function NavbarStyle1Content(props) {
     <Root className={clsx('flex flex-auto flex-col overflow-hidden h-full', props.className)}>
       <div className="flex flex-row items-center shrink-0 h-48 md:h-72 px-20">
         <div className="flex flex-1 mx-4">
-          <Logo />
         </div>
 
         <NavbarToggleButton className="w-40 h-40 p-0" />

@@ -2,13 +2,12 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 
 export const getUsers = createAsyncThunk('users/getUsers', async () => {
-  const response = await axios.get(`http://192.168.1.17:8000/api/users/`);
+  const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL_API}users/`);
   const data = await response.data;
   return data;
 });
 
-export const removeUsers =
-  createAsyncThunk('users', async (userIds, { dispatch, getState }) => {
+export const removeUsers = createAsyncThunk('users', async (userIds, { dispatch, getState }) => {
   await axios.delete('/api/users', { data: userIds });
 
   return userIds;

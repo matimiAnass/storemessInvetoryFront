@@ -1,16 +1,14 @@
 import TextField from '@mui/material/TextField';
 import { Controller, useFormContext } from 'react-hook-form';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListRoles, saveUser, selectUser, setUserUpdated } from '../../store/userSlice';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import { getUsers } from '../../store/usersSlice';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { useSlotProps } from '@mui/base';
+import { getListRoles, selectUser, setUserUpdated } from '../../store/userSlice';
 
 function BasicInfoTab(props) {
   const methods = useFormContext();
@@ -28,8 +26,8 @@ function BasicInfoTab(props) {
   const [roles, setRoles] = useState([]);
   const dispatch = useDispatch();
   const data = useSelector(selectUser);
-  const userUpdated = data?.userUpdated
-  const [userObjectUpdated,setUserObjectUpdated] = useState({});
+  const userUpdated = data?.userUpdated;
+  const [userObjectUpdated, setUserObjectUpdated] = useState({});
   let nbr = 0;
   let cntr = 0;
   const [ifTrue, setIfTrue] = useState(false);
@@ -37,134 +35,140 @@ function BasicInfoTab(props) {
   const [password, setPassword] = useState();
   const [visible, setVisible] = useState(false);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     if (ifTrue && data?.roles?.length !== 0) {
-    let loadList = [];
-      cntr += 1
-      if(cntr <=1 ) {
+      const loadList = [];
+      cntr += 1;
+      if (cntr <= 1) {
         for (let i = 0; i < roles?.length; i++) {
           loadList.push(roles[i]);
         }
       }
       setList(loadList);
     }
-  },[list,roles])
+  }, [list, roles]);
 
-  useEffect(()=>{
-    if(data?.user !== undefined) {
-      setUsername(() => (data?.user?.username))
-      setName(() => (data?.user?.name))
-      setEmail(() => (data?.user?.email))
-      setType(() => (data?.user?.type))
-      setStatus(() => (data?.user?.status))
-      setAvatar(() => (data?.user?.avatar))
-      setPhone(() => (data?.user?.phone))
-      setGender(() => (data?.user?.gender))
-      setRole(() => (data?.user?.role))
-    }
-    else{
-      setUsername(() => (''))
-      setName(() => (''))
-      setEmail(() => (''))
-      setType(() => (''))
-      setStatus(() => (''))
-      setAvatar(() => (''))
-      setPhone(() => (''))
-      setGender(() => (''))
-      setRole(() => (''))
+  useEffect(() => {
+    if (data?.user !== undefined) {
+      setUsername(() => data?.user?.username);
+      setName(() => data?.user?.name);
+      setEmail(() => data?.user?.email);
+      setType(() => data?.user?.type);
+      setStatus(() => data?.user?.status);
+      setAvatar(() => data?.user?.avatar);
+      setPhone(() => data?.user?.phone);
+      setGender(() => data?.user?.gender);
+      setRole(() => data?.user?.role);
+    } else {
+      setUsername(() => '');
+      setName(() => '');
+      setEmail(() => '');
+      setType(() => '');
+      setStatus(() => '');
+      setAvatar(() => '');
+      setPhone(() => '');
+      setGender(() => '');
+      setRole(() => '');
     }
     dispatch(getListRoles());
-  },[])
+  }, []);
 
-  useEffect(()=>{
-    if (data?.roles?.length !== 0){
+  useEffect(() => {
+    if (data?.roles?.length !== 0) {
       setRoles(data?.roles);
       setIfTrue(true);
     }
-  },[roles,data?.roles])
+  }, [roles, data?.roles]);
 
-  useEffect(()=>{
-    if(data?.user !== undefined) {
+  useEffect(() => {
+    if (data?.user !== undefined) {
       setVisible(true);
     }
-  },[visible,data?.user])
+  }, [visible, data?.user]);
 
+  useEffect(() => {
+    setUserObjectUpdated((v) => ({
+      ...v,
+      id: data?.user?.id,
+      username,
+      name,
+      phone,
+      gender,
+      role,
+      email,
+      type,
+      status,
+      avatar,
+    }));
+  }, [userObjectUpdated]);
 
-  useEffect(()=>{
-    setUserObjectUpdated((v)=>
-      ({...v,id:data?.user?.id,username:username, name:name, phone:phone, gender:gender, role:role, email:email, type:type, status:status, avatar:avatar}))
-  },[userObjectUpdated])
-
-
-  let handleLabelAvatar = event => {
-    setAvatar(event.target.value)
-    setUserObjectUpdated((v)=>({...v,avatar:event.target.value}))
-      dispatch(setUserUpdated((v)=>({...v,username:event.target.value})));
+  const handleLabelAvatar = (event) => {
+    setAvatar(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, avatar: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, username: event.target.value })));
   };
-  let handleLabelUsername = event => {
-    setUsername(event.target.value)
-    setUserObjectUpdated((v)=>({...v,username:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,username:event.target.value})));
+  const handleLabelUsername = (event) => {
+    setUsername(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, username: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, username: event.target.value })));
   };
-  let handleLabelName = event => {
-    setName(event.target.value)
-    setUserObjectUpdated((v)=>({...v,name:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,name:event.target.value})));
+  const handleLabelName = (event) => {
+    setName(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, name: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, name: event.target.value })));
   };
-  let handleLabelEmail = event => {
-    setEmail(event.target.value)
-    setUserObjectUpdated((v)=>({...v,email:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,email:event.target.value})));
+  const handleLabelEmail = (event) => {
+    setEmail(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, email: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, email: event.target.value })));
   };
-  let handleLabelType = event => {
-    setType(event.target.value)
-    setUserObjectUpdated((v)=>({...v,type:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,type:event.target.value})));
-
+  const handleLabelType = (event) => {
+    setType(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, type: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, type: event.target.value })));
   };
-  let handleLabelStatus = event => {
+  const handleLabelStatus = (event) => {
     let statut = 0;
-    if (event.target.checked){
-        statut = 1;
+    if (event.target.checked) {
+      statut = 1;
     }
-    setStatus(statut)
-    setUserObjectUpdated((v)=>({...v,status:statut}))
-    dispatch(setUserUpdated((v)=>({...v,status:statut})));
+    setStatus(statut);
+    setUserObjectUpdated((v) => ({ ...v, status: statut }));
+    dispatch(setUserUpdated((v) => ({ ...v, status: statut })));
   };
-  let handleLabelPhone = event => {
-    setPhone(event.target.value)
-    setUserObjectUpdated((v)=>({...v,phone:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,phone:event.target.value})));
+  const handleLabelPhone = (event) => {
+    setPhone(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, phone: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, phone: event.target.value })));
   };
-  let handleLabelGender = event => {
-    setGender(event.target.value)
-    setUserObjectUpdated((v)=>({...v,gender:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,gender:event.target.value})));
+  const handleLabelGender = (event) => {
+    setGender(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, gender: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, gender: event.target.value })));
   };
-  let handleLabelRole = event => {
-    setRole(event.target.value)
-    setUserObjectUpdated((v)=>({...v,role:event.target.value}))
-    dispatch(setUserUpdated((v)=>({...v,role:event.target.value})));
+  const handleLabelRole = (event) => {
+    setRole(event.target.value);
+    setUserObjectUpdated((v) => ({ ...v, role: event.target.value }));
+    dispatch(setUserUpdated((v) => ({ ...v, role: event.target.value })));
   };
-  let handleLabelPassword = event => {
+  const handleLabelPassword = (event) => {
     if (!visible) {
-      setPassword(event.target.value)
-      setUserObjectUpdated((v) => ({ ...v, password: event.target.value }))
+      setPassword(event.target.value);
+      setUserObjectUpdated((v) => ({ ...v, password: event.target.value }));
       dispatch(setUserUpdated((v) => ({ ...v, password: event.target.value })));
     }
   };
-  useEffect(()=>{
-    Object.values(userObjectUpdated).map((val)=>{if(val!==undefined) nbr++ })
-    if ( userUpdated && Object.keys(userUpdated).length === 0 && nbr === 10) {
+  useEffect(() => {
+    Object.values(userObjectUpdated).map((val) => {
+      if (val !== undefined) nbr++;
+    });
+    if (userUpdated && Object.keys(userUpdated).length === 0 && nbr === 10) {
       dispatch(setUserUpdated(userObjectUpdated));
     }
-    if (!visible && userUpdated && Object.keys(userUpdated).length === 0 && nbr === 11){
+    if (!visible && userUpdated && Object.keys(userUpdated).length === 0 && nbr === 11) {
       dispatch(setUserUpdated(userObjectUpdated));
     }
-  },[userObjectUpdated])
-
-
+  }, [userObjectUpdated]);
 
   return (
     <div>
@@ -179,7 +183,7 @@ function BasicInfoTab(props) {
             required
             helperText={errors?.name?.message}
             label="Email"
-            value={email || ""}
+            value={email || ''}
             onChange={handleLabelEmail}
             autoFocus
             id="email"
@@ -198,10 +202,10 @@ function BasicInfoTab(props) {
             required
             helperText={errors?.name?.message}
             label="Password"
-            value={password || ""}
+            value={password || ''}
             onChange={handleLabelPassword}
             autoFocus
-            type={'password'}
+            type="password"
             id="password"
             disabled={visible}
             variant="outlined"
@@ -220,8 +224,8 @@ function BasicInfoTab(props) {
             required
             helperText={errors?.name?.message}
             label="Avatar"
-            value = {avatar || ""}
-            onChange = {handleLabelAvatar}
+            value={avatar || ''}
+            onChange={handleLabelAvatar}
             autoFocus
             id="avatar"
             variant="outlined"
@@ -234,12 +238,12 @@ function BasicInfoTab(props) {
         control={control}
         render={({ field }) => (
           <TextField
-          {...field}
+            {...field}
             className="mt-8 mb-16"
             error={!!errors.name}
             required
             helperText={errors?.name?.message}
-            value={username || ""}
+            value={username || ''}
             onChange={handleLabelUsername}
             label="Username"
             autoFocus
@@ -254,12 +258,12 @@ function BasicInfoTab(props) {
         control={control}
         render={({ field }) => (
           <TextField
-          {...field}
+            {...field}
             className="mt-8 mb-16"
             error={!!errors.name}
             required
             helperText={errors?.name?.message}
-            value={name || ""}
+            value={name || ''}
             onChange={handleLabelName}
             label="Name"
             autoFocus
@@ -278,7 +282,7 @@ function BasicInfoTab(props) {
             id="phone"
             onChange={handleLabelPhone}
             label="Phone"
-            value={phone || ""}
+            value={phone || ''}
             type="text"
             variant="outlined"
             fullWidth
@@ -292,18 +296,18 @@ function BasicInfoTab(props) {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
             <Select
-            {...field}
-            className="mt-8 mb-16"
-            id="gender"
-            onChange={handleLabelGender}
-            label="Gender"
-            value={gender || ""}
-            variant="outlined"
-            fullWidth
-          >
-            <MenuItem value='Male'>Male</MenuItem>
-            <MenuItem value='Female'>Female</MenuItem>
-          </Select>
+              {...field}
+              className="mt-8 mb-16"
+              id="gender"
+              onChange={handleLabelGender}
+              label="Gender"
+              value={gender || ''}
+              variant="outlined"
+              fullWidth
+            >
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+            </Select>
           </FormControl>
         )}
       />
@@ -312,23 +316,26 @@ function BasicInfoTab(props) {
         control={control}
         render={({ field }) => (
           <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Role</InputLabel>
-          <Select
-            {...field}
-            defaultValue = ""
-            className="mt-8 mb-16"
-            id="role"
-            onChange={handleLabelRole}
-            label="Role"
-            value={role || ""}
-            variant="outlined"
-            fullWidth
-          >
-            { list?.map((item)=>{
-              return(
-            <MenuItem key={item} value={item}>{item}</MenuItem>
-              )})}
-          </Select>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              {...field}
+              defaultValue=""
+              className="mt-8 mb-16"
+              id="role"
+              onChange={handleLabelRole}
+              label="Role"
+              value={role || ''}
+              variant="outlined"
+              fullWidth
+            >
+              {list?.map((item) => {
+                return (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           </FormControl>
         )}
       />
@@ -337,11 +344,11 @@ function BasicInfoTab(props) {
         control={control}
         render={({ field }) => (
           <TextField
-          {...field}
+            {...field}
             className="mt-8 mb-16"
             id="type"
             label="Type"
-            value={type || ""}
+            value={type || ''}
             onChange={handleLabelType}
             type="text"
             variant="outlined"
@@ -354,11 +361,15 @@ function BasicInfoTab(props) {
         control={control}
         render={({ field }) => (
           <FormControlLabel
-            label={'Is Active'}
-            className='custom-checkbox ml-1'
+            label="Is Active"
+            className="custom-checkbox ml-1"
             control={
-              <Checkbox  onChange={handleLabelStatus} checked={status === 1 }
-                        value={status || ""} className='form-check-input custom-control-input' />
+              <Checkbox
+                onChange={handleLabelStatus}
+                checked={status === 1}
+                value={status || ''}
+                className="form-check-input custom-control-input"
+              />
             }
           />
         )}

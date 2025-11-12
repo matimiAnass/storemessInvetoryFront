@@ -129,10 +129,7 @@ function Lead(props) {
   /**
    * Wait while product data is loading and form is setted
    */
-  if (
-    _.isEmpty(form) ||
-    (lead && routeParams.leadId !== lead.id && routeParams.leadId !== 'new')
-  ) {
+  if (_.isEmpty(form) || (lead && routeParams.leadId !== lead.id && routeParams.leadId !== 'new')) {
     return <FuseLoading />;
   }
 

@@ -16,7 +16,6 @@ const SalesOrdersAppConfig = {
       path: 'apps/salesOrders/:saleOrderId/*',
       element: <SaleOrder />,
     },
-
   ],
 };
 export default SalesOrdersAppConfig;

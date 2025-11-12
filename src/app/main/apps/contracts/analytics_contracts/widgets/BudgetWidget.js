@@ -10,7 +10,16 @@ import { selectWidgets } from '../store/widgetsSlice';
 
 function BudgetWidget(props) {
   const widgets = useSelector(selectWidgets);
-  const { totalContract, totalLimit, totalContractMonth, totalMonthLimit, totalContractWeek, totalWeekLimit,totalContract30Days,total30DaysLimit } = widgets?.budget;
+  const {
+    totalContract,
+    totalLimit,
+    totalContractMonth,
+    totalMonthLimit,
+    totalContractWeek,
+    totalWeekLimit,
+    totalContract30Days,
+    total30DaysLimit,
+  } = widgets?.budget;
 
   function calcProgressVal(val, limit) {
     const percentage = (val * 100) / limit;
@@ -36,15 +45,17 @@ function BudgetWidget(props) {
         </div>
       </div>
 
-      {/*<Typography className="mt-24">*/}
-      {/*  Last month; you had <strong>223</strong> contracts, <strong>12</strong> per month, per week and <strong>4</strong> per day.*/}
-      {/*</Typography>*/}
+      {/* <Typography className="mt-24"> */}
+      {/*  Last month; you had <strong>223</strong> contracts, <strong>12</strong> per month, per week and <strong>4</strong> per day. */}
+      {/* </Typography> */}
 
       <div className="my-32 space-y-32">
         <div className="flex flex-col">
           <div className="flex items-center space-x-16">
             <div className="flex items-center justify-center w-56 h-56 rounded bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-blue-50">
-              <FuseSvgIcon className="text-current">heroicons-outline:presentation-chart-bar</FuseSvgIcon>
+              <FuseSvgIcon className="text-current">
+                heroicons-outline:presentation-chart-bar
+              </FuseSvgIcon>
             </div>
             <div className="flex-auto leading-none">
               <Typography className="text-12 font-medium" color="text.secondary">

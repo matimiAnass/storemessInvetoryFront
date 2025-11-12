@@ -1,10 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getIndustrie } from './industrieSlice';
-import { removeIndustrie } from './industrieSlice';
 
-export const getIndustries =
-  createAsyncThunk(
+export const getIndustries = createAsyncThunk(
   'constantApp/accounts/industries/getIndustries',
   async () => {
     const response = await axios.get('/api/constants/accounts/industries');
@@ -49,7 +46,6 @@ const industriesSlice = createSlice({
 
 export const { setIndustriesSearchText } = industriesSlice.actions;
 
-export const selectIndustriesSearchText = ({ constantApp }) =>
-  constantApp.industries.searchText;
+export const selectIndustriesSearchText = ({ constantApp }) => constantApp.industries.searchText;
 
 export default industriesSlice.reducer;

@@ -6,9 +6,9 @@ import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { removeUser, saveUser, selectUser } from '../store/userSlice';
 import { useEffect, useState } from 'react';
 import _ from 'lodash';
+import { removeUser, saveUser, selectUser } from '../store/userSlice';
 
 function UserHeader(props) {
   const dispatch = useDispatch();
@@ -23,36 +23,50 @@ function UserHeader(props) {
   const navigate = useNavigate();
   const data = useSelector(selectUser);
 
-
-  useEffect(()=>{
-    const data_user_compare =
-      {id:data?.user?.id,username:data?.user?.username, name:data?.user?.name, phone:data?.user?.phone, gender:data?.user?.gender,
-        role:data?.user?.role, email:data?.user?.email, type:data?.user?.type, status:data?.user?.status, avatar:data?.user?.avatar}
-    if ( data?.userUpdated && Object.keys(data?.userUpdated).length !== 0){
-      if (_.isEqual(data?.userUpdated,data_user_compare)===false){
-        setState(true)
-      }
-      else{
-        setState(false)
+  useEffect(() => {
+    const data_user_compare = {
+      id: data?.user?.id,
+      username: data?.user?.username,
+      name: data?.user?.name,
+      phone: data?.user?.phone,
+      gender: data?.user?.gender,
+      role: data?.user?.role,
+      email: data?.user?.email,
+      type: data?.user?.type,
+      status: data?.user?.status,
+      avatar: data?.user?.avatar,
+    };
+    if (data?.userUpdated && Object.keys(data?.userUpdated).length !== 0) {
+      if (_.isEqual(data?.userUpdated, data_user_compare) === false) {
+        setState(true);
+      } else {
+        setState(false);
       }
     }
-    if(data?.user === undefined){
-      setState(true)
+    if (data?.user === undefined) {
+      setState(true);
     }
-  },[state,data?.userUpdated,data?.user])
+  }, [state, data?.userUpdated, data?.user]);
 
   function handleSaveUser() {
-    let userData = {username:data?.userUpdated.username,name:data?.userUpdated.name, email:data?.userUpdated.email,
-    type:data?.userUpdated.type, status:data?.userUpdated.status, phone:data?.userUpdated.phone, gender:data?.userUpdated.gender,
-    role:data?.userUpdated.role, avatar:data?.userUpdated.avatar}
-    if(data?.userUpdated.password !== undefined){
-      userData['password'] = data?.userUpdated.password
-      dispatch(saveUser(userData)).then(()=>{
+    const userData = {
+      username: data?.userUpdated.username,
+      name: data?.userUpdated.name,
+      email: data?.userUpdated.email,
+      type: data?.userUpdated.type,
+      status: data?.userUpdated.status,
+      phone: data?.userUpdated.phone,
+      gender: data?.userUpdated.gender,
+      role: data?.userUpdated.role,
+      avatar: data?.userUpdated.avatar,
+    };
+    if (data?.userUpdated.password !== undefined) {
+      userData.password = data?.userUpdated.password;
+      dispatch(saveUser(userData)).then(() => {
         navigate('/apps/users');
       });
-
     }
-    dispatch(saveUser(userData)).then(()=>{
+    dispatch(saveUser(userData)).then(() => {
       navigate('/apps/users');
     });
   }

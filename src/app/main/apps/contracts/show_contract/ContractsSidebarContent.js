@@ -6,8 +6,8 @@ import ListItemText from '@mui/material/ListItemText';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { openLabelsDialog, selectLabels } from './store/labelsSlice';
 import { useParams } from 'react-router-dom';
+import { selectLabels } from './store/labelsSlice';
 
 const StyledListItem = styled(ListItem)(({ theme, active }) => ({
   color: 'inherit!important',
@@ -94,7 +94,6 @@ function ContractsSidebarContent(props) {
             </FuseSvgIcon>
             <ListItemText className="truncate" primary="Notes" disableTypography />
           </StyledListItem>
-
         </List>
       </div>
     </div>

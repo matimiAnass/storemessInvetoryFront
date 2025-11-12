@@ -2,14 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 
-export const getLeadSource = createAsyncThunk(
-  'LeadSource/getLeadSources',
-  async (LeadSourceId) => {
-    const response = await axios.get(`/api/leadSources/${leadSourceId}`);
-    const data = await response.data;
+export const getLeadSource = createAsyncThunk('LeadSource/getLeadSources', async (LeadSourceId) => {
+  const response = await axios.get(`/api/leadSources/${leadSourceId}`);
+  const data = await response.data;
 
-    return data === undefined ? null : data;
-  });
+  return data === undefined ? null : data;
+});
 
 export const removeLeadSource = createAsyncThunk(
   '/removeLeadSource',
@@ -17,7 +15,7 @@ export const removeLeadSource = createAsyncThunk(
     const { id } = getState().constantApp.leadSource;
     await axios.delete(`/api/leadSource/${id}`);
     return id;
-  },
+  }
 );
 
 export const saveLeadSource = createAsyncThunk(
@@ -30,7 +28,7 @@ export const saveLeadSource = createAsyncThunk(
     const data = await response.data;
 
     return data;
-  },
+  }
 );
 
 const leadSourceSlice = createSlice({

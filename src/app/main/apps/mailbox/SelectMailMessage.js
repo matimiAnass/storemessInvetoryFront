@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 
-const SelectMailMessage = () => {
+function SelectMailMessage() {
   const dispatch = useDispatch();
 
   return (
@@ -15,6 +15,6 @@ const SelectMailMessage = () => {
       </Typography>
     </div>
   );
-};
+}
 
 export default SelectMailMessage;

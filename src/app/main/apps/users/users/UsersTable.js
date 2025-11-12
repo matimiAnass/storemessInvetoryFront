@@ -7,7 +7,6 @@ import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -142,9 +141,7 @@ function UsersTable(props) {
           />
 
           <TableBody>
-            {_.orderBy(
-              data
-            )
+            {_.orderBy(data)
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((n) => {
                 const isSelected = selected.indexOf(n.id) !== -1;
@@ -176,10 +173,11 @@ function UsersTable(props) {
                       {n.avatar ? (
                         <img
                           className="w-60 block rounded"
-                          src={`http://192.168.1.17:8000/storage/upload/profile/${n.avatar}`}
+                          src={`${process.env.REACT_APP_BACKEND_URL}storage/upload/profile/${n.avatar}`}
                           alt={n.name}
-                          width="30" height="30"
-                          style={{backgroundColor:'transparent'}}
+                          width="30"
+                          height="30"
+                          style={{ backgroundColor: 'transparent' }}
                         />
                       ) : (
                         <img
@@ -194,7 +192,7 @@ function UsersTable(props) {
                       {n.username}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" >
+                    <TableCell className="p-4 md:p-16" component="th" scope="row">
                       {n.name}
                     </TableCell>
 

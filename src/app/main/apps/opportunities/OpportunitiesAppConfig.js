@@ -16,7 +16,6 @@ const OpportunitiesAppConfig = {
       path: 'apps/opportunities/:opportunitieId/*',
       element: <Opportunitie />,
     },
-
   ],
 };
 

@@ -7,19 +7,17 @@ import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import {
   getLeadSources,
   selectLeadSources,
   selectLeadSourcesSearchText,
 } from '../../store/leadSourcesSlice';
-import LeadSourcesTableHead from '../../leadSources/leadSources/LeadSourcesTableHead';
+import LeadSourcesTableHead from './LeadSourcesTableHead';
 
 function LeadSourcesTable(props) {
   const dispatch = useDispatch();
@@ -43,7 +41,7 @@ function LeadSourcesTable(props) {
   useEffect(() => {
     if (searchText?.length !== 0) {
       setData(
-        _.filter(leadSources, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())),
+        _.filter(leadSources, (item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
       );
       setPage(0);
     } else {
@@ -94,7 +92,7 @@ function LeadSourcesTable(props) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -111,7 +109,7 @@ function LeadSourcesTable(props) {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-full'>
+      <div className="flex items-center justify-center h-full">
         <FuseLoading />
       </div>
     );
@@ -122,9 +120,9 @@ function LeadSourcesTable(props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 0.1 } }}
-        className='flex flex-1 items-center justify-center h-full'
+        className="flex flex-1 items-center justify-center h-full"
       >
-        <Typography color='text.secondary' variant='h5'>
+        <Typography color="text.secondary" variant="h5">
           There are no leadSources!
         </Typography>
       </motion.div>
@@ -132,9 +130,9 @@ function LeadSourcesTable(props) {
   }
 
   return (
-    <div className='w-full flex flex-col min-h-full'>
-      <FuseScrollbars className='grow overflow-x-auto'>
-        <Table stickyHeader className='min-w-xl' aria-labelledby='tableTitle'>
+    <div className="w-full flex flex-col min-h-full">
+      <FuseScrollbars className="grow overflow-x-auto">
+        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
           <LeadSourcesTableHead
             selectedRoleIds={selected}
             order={leadSources}
@@ -151,16 +149,16 @@ function LeadSourcesTable(props) {
                 const isSelected = selected.indexOf(ct.id) !== -1;
                 return (
                   <TableRow
-                    className='h-72 cursor-pointer'
+                    className="h-72 cursor-pointer"
                     hover
-                    role='checkbox'
+                    role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={ct.id}
                     selected={isSelected}
                     onClick={(event) => handleClick(ct)}
                   >
-                    <TableCell className='w-40 md:w-64 text-center' padding='none'>
+                    <TableCell className="w-40 md:w-64 text-center" padding="none">
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
@@ -174,7 +172,6 @@ function LeadSourcesTable(props) {
                     <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
                       {ct.lead_source}
                     </TableCell>
-
                   </TableRow>
                 );
               })}
@@ -183,8 +180,8 @@ function LeadSourcesTable(props) {
       </FuseScrollbars>
 
       <TablePagination
-        className='shrink-0 border-t-1'
-        component='div'
+        className="shrink-0 border-t-1"
+        component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}

@@ -23,7 +23,7 @@ const settingsConfig = {
   /*
     Default redirect url for the logged-in users,
    */
-  loginRedirectUrl: '/',
+  loginRedirectUrl: `${process.env.REACT_APP_BACKEND_URL_API}`,
 };
 
 export default settingsConfig;
