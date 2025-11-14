@@ -14,6 +14,12 @@ const options = {
 };
 
 module.exports = function override(config) {
+  // Disable ESLint plugin during build
+  config.plugins = config.plugins.filter(
+    (plugin) => plugin.constructor && plugin.constructor.name !== 'ESLintWebpackPlugin'
+  );
+
+  // Ignore sourcemap warnings
   config.ignoreWarnings = [{ message: /Failed to parse source map/ }];
 
   return aliasWebpack(options)(config);
