@@ -1,0 +1,10 @@
+import { combineReducers } from '@reduxjs/toolkit';
+import quotes from './quotesSlice';
+import quote from './quoteSlice';
+
+const reducer = combineReducers({
+  quotes,
+  quote,
+});
+
+export default reducer;

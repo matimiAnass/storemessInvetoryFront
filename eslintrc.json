@@ -1,0 +1,7 @@
+{
+  "extends": ["react-app-rewired", "react-app-rewired/jest"],
+  "rules": {
+    "spaced-comment": "off",
+    "no-restricted-exports": "off"
+  }
+}
