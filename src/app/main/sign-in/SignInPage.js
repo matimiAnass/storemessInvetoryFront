@@ -44,8 +44,8 @@ function SignInPage() {
   const { isValid, dirtyFields, errors } = formState;
 
   useEffect(() => {
-    setValue('email', '****', { shouldDirty: true, shouldValidate: true });
-    setValue('password', '****', { shouldDirty: true, shouldValidate: true });
+    setValue('email', 'test@example.com', { shouldDirty: true, shouldValidate: true });
+    setValue('password', '******', { shouldDirty: true, shouldValidate: true });
   }, [setValue]);
 
   function onSubmit({ email, password }) {

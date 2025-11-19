@@ -13,7 +13,7 @@ import authRoleExamplesConfigs from '../main/auth/authRoleExamplesConfigs';
 import DocumentationConfig from '../main/documentation/DocumentationConfig';
 
 const routeConfigs = [
-  SignInConfig, 
+  SignInConfig,
   ...appsConfigs,
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -28,11 +28,8 @@ const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
   {
     path: '/',
-    element: <SignInPage />,
-  },
-  {
-    path: '/sign-in',
-    element: <SignInPage />,
+    element: <Navigate to="/sign-in" />,
+    auth: settingsConfig.defaultAuth,
   },
   {
     path: 'loading',
